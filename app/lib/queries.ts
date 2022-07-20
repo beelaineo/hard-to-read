@@ -1,3 +1,29 @@
+const eventFields = `
+  _id,
+  _createdAt,
+  _updatedAt,
+  publishedAt,
+  title,
+  slug,
+  date,
+  end_date,
+  start,
+  end,
+  timezone,
+  event_type,
+  event_program,
+  text,
+  action_label,
+  action_link,
+  texts,
+  images,
+  videos,
+  links,
+  place,
+  themes,
+  persons,
+`
+
 const postFields = `
   _id,
   _createdAt,
@@ -8,6 +34,7 @@ const postFields = `
   themes,
   "slug": slug.current,
 `
+
 const relatedDocs = `*[_type != 'home' && references(^._id)]{ title, _type, _id, slug }`
 
 export const siteQuery = `*[_id == "siteSettings"][0] {
@@ -105,4 +132,19 @@ export const postBySlugQuery = `
 *[_type == "post" && slug.current == $slug][0] {
   ${postFields}
 }
+`
+
+export const eventQuery = `
+*[_type == "event"] | order(date desc, _updatedAt desc) {
+  ${eventFields}
+}`
+
+export const eventBySlugQuery = `
+*[_type == "event" && slug.current == $slug][0] {
+  ${eventFields}
+}
+`
+
+export const eventSlugsQuery = `
+*[_type == "event" && defined(slug.current)][].slug.current
 `
