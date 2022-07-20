@@ -1,0 +1,17 @@
+overwrite: true
+generates:
+  # ./fragmentTypes-sanity.json:
+  #   schema: ${SANITY_GRAPHQL_URL}
+  #   plugins:
+  #     - fragment-matcher
+  ./src/types/generated-sanity.ts:
+    schema: ${SANITY_GRAPHQL_URL}
+    plugins:
+      - typescript
+    config:
+      nonOptionalTypename: true
+      scalars:
+        DateTime: Date
+        JSON: '{ [key: string]: any }'
+      declarationKind:
+        type: 'interface'
