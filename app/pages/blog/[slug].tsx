@@ -53,10 +53,7 @@ export default function Post({ data, preview }) {
                   />
                 )}
               </Head>
-              <PostHeader
-                title={post.title}
-                date={post.publishedAt}
-              />
+              <PostHeader title={post.title} date={post.publishedAt} />
               <PostBody content={post.body} />
             </article>
             <SectionSeparator />

@@ -38,13 +38,13 @@ export default async function revalidate(req, res) {
   log(`Querying post slug for _id '${id}', type '${_type}' ..`)
   const slug = await sanityClient.fetch(getQueryForType(_type), { id })
   const slugs = (Array.isArray(slug) ? slug : [slug]).map(
-    (_slug) => `/blog/${_slug}`
+    (_slug) => `/blog/${_slug}`,
   )
   const staleRoutes = ['/', ...slugs]
 
   try {
     await Promise.all(
-      staleRoutes.map((route) => res.unstable_revalidate(route))
+      staleRoutes.map((route) => res.unstable_revalidate(route)),
     )
     const updatedRoutes = `Updated routes: ${staleRoutes.join(', ')}`
     log(updatedRoutes)

@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app'
 import { Providers } from '../providers/AllProviders'
 import Head from 'next/head'
 
-
 function MyApp({ Component, pageProps, pageProps: allPageProps }: AppProps) {
   const { data } = allPageProps
   const siteData = data ? data.siteData : allPageProps.siteData

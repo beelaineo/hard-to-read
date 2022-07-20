@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   ])
   console.log('siteData', siteData)
   return {
-    props: { homeDocs, siteData, preview }
+    props: { homeDocs, siteData, preview },
   }
 }
 

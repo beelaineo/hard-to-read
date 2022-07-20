@@ -9,10 +9,7 @@ export default function Post({ post }) {
   return (
     <Container>
       <article>
-        <PostHeader
-          title={post.title}
-          date={post.publishedAt}
-        />
+        <PostHeader title={post.title} date={post.publishedAt} />
         <PostBody content={post.body} />
       </article>
     </Container>

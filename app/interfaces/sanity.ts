@@ -15,7 +15,7 @@ import type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-} from "sanity-codegen";
+} from 'sanity-codegen'
 
 export type {
   SanityReference,
@@ -34,7 +34,7 @@ export type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-};
+}
 
 /**
  * Event
@@ -42,98 +42,98 @@ export type {
  *
  */
 export interface Event extends SanityDocument {
-  _type: "event";
+  _type: 'event'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string }
 
   /**
    * Date — `date`
    *
    *
    */
-  date?: string;
+  date?: string
 
   /**
    * End Date (optional) — `date`
    *
    *
    */
-  end_date?: string;
+  end_date?: string
 
   /**
    * Start time (optional) — `string`
    *
    *
    */
-  start?: string;
+  start?: string
 
   /**
    * End time (optional) — `string`
    *
    *
    */
-  end?: string;
+  end?: string
 
   /**
    * Timezone (optional) — `string`
    *
    *
    */
-  timezone?: string;
+  timezone?: string
 
   /**
    * Event type — `string`
    *
    *
    */
-  event_type?: "event" | "exhibition";
+  event_type?: 'event' | 'exhibition'
 
   /**
    * Event program — `string`
    *
    *
    */
-  event_program?: "hardtoread" | "pillowtalk";
+  event_program?: 'hardtoread' | 'pillowtalk'
 
   /**
    * Text — `blockContent`
    *
    *
    */
-  text?: BlockContent;
+  text?: BlockContent
 
   /**
    * Action label — `string`
    *
    *
    */
-  action_label?: string;
+  action_label?: string
 
   /**
    * Action link — `url`
    *
    *
    */
-  action_link?: string;
+  action_link?: string
 
   /**
    * Texts — `array`
    *
    *
    */
-  texts?: Array<SanityKeyed<TextAttachment> | SanityKeyed<PdfAttachment>>;
+  texts?: Array<SanityKeyed<TextAttachment> | SanityKeyed<PdfAttachment>>
 
   /**
    * Images — `array`
@@ -142,47 +142,47 @@ export interface Event extends SanityDocument {
    */
   images?: Array<
     SanityKeyed<{
-      _type: "image";
-      asset: SanityReference<SanityImageAsset>;
-      crop?: SanityImageCrop;
-      hotspot?: SanityImageHotspot;
+      _type: 'image'
+      asset: SanityReference<SanityImageAsset>
+      crop?: SanityImageCrop
+      hotspot?: SanityImageHotspot
     }>
-  >;
+  >
 
   /**
    * Videos — `array`
    *
    *
    */
-  videos?: Array<SanityKeyed<MuxVideo>>;
+  videos?: Array<SanityKeyed<MuxVideo>>
 
   /**
    * Links — `array`
    *
    *
    */
-  links?: Array<SanityKeyed<ExternalLink>>;
+  links?: Array<SanityKeyed<ExternalLink>>
 
   /**
    * Persons — `array`
    *
    *
    */
-  persons?: Array<SanityKeyedReference<Person>>;
+  persons?: Array<SanityKeyedReference<Person>>
 
   /**
    * Place — `reference`
    *
    *
    */
-  place?: SanityReference<Place>;
+  place?: SanityReference<Place>
 
   /**
    * Themes — `array`
    *
    *
    */
-  themes?: Array<SanityKeyedReference<Theme>>;
+  themes?: Array<SanityKeyedReference<Theme>>
 }
 
 /**
@@ -191,35 +191,35 @@ export interface Event extends SanityDocument {
  *
  */
 export interface Person extends SanityDocument {
-  _type: "person";
+  _type: 'person'
 
   /**
    * Name — `string`
    *
    *
    */
-  name?: string;
+  name?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string }
 
   /**
    * Sort by Name (Last) — `string`
    *
    *
    */
-  sortby_name?: string;
+  sortby_name?: string
 
   /**
    * Link (optional) — `url`
    *
    *
    */
-  link?: string;
+  link?: string
 }
 
 /**
@@ -228,42 +228,42 @@ export interface Person extends SanityDocument {
  *
  */
 export interface Place extends SanityDocument {
-  _type: "place";
+  _type: 'place'
 
   /**
    * Name — `string`
    *
    *
    */
-  name?: string;
+  name?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string }
 
   /**
    * Address — `text`
    *
    *
    */
-  address?: string;
+  address?: string
 
   /**
    * Location — `geopoint`
    *
    *
    */
-  location?: SanityGeoPoint;
+  location?: SanityGeoPoint
 
   /**
    * Link (optional) — `url`
    *
    *
    */
-  link?: string;
+  link?: string
 }
 
 /**
@@ -272,42 +272,42 @@ export interface Place extends SanityDocument {
  *
  */
 export interface Post extends SanityDocument {
-  _type: "post";
+  _type: 'post'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string }
 
   /**
    * Themes — `array`
    *
    *
    */
-  themes?: Array<SanityKeyedReference<Theme>>;
+  themes?: Array<SanityKeyedReference<Theme>>
 
   /**
    * Published at — `datetime`
    *
    *
    */
-  publishedAt?: string;
+  publishedAt?: string
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent;
+  body?: BlockContent
 }
 
 /**
@@ -316,21 +316,21 @@ export interface Post extends SanityDocument {
  *
  */
 export interface Theme extends SanityDocument {
-  _type: "theme";
+  _type: 'theme'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: { _type: 'slug'; current: string }
 }
 
 /**
@@ -339,42 +339,42 @@ export interface Theme extends SanityDocument {
  *
  */
 export interface Press extends SanityDocument {
-  _type: "press";
+  _type: 'press'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Date — `date`
    *
    *
    */
-  date?: string;
+  date?: string
 
   /**
    * Publication — `string`
    *
    *
    */
-  publication?: string;
+  publication?: string
 
   /**
    * Link — `url`
    *
    *
    */
-  link?: string;
+  link?: string
 
   /**
    * PDF or Image (optional) — `file`
    *
    * Upload a PDF, PNG, or JPEG press clipping (overrides link field).
    */
-  clipping?: { _type: "file"; asset: SanityReference<any> };
+  clipping?: { _type: 'file'; asset: SanityReference<any> }
 }
 
 /**
@@ -383,28 +383,28 @@ export interface Press extends SanityDocument {
  *
  */
 export interface Partner extends SanityDocument {
-  _type: "partner";
+  _type: 'partner'
 
   /**
    * Name — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Type — `string`
    *
    *
    */
-  type?: "default" | "sponsor" | "fundraiser";
+  type?: 'default' | 'sponsor' | 'fundraiser'
 
   /**
    * Link (optional) — `url`
    *
    *
    */
-  link?: string;
+  link?: string
 }
 
 /**
@@ -413,14 +413,14 @@ export interface Partner extends SanityDocument {
  *
  */
 export interface Home extends SanityDocument {
-  _type: "home";
+  _type: 'home'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Featured Content — `array`
@@ -433,15 +433,15 @@ export interface Home extends SanityDocument {
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
     | SanityKeyed<{
-        _type: "image";
-        asset: SanityReference<SanityImageAsset>;
-        crop?: SanityImageCrop;
-        hotspot?: SanityImageHotspot;
+        _type: 'image'
+        asset: SanityReference<SanityImageAsset>
+        crop?: SanityImageCrop
+        hotspot?: SanityImageHotspot
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
     | SanityKeyed<TextAttachment>
-  >;
+  >
 }
 
 /**
@@ -450,28 +450,28 @@ export interface Home extends SanityDocument {
  *
  */
 export interface SiteSettings extends SanityDocument {
-  _type: "siteSettings";
+  _type: 'siteSettings'
 
   /**
    * Site Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Site Description — `text`
    *
    *
    */
-  description?: string;
+  description?: string
 
   /**
    * About Page — `blockContent`
    *
    *
    */
-  about?: BlockContent;
+  about?: BlockContent
 
   /**
    * Socials — `array`
@@ -485,72 +485,72 @@ export interface SiteSettings extends SanityDocument {
        *
        *
        */
-      title?: string;
+      title?: string
 
       /**
        * URL — `url`
        *
        *
        */
-      url?: string;
+      url?: string
     }>
-  >;
+  >
 }
 
 export type BlockContent = Array<
   | SanityKeyed<SanityBlock>
   | SanityKeyed<{
-      _type: "image";
-      asset: SanityReference<SanityImageAsset>;
-      crop?: SanityImageCrop;
-      hotspot?: SanityImageHotspot;
+      _type: 'image'
+      asset: SanityReference<SanityImageAsset>
+      crop?: SanityImageCrop
+      hotspot?: SanityImageHotspot
     }>
->;
+>
 
 export type ExternalLink = {
-  _type: "externalLink";
+  _type: 'externalLink'
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * URL — `url`
    *
    *
    */
-  url?: string;
-};
+  url?: string
+}
 
 export type TextAttachment = {
-  _type: "textAttachment";
+  _type: 'textAttachment'
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent;
-};
+  body?: BlockContent
+}
 
 export type PdfAttachment = {
-  _type: "pdfAttachment";
-  asset: SanityReference<any>;
+  _type: 'pdfAttachment'
+  asset: SanityReference<any>
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
-};
+  title?: string
+}
 
 export type Documents =
   | Event
@@ -561,11 +561,11 @@ export type Documents =
   | Press
   | Partner
   | Home
-  | SiteSettings;
+  | SiteSettings
 
 /**
  * This interface is a stub. It was referenced in your sanity schema but
  * the definition was not actually found. Future versions of
  * sanity-codegen will let you type this explicity.
  */
-type MuxVideo = any;
+type MuxVideo = any

@@ -11,14 +11,22 @@ import {
 } from '../interfaces'
 import { EventBlock } from './event-block'
 interface ContentBlockProps {
-  content: EventType | PersonType | PostType | PlaceType | VideoType | ImageType | TextAttachmentType | ThemeType
+  content:
+    | EventType
+    | PersonType
+    | PostType
+    | PlaceType
+    | VideoType
+    | ImageType
+    | TextAttachmentType
+    | ThemeType
 }
 
 export const ContentBlock = React.forwardRef(
   ({ content }: ContentBlockProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     switch (content._type) {
       case 'event':
-        return <EventBlock content={content}/>
+        return <EventBlock content={content} />
       // case 'person':
       //   return <PersonBlock content={content} ref={ref}/>
       // case 'post':

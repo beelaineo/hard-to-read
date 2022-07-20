@@ -3,7 +3,16 @@
 // example, to import the interface below do:
 //
 
-import { Event, Person, Post, Place, Press, Theme, SanityImageAsset, BlockContent } from './sanity'
+import {
+  Event,
+  Person,
+  Post,
+  Place,
+  Press,
+  Theme,
+  SanityImageAsset,
+  BlockContent,
+} from './sanity'
 
 // import { User } from 'path/to/interfaces';
 export * from './sanity'
@@ -39,7 +48,7 @@ export type Scalars = {
   JSON: { [key: string]: any }
 }
 
-export type RelatedType = (Event|Person|Post|Place|Press|Theme)[]
+export type RelatedType = (Event | Person | Post | Place | Press | Theme)[]
 
 export type MuxVideoAsset = {
   _createdAt: string
@@ -70,9 +79,9 @@ export type ImageBlock = {
   related: RelatedType
 }
 
-export type TextAttachmentBlock= {
+export type TextAttachmentBlock = {
   _key: string
   _type: 'textAttachment'
   title?: string
-  body?: BlockContent 
+  body?: BlockContent
 }

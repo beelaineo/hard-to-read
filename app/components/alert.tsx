@@ -3,10 +3,15 @@ import cn from 'classnames'
 
 export default function Alert({ preview }) {
   if (preview) {
-  return (
-    <div className={cn('border-b', {'bg-accent-7 border-accent-7 text-white': preview, 'bg-accent-1 border-accent-2': !preview })}>
-      <Container>
-        <div className="py-2 text-center text-sm">
+    return (
+      <div
+        className={cn('border-b', {
+          'bg-accent-7 border-accent-7 text-white': preview,
+          'bg-accent-1 border-accent-2': !preview,
+        })}
+      >
+        <Container>
+          <div className="py-2 text-center text-sm">
             <>
               This page is a preview.{' '}
               <a
@@ -17,10 +22,10 @@ export default function Alert({ preview }) {
               </a>{' '}
               to exit preview mode.
             </>
-        </div>
-      </Container>
-    </div>
-  )
+          </div>
+        </Container>
+      </div>
+    )
   } else {
     return null
   }

@@ -17,13 +17,8 @@ interface Props {
   siteData: SiteDataResponse
 }
 
-export interface SiteDataResponse extends SiteSettings {
-}
+export interface SiteDataResponse extends SiteSettings {}
 
 export const Providers = ({ siteData, children }: Props) => {
-  return (
-    <SiteDataProvider siteData={siteData}>
-      {children}
-    </SiteDataProvider>
-  )
+  return <SiteDataProvider siteData={siteData}>{children}</SiteDataProvider>
 }

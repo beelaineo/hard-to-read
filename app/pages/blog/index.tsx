@@ -16,10 +16,9 @@ export default function Index({ allPosts, preview }) {
           <title>Blog</title>
         </Head>
         <Container>
-          {allPosts.map(post => (
-            <Post key={post.slug} post={post}/>
-          )
-          )}
+          {allPosts.map((post) => (
+            <Post key={post.slug} post={post} />
+          ))}
         </Container>
       </Layout>
     </>

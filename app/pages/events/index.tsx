@@ -16,12 +16,11 @@ const Events = ({ eventDocs, siteData, preview }) => {
           <title>Events</title>
         </Head>
         <Container>
-          {eventDocs.map(post => (
+          {eventDocs.map((post) => (
             <div>
               {post.title} - {post.date}
             </div>
-          )
-          )}
+          ))}
         </Container>
       </Layout>
     </>
@@ -34,7 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     await getClient(preview).fetch(siteQuery),
   ])
   return {
-    props: { eventDocs, siteData, preview }
+    props: { eventDocs, siteData, preview },
   }
 }
 

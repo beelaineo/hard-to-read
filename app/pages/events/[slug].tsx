@@ -43,10 +43,7 @@ const Event = ({ data, preview }) => {
                   {eventDoc.title} | {SITE_NAME}
                 </title>
               </Head>
-              <PostHeader
-                title={eventDoc.title}
-                date={eventDoc.date}
-              />
+              <PostHeader title={eventDoc.title} date={eventDoc.date} />
               <PostBody content={eventDoc.body} />
             </article>
             <SectionSeparator />
@@ -57,8 +54,10 @@ const Event = ({ data, preview }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params, preview = false }) => {
-
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   const [eventDoc, siteData] = await Promise.all([
     await getClient(preview).fetch(eventBySlugQuery, {
       slug: params?.slug,
