@@ -6,8 +6,8 @@ import Head from 'next/head'
 
 
 function MyApp({ Component, pageProps, pageProps: allPageProps }: AppProps) {
-  const { siteData } = allPageProps
-  if (!siteData) return null
+  const { data } = allPageProps
+  const siteData = data ? data.siteData : allPageProps.siteData
 
   return (
     <Providers siteData={siteData}>

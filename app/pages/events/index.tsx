@@ -5,19 +5,21 @@ import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
-import { blogQuery, siteQuery } from '../../lib/queries'
+import { eventQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
-export default function Index({ allPosts, preview }) {
+const Events = ({ eventDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
         <Head>
-          <title>Blog</title>
+          <title>Events</title>
         </Head>
         <Container>
-          {allPosts.map(post => (
-            <Post key={post.slug} post={post}/>
+          {eventDocs.map(post => (
+            <div>
+              {post.title} - {post.date}
+            </div>
           )
           )}
         </Container>
@@ -27,11 +29,13 @@ export default function Index({ allPosts, preview }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [allPosts, siteData] = await Promise.all([
-    overlayDrafts(await getClient(preview).fetch(blogQuery)),
+  const [eventDocs, siteData] = await Promise.all([
+    overlayDrafts(await getClient(preview).fetch(eventQuery)),
     await getClient(preview).fetch(siteQuery),
   ])
   return {
-    props: { allPosts, siteData, preview },
+    props: { eventDocs, siteData, preview }
   }
 }
+
+export default Events
