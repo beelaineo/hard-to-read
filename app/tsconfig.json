@@ -24,7 +24,7 @@
     "isolatedModules": true,
     "incremental": true
   },
-  "include": [".", "./pages"],
+  "include": ["./*"],
   "exclude": [
     "node_modules",
     "../node_modules",

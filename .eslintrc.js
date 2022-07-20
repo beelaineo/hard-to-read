@@ -1,7 +1,11 @@
+// eslint-disable-next-line no-undef
 module.exports = {
+  root: true,
   parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
   extends: [
     'prettier',
+    'eslint:recommended',
     'plugin:react/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
@@ -16,6 +20,7 @@ module.exports = {
     'import/no-cycle': 'error',
     'import/no-unresolved': [2, { ignore: ['^(all|part):'] }],
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

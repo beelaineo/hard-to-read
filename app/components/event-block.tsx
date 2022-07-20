@@ -27,7 +27,7 @@ interface EventBlockProps {
 }
 
 export const EventBlock = ({ content }: EventBlockProps) => {
-  const { 
+  const {
     title,
     slug,
     date,
@@ -49,18 +49,11 @@ export const EventBlock = ({ content }: EventBlockProps) => {
     persons,
   } = content
 
-  const eventLogger = (e: MouseEvent, data: Object) => {
-    console.log('Event: ', e)
-    console.log('Data: ', data)
-  }
-
   return (
     <Draggable>
       <Wrapper>
-        <h2>{ title }</h2>
-        <TextWrapper>
-          {text ? <PortableText value={text} /> : null}
-        </TextWrapper>
+        <h2>{title}</h2>
+        <TextWrapper>{text ? <PortableText value={text} /> : null}</TextWrapper>
       </Wrapper>
     </Draggable>
   )
