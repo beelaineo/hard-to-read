@@ -1,7 +1,12 @@
 import Container from './container'
 import Link from 'next/link'
+import { useSiteData } from '../providers/SiteDataProvider'
 
 export default function Footer() {
+  const siteData = useSiteData()
+  console.log('siteData', siteData)
+  const socials = siteData?.siteSettings?.socials ?? []
+ 
   return (
     <footer className="fixed bottom-0 left-0 right-0 grid grid-cols-10 gap-px bg-black p-px">
       <section className="col-span-3 p-4 bg-gray-200">
@@ -20,12 +25,13 @@ export default function Footer() {
         </nav>
       </section>
       <section className="col-span-3 p-4 bg-white">
-        <nav className="flex flex-col">
-          <a className="underline">Instagram</a>
-          <a className="underline">Youtube</a>
-          <a className="underline">Soundcloud</a>
-          <a className="underline">Mailing List</a>
-        </nav>
+        {socials && socials.length > 0 ? (
+          <nav className="flex flex-col">
+            {socials.map((s) => {
+              return <a className="underline" key={s._key} href={s.url}>{s.title}</a>
+            })}
+          </nav>
+        ) : null}
       </section>
     </footer>
   )
