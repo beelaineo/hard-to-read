@@ -1,5 +1,5 @@
 {
-  "name": "spinellikilcollin-sanity",
+  "name": "hard-to-read-sanity",
   "version": "0.0.0",
   "description": "Sanity configuration for hardtoread.com",
   "author": "Blaine O'Neill <blaine@dolphin.limited>",
@@ -12,7 +12,7 @@
     "test": "sanity check",
     "deploy": "yarn deploy:graphql && yarn deploy:cms",
     "deploy:cms": "yarn sanity deploy",
-    "deploy:graphql": "sanity graphql deploy --generation gen2 --playground && yarn workspace spinellikilcollin-app generate-types",
+    "deploy:graphql": "sanity graphql deploy --generation gen2 --playground && yarn workspace hard-to-read-app generate-types",
     "sync:export": "sanity dataset export production",
     "sync:reset": "sanity dataset delete staging && yarn sanity dataset create staging",
     "sync:import": "sanity dataset import production.tar.gz staging --replace",
