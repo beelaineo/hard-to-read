@@ -47,8 +47,7 @@ const Event = ({ data, preview }) => {
             </article>
             <SectionSeparator />
           </>
-          ) : null}
-        )}
+        ) : null}
       </Container>
     </Layout>
   )

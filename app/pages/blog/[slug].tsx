@@ -19,7 +19,7 @@ export default function Post({ data, preview }) {
 
   const slug = data?.post?.slug
   const {
-    data: { post, morePosts },
+    data: { post, siteData },
   } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
@@ -35,32 +35,28 @@ export default function Post({ data, preview }) {
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <Head>
-                <title>
-                  {post.title} | {SITE_NAME}
-                </title>
-                {post.coverImage && (
-                  <meta
-                    key="ogImage"
-                    property="og:image"
-                    content={urlForImage(post.coverImage)
-                      .width(1200)
-                      .height(627)
-                      .fit('crop')
-                      .url()}
-                  />
-                )}
-              </Head>
-              <PostHeader title={post.title} date={post.publishedAt} />
-              <PostBody content={post.body} />
-            </article>
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-          </>
-        )}
+        ) : post ? (
+          <article>
+            <Head>
+              <title>
+                {post.title} | {SITE_NAME}
+              </title>
+              {post.coverImage && (
+                <meta
+                  key="ogImage"
+                  property="og:image"
+                  content={urlForImage(post.coverImage)
+                    .width(1200)
+                    .height(627)
+                    .fit('crop')
+                    .url()}
+                />
+              )}
+            </Head>
+            <PostHeader title={post.title} date={post.publishedAt} />
+            <PostBody content={post.body} />
+          </article>
+        ) : null}
       </Container>
     </Layout>
   )
