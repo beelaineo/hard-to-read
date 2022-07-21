@@ -110,14 +110,10 @@ export const indexQuery = `
 }`
 
 export const postQuery = `
-{
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    ${postFields}
-  }
-}`
+*[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
+  ${postFields}
+}
+ `
 
 export const blogQuery = `
 *[_type == "post"] | order(date desc, _updatedAt desc) {

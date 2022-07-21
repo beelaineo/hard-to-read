@@ -9,9 +9,10 @@ import SectionSeparator from '../../components/section-separator'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import { SITE_NAME } from '../../lib/constants'
-import { postQuery, postSlugsQuery } from '../../lib/queries'
+import { postQuery, postSlugsQuery, siteQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 export default function Post({ data, preview }) {
   const router = useRouter()
@@ -65,23 +66,30 @@ export default function Post({ data, preview }) {
   )
 }
 
-export async function getStaticProps({ params, preview = false }) {
-  const { post, morePosts } = await getClient(preview).fetch(postQuery, {
-    slug: params.slug,
-  })
-
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
+  const [post, siteData] = await Promise.all([
+    overlayDrafts(
+      await getClient(preview).fetch(postQuery, {
+        slug: params?.slug,
+      }),
+    ),
+    await getClient(preview).fetch(siteQuery),
+  ])
   return {
     props: {
       preview,
       data: {
         post,
-        morePosts: overlayDrafts(morePosts),
+        siteData,
       },
     },
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await sanityClient.fetch(postSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),

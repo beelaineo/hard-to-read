@@ -16,7 +16,6 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 
 const Event = ({ data, preview }) => {
   const router = useRouter()
-  console.log('slug data', data)
   const slug = data?.eventDoc?.slug
   const {
     data: { eventDoc, siteData },
