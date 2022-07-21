@@ -17,7 +17,7 @@ const Events = ({ eventDocs, siteData, preview }) => {
         </Head>
         <Container>
           {eventDocs.map((post) => (
-            <div>
+            <div key={post._key}>
               {post.title} - {post.date}
             </div>
           ))}

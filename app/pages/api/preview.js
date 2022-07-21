@@ -5,6 +5,7 @@ export default async function preview(req, res) {
   // Check the secret and next parameters
   // This secret should only be known to this API route and the CMS
   if (
+    // eslint-disable-next-line no-undef
     req.query.secret !== process.env.SANITY_PREVIEW_SECRET ||
     !req.query.slug
   ) {

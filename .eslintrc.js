@@ -19,6 +19,7 @@ module.exports = {
   rules: {
     'import/no-cycle': 'error',
     'import/no-unresolved': [2, { ignore: ['^(all|part):'] }],
+    'react/display-name': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',

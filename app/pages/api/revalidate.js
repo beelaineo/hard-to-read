@@ -19,9 +19,11 @@ const getQueryForType = (type) => {
 }
 
 const log = (msg, error) =>
+  // eslint-disable-next-line no-undef
   console[error ? 'error' : 'log'](`[revalidate] ${msg}`)
 
 export default async function revalidate(req, res) {
+  // eslint-disable-next-line no-undef
   if (!isValidRequest(req, process.env.SANITY_STUDIO_REVALIDATE_SECRET)) {
     const invalidRequest = 'Invalid request'
     log(invalidRequest, true)

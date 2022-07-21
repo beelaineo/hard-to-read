@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const dotEnv = require('dotenv')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withSourceMaps = require('@zeit/next-source-maps')
 
 dotEnv.config()
