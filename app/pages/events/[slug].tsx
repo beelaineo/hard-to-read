@@ -34,7 +34,7 @@ const Event = ({ data, preview }) => {
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
-        ) : (
+        ) : eventDoc ? (
           <>
             <article>
               <Head>
@@ -47,6 +47,7 @@ const Event = ({ data, preview }) => {
             </article>
             <SectionSeparator />
           </>
+          ) : null}
         )}
       </Container>
     </Layout>
@@ -79,7 +80,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await sanityClient.fetch(eventSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
-    fallback: true,
+    fallback: false,
   }
 }
 
