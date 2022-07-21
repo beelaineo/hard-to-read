@@ -9,6 +9,7 @@
     "start": "next",
     "start:prod": "NODE_ENV=production next",
     "start:debug": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "yarn build:next",
     "build:next": "next build",
     "build:analyze": "ANALYZE=true next build",

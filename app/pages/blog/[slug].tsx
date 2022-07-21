@@ -40,7 +40,7 @@ export default function Post({ data, preview }) {
             <article>
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {SITE_NAME}
+                  {post.title} | {SITE_NAME}
                 </title>
                 {post.coverImage && (
                   <meta

@@ -4,6 +4,7 @@ import Container from '../../components/container'
 import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
 import { eventQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
@@ -16,11 +17,17 @@ const Events = ({ eventDocs, siteData, preview }) => {
           <title>Events</title>
         </Head>
         <Container>
-          {eventDocs.map((post) => (
-            <div key={post._key}>
-              {post.title} - {post.date}
-            </div>
-          ))}
+          {eventDocs.map((post) => {
+            return (
+              <div key={post._id}>
+                <Link href={`/events/${post.slug.current}`}>
+                  <a>
+                    {post.title} - {post.date}
+                  </a>
+                </Link>
+              </div>
+            )
+          })}
         </Container>
       </Layout>
     </>

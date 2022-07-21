@@ -7,11 +7,13 @@
 		"build": "yarn workspace hard-to-read-app build",
 		"build:analyze": "yarn workspace hard-to-read-app build:analyze",
 		"start:app": "yarn workspace hard-to-read-app start",
+		"dev:app": "yarn workspace hard-to-read-app dev",
 		"ncu": "yarn exec ncu && yarn workspaces run ncu",
 		"ncu:u": "yarn exec ncu -u && yarn workspaces run ncu -u && yarn install",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
+		"@babel/eslint-parser": "^7.18.9",
 		"@commitlint/cli": "^17.0.3",
 		"@commitlint/config-conventional": "^17.0.3",
 		"@types/eslint": "^8.4.5",
@@ -26,6 +28,7 @@
 		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.30.1",
+		"eslint-scope": "^7.1.1",
 		"eslint-watch": "^8.0.0",
 		"husky": "^8.0.1",
 		"lerna": "^5.1.8",
