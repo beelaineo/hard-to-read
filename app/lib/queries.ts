@@ -4,7 +4,7 @@ const eventFields = `
   _updatedAt,
   publishedAt,
   title,
-  slug,
+  "slug": slug.current,
   date,
   end_date,
   start,

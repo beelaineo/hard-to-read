@@ -20,7 +20,7 @@ const Events = ({ eventDocs, siteData, preview }) => {
           {eventDocs.map((post) => {
             return (
               <div key={post._id}>
-                <Link href={`/events/${post.slug.current}`}>
+                <Link href={`/events/${post.slug}`}>
                   <a>
                     {post.title} - {post.date}
                   </a>

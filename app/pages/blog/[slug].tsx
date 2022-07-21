@@ -14,7 +14,7 @@ import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
-export default function Post({ data, preview }) {
+const Post = ({ data, preview }) => {
   const router = useRouter()
 
   const slug = data?.post?.slug
@@ -67,11 +67,9 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
 }) => {
   const [post, siteData] = await Promise.all([
-    overlayDrafts(
-      await getClient(preview).fetch(postQuery, {
-        slug: params?.slug,
-      }),
-    ),
+    await getClient(preview).fetch(postQuery, {
+      slug: params?.slug,
+    }),
     await getClient(preview).fetch(siteQuery),
   ])
   return {
@@ -92,3 +90,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   }
 }
+export default Post
