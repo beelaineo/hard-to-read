@@ -1,11 +1,25 @@
-import Container from './container'
+import * as React from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { x } from '@xstyled/styled-components'
+import styled, { x, css } from '@xstyled/styled-components'
 import { useSiteData } from '../providers/SiteDataProvider'
+import { useModal } from '../providers/ModalProvider'
+import { modalize } from '../utils'
+const { useState, useEffect } = React
 
 export default function Footer() {
   const siteData = useSiteData()
   const socials = siteData?.siteSettings?.socials ?? []
+
+  const { resetModals } = useModal()
+
+  const [pageFX, setPageFX] = useState<HTMLAudioElement | null>(null)
+  useEffect(() => setPageFX(new Audio('/page.mp3')), [])
+
+  const handleQuack = () => {
+    pageFX?.play()
+    resetModals()
+  }
 
   return (
     <x.footer
@@ -13,6 +27,7 @@ export default function Footer() {
       bottom={0}
       left={0}
       right={0}
+      minHeight={160}
       display={'grid'}
       gridTemplateColumns={10}
       gap={'1px'}
@@ -48,7 +63,7 @@ export default function Footer() {
           </Link>
         </x.nav>
       </x.section>
-      <x.section gridColumn={'span 3'} p={4} bg={'white'}>
+      <x.section gridColumn={'span 3'} p={4} bg={'white'} position={'relative'}>
         {socials && socials.length > 0 ? (
           <x.nav display={'flex'} flexDirection={'column'}>
             {socials.map((s) => {
@@ -65,6 +80,14 @@ export default function Footer() {
             })}
           </x.nav>
         ) : null}
+        <x.div position={'absolute'} right={24} bottom={16} cursor={'pointer'}>
+          <Image
+            src={'/duck.png'}
+            width={'140'}
+            height={'120'}
+            onClick={() => handleQuack()}
+          />
+        </x.div>
       </x.section>
     </x.footer>
   )

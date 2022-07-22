@@ -8,6 +8,7 @@ interface ModalContextValue {
   modals: Modal[]
   addModals: (modals: Modal[]) => void
   removeModal: (modal: Modal) => void
+  resetModals: () => void
   pulseModal: string
 }
 
@@ -15,6 +16,7 @@ const ModalContext = React.createContext<ModalContextValue | undefined>({
   modals: [],
   addModals: (modals: Modal[]) => Promise<void>,
   removeModal: (modal: Modal) => Promise<void>,
+  resetModals: () => Promise<void>,
   pulseModal: '',
 })
 
@@ -35,6 +37,8 @@ export const ModalProvider = ({ children }: Props) => {
   const ready = true
   const [modals, setModals] = useState<Modal[]>([])
   const [pulseModal, setPulseModal] = useState<string>('')
+  const [quack, setQuack] = useState<HTMLAudioElement | null>(null)
+  useEffect(() => setQuack(new Audio('/quack.mp3')), [])
 
   const addModals = (inputModals: Modal[]) => {
     const uniqueModals = inputModals.filter((m) => {
@@ -47,6 +51,7 @@ export const ModalProvider = ({ children }: Props) => {
       inputModals.length == 1 &&
       modals.some((m) => m.id == inputModals[0].id)
     ) {
+      quack?.play()
       setPulseModal(inputModals[0].id)
       setTimeout(() => setPulseModal(''), 100)
     } else {
@@ -58,11 +63,16 @@ export const ModalProvider = ({ children }: Props) => {
     setModals(modals.filter((m) => m.id !== modal.id))
   }
 
+  const resetModals = () => {
+    setModals([])
+  }
+
   const value = {
     ready,
     modals,
     addModals,
     removeModal,
+    resetModals,
     pulseModal,
   }
 
