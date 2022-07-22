@@ -1,3 +1,4 @@
+import * as React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -13,10 +14,16 @@ import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { x } from '@xstyled/styled-components'
+import { useModal } from '../../providers/ModalProvider'
+import { Modal } from '../../interfaces'
+
+const { useEffect } = React
 
 const Event = ({ data, preview }) => {
   const router = useRouter()
   const slug = data?.eventDoc?.slug
+  const { addModals } = useModal()
+
   const {
     data: { eventDoc, siteData },
   } = usePreviewSubscription(eventBySlugQuery, {
@@ -25,9 +32,17 @@ const Event = ({ data, preview }) => {
     enabled: preview && slug,
   })
 
-  if (!router.isFallback && !slug) {
-    return <ErrorPage statusCode={404} />
-  }
+  useEffect(() => {
+    const modalize = (doc: any) => {
+      const modalDoc: Modal = {
+        id: doc._id,
+        type: 'event',
+        content: doc,
+      }
+      return modalDoc
+    }
+    addModals([modalize(data.eventDoc)])
+  }, [])
 
   return (
     <Layout preview={preview}>

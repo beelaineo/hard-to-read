@@ -104,6 +104,8 @@ export const indexQuery = `
       'related': ${relatedDocs}
     },
     _type == 'textAttachment' => {
+      _key,
+      '_id': _key,
       ...
     }
   }

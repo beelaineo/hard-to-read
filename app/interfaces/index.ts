@@ -17,9 +17,15 @@ import {
 // import { User } from 'path/to/interfaces';
 export * from './sanity'
 
-export type User = {
-  id: number
-  name: string
+export type ModalContent = {
+  title: string
+  body: string
+}
+
+export type Modal = {
+  id: string
+  type: string
+  content: ModalContent
 }
 
 export type Maybe<T> = T | null
@@ -60,7 +66,7 @@ export type MuxVideoAsset = {
   playbackId: string
   status: string
   uploadId: string
-  data: Object
+  data: Record<string, unknown>
 }
 
 export type MuxVideoBlock = {

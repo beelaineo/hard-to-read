@@ -2,6 +2,7 @@ import * as React from 'react'
 import { SiteSettings } from '../interfaces'
 import { SiteDataProvider } from './SiteDataProvider'
 import { ThemeProvider } from './ThemeProvider'
+import { ModalProvider } from './ModalProvider'
 
 // import { ErrorDisplay, ErrorProvider } from './ErrorProvider'
 // import { NavigationProvider } from './NavigationProvider'
@@ -24,7 +25,9 @@ export type SiteDataResponse = SiteSettings
 export const Providers = ({ siteData, children }: Props) => {
   return (
     <SiteDataProvider siteData={siteData}>
-      <ThemeProvider>{children}</ThemeProvider>
+      <ThemeProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </ThemeProvider>
     </SiteDataProvider>
   )
 }

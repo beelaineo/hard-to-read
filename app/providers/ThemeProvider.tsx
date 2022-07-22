@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     cursor: pointer;
     color: inherit;
+    text-decoration: inherit;
   }
 `
 

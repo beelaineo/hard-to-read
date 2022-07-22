@@ -8,8 +8,43 @@ import Link from 'next/link'
 import { eventQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
+import { Modal } from '../../interfaces'
+import { useModal } from '../../providers/ModalProvider'
+
+// title,
+// date,
+// end_date,
+// start,
+// end,
+// timezone,
+// event_type,
+// event_program,
+// text,
+// action_label,
+// action_link,
+// texts,
+// images,
+// videos,
+// links,
+// place,
+// themes,
+// persons,
 
 const Events = ({ eventDocs, siteData, preview }) => {
+  const { addModals } = useModal()
+
+  const handleItemClick = (post) => {
+    const modalize = (doc: any) => {
+      const modalDoc: Modal = {
+        id: doc._id,
+        type: 'event',
+        content: doc,
+      }
+      return modalDoc
+    }
+    addModals([modalize(post)])
+  }
+
   return (
     <>
       <Layout preview={preview}>
@@ -19,13 +54,19 @@ const Events = ({ eventDocs, siteData, preview }) => {
         <x.div px={3}>
           {eventDocs.map((post) => {
             return (
-              <div key={post._id}>
-                <Link href={`/events/${post.slug}`}>
-                  <a>
-                    {post.title} - {post.date}
-                  </a>
-                </Link>
-              </div>
+              <x.div key={post._id}>
+                {/* <Link href={`/events/${post.slug}`}> */}
+                <x.a
+                  display={'grid'}
+                  gridTemplateColumns={'10'}
+                  onClick={() => handleItemClick(post)}
+                >
+                  <x.div gridColumn={'span 3'}>{post.title}</x.div>
+                  <x.div gridColumn={'span 1'}>{post.date}</x.div>
+                  <x.div>{post.title}</x.div>
+                </x.a>
+                {/* </Link> */}
+              </x.div>
             )
           })}
         </x.div>
