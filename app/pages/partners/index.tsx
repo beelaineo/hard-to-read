@@ -26,7 +26,7 @@ const Partners = ({ partnerDocs, siteData, preview }) => {
         </Head>
         <x.div px={0} display={'grid'} gridTemplateColumns={'10'}>
           <x.div gridColumn={'span 3'}>
-            <h2>Partners</h2>
+            <h2>Publishers</h2>
             {partners.map((post) => {
               return (
                 <x.div key={post._id}>
