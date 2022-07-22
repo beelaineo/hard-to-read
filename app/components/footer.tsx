@@ -57,6 +57,7 @@ export default function Footer() {
                   textDecoration={{ _: 'none', hover: 'underline' }}
                   key={s._key}
                   href={s.url}
+                  target={'_blank'}
                 >
                   {s.title}
                 </x.a>

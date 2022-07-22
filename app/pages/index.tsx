@@ -8,7 +8,7 @@ import styled, { css } from '@xstyled/styled-components'
 import Image from 'next/image'
 import { ContentBlock } from '../components/content-block'
 import styles from '../styles/Home.module.css'
-import { definitely } from '../utils'
+import { definitely, modalize } from '../utils'
 import { indexQuery, siteQuery } from '../lib/queries'
 import { Home, Modal } from '../interfaces'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
@@ -47,17 +47,8 @@ const Index = ({ homeDocs, siteData, preview }) => {
   // }
 
   useEffect(() => {
-    const modalize = (doc: any) => {
-      const modalDoc: Modal = {
-        id: doc._id,
-        type: doc._type,
-        content: doc,
-      }
-      return modalDoc
-    }
     if (!content) return
     const modals = content.map((m) => modalize(m))
-    console.log('homepage modals', modals)
     addModals(modals)
   }, [])
 
@@ -67,19 +58,6 @@ const Index = ({ homeDocs, siteData, preview }) => {
         <Head>
           <title>Hard to Read</title>
         </Head>
-        {/* <Container>
-          <Grid tabIndex={-1}>
-            {definitely(content).map((c, i) => {
-              return (
-                <ContentBlock
-                  key={c._key || 'hi-key'}
-                  content={c}
-                  ref={i === 0 ? firstBlockRef : null}
-                />
-              )
-            })}
-          </Grid>
-        </Container> */}
       </Layout>
     </>
   )

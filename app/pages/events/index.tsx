@@ -10,6 +10,7 @@ import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { Modal } from '../../interfaces'
 import { useModal } from '../../providers/ModalProvider'
+import { modalize } from '../../utils'
 
 // title,
 // date,
@@ -34,14 +35,6 @@ const Events = ({ eventDocs, siteData, preview }) => {
   const { addModals } = useModal()
 
   const handleItemClick = (post) => {
-    const modalize = (doc: any) => {
-      const modalDoc: Modal = {
-        id: doc._id,
-        type: 'event',
-        content: doc,
-      }
-      return modalDoc
-    }
     addModals([modalize(post)])
   }
 

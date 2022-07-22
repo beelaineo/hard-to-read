@@ -8,12 +8,14 @@ interface ModalContextValue {
   modals: Modal[]
   addModals: (modals: Modal[]) => void
   removeModal: (modal: Modal) => void
+  pulseModal: string
 }
 
 const ModalContext = React.createContext<ModalContextValue | undefined>({
   modals: [],
   addModals: (modals: Modal[]) => Promise<void>,
   removeModal: (modal: Modal) => Promise<void>,
+  pulseModal: '',
 })
 
 export const ModalConsumer = ModalContext.Consumer
@@ -32,16 +34,24 @@ interface Props {
 export const ModalProvider = ({ children }: Props) => {
   const ready = true
   const [modals, setModals] = useState<Modal[]>([])
+  const [pulseModal, setPulseModal] = useState<string>('')
 
   const addModals = (inputModals: Modal[]) => {
-    console.log('inputModals', inputModals)
     const uniqueModals = inputModals.filter((m) => {
       return !modals.some((f) => {
         return f.id === m.id
       })
     })
-    console.log('uniqueModals', uniqueModals)
-    setModals(modals.concat(uniqueModals))
+    // if input length == 1 and modal is dup, send a pulse
+    if (
+      inputModals.length == 1 &&
+      modals.some((m) => m.id == inputModals[0].id)
+    ) {
+      setPulseModal(inputModals[0].id)
+      setTimeout(() => setPulseModal(''), 100)
+    } else {
+      setModals(modals.concat(uniqueModals))
+    }
   }
 
   const removeModal = (modal: Modal) => {
@@ -53,6 +63,7 @@ export const ModalProvider = ({ children }: Props) => {
     modals,
     addModals,
     removeModal,
+    pulseModal,
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

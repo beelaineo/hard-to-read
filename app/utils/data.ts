@@ -1,4 +1,4 @@
-import { Maybe } from '../interfaces'
+import { Maybe, Modal } from '../interfaces'
 
 export const propByPath = (
   path: string | string[],
@@ -21,4 +21,13 @@ export function definitely<T>(items?: Array<T | null | undefined> | null): T[] {
 export const unique = <T>(array: T[]): T[] => {
   const set = new Set(array)
   return [...set]
+}
+
+export const modalize = (doc: any) => {
+  const modalDoc: Modal = {
+    id: doc._id,
+    type: doc._type,
+    content: doc,
+  }
+  return modalDoc
 }
