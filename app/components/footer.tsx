@@ -42,6 +42,9 @@ export default function Footer() {
           <Link href="/about">
             <x.a textDecoration={{ hover: 'underline' }}>About</x.a>
           </Link>
+          <Link href="/press">
+            <x.a textDecoration={{ hover: 'underline' }}>Press</x.a>
+          </Link>
         </x.nav>
       </x.section>
       <x.section gridColumn={'span 4'} p={4} bg={'white'}>

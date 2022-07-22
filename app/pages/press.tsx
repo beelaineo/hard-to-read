@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Layout from '../components/layout'
+import PressList from '../components/press-list'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { x, css } from '@xstyled/styled-components'
 import { definitely, modalize } from '../utils'
@@ -45,27 +46,21 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   }
 }
 
-const About = ({ siteData, pressDocs, preview }) => {
-  const [pressOpen, setPressOpen] = useState(false)
-
-  const togglePress = () => {
-    setPressOpen(!pressOpen)
-  }
-
+const Press = ({ siteData, pressDocs, preview }) => {
   return (
     <>
       <Layout preview={preview}>
         <Head>
-          <title>About | Hard to Read</title>
+          <title>Press | Hard to Read</title>
         </Head>
         <Grid>
-          <PortableTextWrapper>
-            <PortableText value={siteData.about} />
-          </PortableTextWrapper>
+          <PressWrapper>
+            <PressList pressDocs={pressDocs} />
+          </PressWrapper>
         </Grid>
       </Layout>
     </>
   )
 }
 
-export default About
+export default Press

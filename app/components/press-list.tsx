@@ -4,9 +4,9 @@ import { urlForImage, usePreviewSubscription } from '../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
 const { useEffect, useState } = React
 
-export default function PressAside({ pressDocs, open }) {
-  return open ? (
-    <aside>
+export default function PressList({ pressDocs }) {
+  return (
+    <div>
       {pressDocs.map((post) => {
         return (
           <x.div
@@ -40,6 +40,6 @@ export default function PressAside({ pressDocs, open }) {
           </x.div>
         )
       })}
-    </aside>
-  ) : null
+    </div>
+  )
 }
