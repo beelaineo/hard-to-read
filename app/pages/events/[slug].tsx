@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Container from '../../components/container'
 import PostBody from '../../components/post-body'
 import MoreStories from '../../components/more-stories'
 import PostHeader from '../../components/post-header'
@@ -13,6 +12,7 @@ import { eventSlugsQuery, eventBySlugQuery, siteQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { x } from '@xstyled/styled-components'
 
 const Event = ({ data, preview }) => {
   const router = useRouter()
@@ -31,7 +31,7 @@ const Event = ({ data, preview }) => {
 
   return (
     <Layout preview={preview}>
-      <Container>
+      <x.div>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : eventDoc ? (
@@ -48,7 +48,7 @@ const Event = ({ data, preview }) => {
             <SectionSeparator />
           </>
         ) : null}
-      </Container>
+      </x.div>
     </Layout>
   )
 }

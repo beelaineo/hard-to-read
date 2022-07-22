@@ -1,5 +1,3 @@
-import '../styles/globals.css'
-import '../styles/index.css'
 import type { AppProps } from 'next/app'
 import { Providers } from '../providers/AllProviders'
 import Head from 'next/head'

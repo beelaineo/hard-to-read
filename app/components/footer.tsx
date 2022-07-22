@@ -1,56 +1,70 @@
 import Container from './container'
 import Link from 'next/link'
+import { x } from '@xstyled/styled-components'
 import { useSiteData } from '../providers/SiteDataProvider'
 
 export default function Footer() {
   const siteData = useSiteData()
-  console.log('siteData', siteData)
   const socials = siteData?.siteSettings?.socials ?? []
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 grid grid-cols-10 gap-px bg-black p-px">
-      <section className="col-span-3 p-4 bg-gray-200">
-        <nav className="flex flex-col">
+    <x.footer
+      position={'fixed'}
+      bottom={0}
+      left={0}
+      right={0}
+      display={'grid'}
+      gridTemplateColumns={10}
+      gap={'1px'}
+      bg={'black'}
+      p={'1px'}
+    >
+      <x.section gridColumn={'span 3'} p={4} bg={'gray-200'}>
+        <x.nav display={'flex'} flexDirection={'column'}>
           <Link href="/blog">
-            <a className="underline">Blog</a>
+            <x.a textDecoration={{ hover: 'underline' }}>Blog</x.a>
           </Link>
           <Link href="/about">
-            <a className="underline">About</a>
+            <x.a textDecoration={{ hover: 'underline' }}>About</x.a>
           </Link>
-        </nav>
-      </section>
-      <section className="col-span-4 p-4 bg-white">
-        <nav className="flex flex-col">
+        </x.nav>
+      </x.section>
+      <x.section gridColumn={'span 4'} p={4} bg={'white'}>
+        <x.nav display={'flex'} flexDirection={'column'}>
           <Link href="/events">
-            <a className="underline">Events</a>
+            <x.a textDecoration={{ hover: 'underline' }}>Events</x.a>
           </Link>
           <Link href="/exhibitions">
-            <a className="underline">Exhibitions</a>
+            <x.a textDecoration={{ hover: 'underline' }}>Exhibitions</x.a>
           </Link>
           <Link href="/people">
-            <a className="underline">People</a>
+            <x.a textDecoration={{ hover: 'underline' }}>People</x.a>
           </Link>
           <Link href="/themes">
-            <a className="underline">Themes</a>
+            <x.a textDecoration={{ hover: 'underline' }}>Themes</x.a>
           </Link>
           <Link href="/partners">
-            <a className="underline">Partners</a>
+            <x.a textDecoration={{ hover: 'underline' }}>Partners</x.a>
           </Link>
-        </nav>
-      </section>
-      <section className="col-span-3 p-4 bg-white">
+        </x.nav>
+      </x.section>
+      <x.section gridColumn={'span 3'} p={4} bg={'white'}>
         {socials && socials.length > 0 ? (
-          <nav className="flex flex-col">
+          <x.nav display={'flex'} flexDirection={'column'}>
             {socials.map((s) => {
               return (
-                <a className="underline" key={s._key} href={s.url}>
+                <x.a
+                  textDecoration={{ _: 'none', hover: 'underline' }}
+                  key={s._key}
+                  href={s.url}
+                >
                   {s.title}
-                </a>
+                </x.a>
               )
             })}
-          </nav>
+          </x.nav>
         ) : null}
-      </section>
-    </footer>
+      </x.section>
+    </x.footer>
   )
 }

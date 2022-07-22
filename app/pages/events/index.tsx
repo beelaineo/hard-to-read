@@ -5,9 +5,9 @@ import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '../../styles/Home.module.css'
 import { eventQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
+import { x, defaultTheme } from '@xstyled/styled-components'
 
 const Events = ({ eventDocs, siteData, preview }) => {
   return (
@@ -16,7 +16,7 @@ const Events = ({ eventDocs, siteData, preview }) => {
         <Head>
           <title>Events</title>
         </Head>
-        <Container>
+        <x.div px={3}>
           {eventDocs.map((post) => {
             return (
               <div key={post._id}>
@@ -28,7 +28,7 @@ const Events = ({ eventDocs, siteData, preview }) => {
               </div>
             )
           })}
-        </Container>
+        </x.div>
       </Layout>
     </>
   )
