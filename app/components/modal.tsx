@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { x } from '@xstyled/styled-components'
+import styled, { x, css } from '@xstyled/styled-components'
 import { useModal } from '../providers/ModalProvider'
 import { useViewportSize } from '../utils'
 import Draggable from 'react-draggable'
+import { ContentBlock } from './content-block'
 
 const { useEffect, useState } = React
 
@@ -10,8 +11,12 @@ export default function Modal({ modal }) {
   const { removeModal, pulseModal } = useModal()
   const { id, type, content } = modal
 
-  const [modalW, setModalW] = useState(320)
-  const [modalH, setModalH] = useState(270)
+  const [modalW, setModalW] = useState(270)
+  const [modalH, setModalH] = useState(100)
+
+  useEffect(() => {
+    setModalW(content._type == 'event' ? 480 : 120)
+  }, [])
 
   const { width, height } = useViewportSize()
 
@@ -51,13 +56,24 @@ export default function Modal({ modal }) {
     <Draggable defaultPosition={{ x: origin.x, y: origin.y }}>
       <x.div
         w={modalW}
-        p={4}
+        minH={modalH}
         bg={pulseState ? 'red' : 'gray-200'}
+        border={'1px solid black'}
         position={'absolute'}
         pointerEvents={'all'}
       >
-        <x.button onClick={() => handleCloseClick(modal)}>close</x.button>
-        {modal.content.title}
+        <x.button
+          appearance={'none'}
+          right={5}
+          top={5}
+          position={'absolute'}
+          bg={'transparent'}
+          zIndex={2}
+          onClick={() => handleCloseClick(modal)}
+        >
+          x
+        </x.button>
+        <ContentBlock content={modal.content} />
       </x.div>
     </Draggable>
   )

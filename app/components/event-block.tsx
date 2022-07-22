@@ -1,32 +1,32 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import Draggable from 'react-draggable'
-import styled, { Box, css } from '@xstyled/styled-components'
+import styled, { css } from '@xstyled/styled-components'
 import { Event as EventType, SanityImage } from '../interfaces'
 import { PortableText } from '@portabletext/react'
+import { eventBlockDate } from '../utils'
 
 const Wrapper = styled.div`
   height: auto;
+  min-height: 240px;
   position: relative;
-  width: 360px;
+  width: 100%;
   display: block;
   position: relative;
-  border: 1px solid black;
-  background-color: lightpink;
+  background-color: #ffefc3;
+  padding: 6;
 `
 
 const TextWrapper = styled.div`
-  margin: 16px;
+  margin: 0px;
   padding: 0;
   width: auto;
-  }
 `
 
 interface EventBlockProps {
   content: EventType
 }
 
-export const EventBlock = ({ content }: EventBlockProps) => {
+export const EventBlock = ({ content }) => {
   const {
     title,
     slug,
@@ -50,11 +50,15 @@ export const EventBlock = ({ content }: EventBlockProps) => {
   } = content
 
   return (
-    <Draggable>
-      <Wrapper>
-        <h2>{title}</h2>
-        <TextWrapper>{text ? <PortableText value={text} /> : null}</TextWrapper>
-      </Wrapper>
-    </Draggable>
+    <Wrapper>
+      <h2>{title}</h2>
+      <div>
+        {place?.name}
+        <br />
+        {place.address}
+      </div>
+      <div>{eventBlockDate(date)}</div>
+      <TextWrapper>{text ? <PortableText value={text} /> : null}</TextWrapper>
+    </Wrapper>
   )
 }

@@ -44,24 +44,41 @@ const Events = ({ eventDocs, siteData, preview }) => {
         <Head>
           <title>Events</title>
         </Head>
-        <x.div px={3}>
-          {eventDocs.map((post) => {
-            return (
-              <x.div key={post._id}>
-                {/* <Link href={`/events/${post.slug}`}> */}
-                <x.a
-                  display={'grid'}
-                  gridTemplateColumns={'10'}
-                  onClick={() => handleItemClick(post)}
-                >
-                  <x.div gridColumn={'span 3'}>{post.title}</x.div>
-                  <x.div gridColumn={'span 1'}>{post.date}</x.div>
-                  <x.div>{post.title}</x.div>
-                </x.a>
-                {/* </Link> */}
-              </x.div>
-            )
-          })}
+        <x.div px={0}>
+          {eventDocs.map((post) => (
+            <x.div key={post._id}>
+              {/* <Link href={`/events/${post.slug}`}> */}
+              <x.a
+                display={'grid'}
+                gridTemplateColumns={'10'}
+                alignItems={'baseline'}
+                onClick={() => handleItemClick(post)}
+                my={2}
+              >
+                <x.div gridColumn={'1 / 4'}>
+                  {post.start ? post.start + ' ' : ''}
+                  {post.date}
+                  {post.end_date ? ' to ' + post.end_date : null}
+                </x.div>
+                <x.div gridColumn={'span 3'} px={2} fontSize={'xl'}>
+                  {post.title}
+                  {post.event_program == 'pillowtalk' ? (
+                    <x.span ml={4} fontSize={'14'}>
+                      Pillowtalk
+                    </x.span>
+                  ) : null}
+                </x.div>
+                <x.div gridColumn={'8 / 10'} px={5}>
+                  {post.themes
+                    ? post.themes.map((t) => {
+                        return <span key={t.slug}>{t.title}</span>
+                      })
+                    : null}
+                </x.div>
+              </x.a>
+              {/* </Link> */}
+            </x.div>
+          ))}
         </x.div>
       </Layout>
     </>

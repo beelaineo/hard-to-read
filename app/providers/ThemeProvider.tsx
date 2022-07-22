@@ -39,6 +39,14 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: inherit;
   }
 
+  h1 {
+    font-size: 3xl;
+  }
+
+  h2 {
+    font-size: 3xl;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
   }

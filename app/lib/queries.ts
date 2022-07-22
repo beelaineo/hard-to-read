@@ -21,8 +21,8 @@ const eventFields = `
   videos,
   links,
   place,
-  themes,
-  persons,
+  themes[]->,
+  persons[]->,
 `
 
 const postFields = `

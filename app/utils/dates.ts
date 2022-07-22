@@ -24,3 +24,9 @@ export const niceDate = (inputDate: Date | string): string => {
 
   return `${month} ${day}, ${year}`
 }
+
+export const eventBlockDate = (inputDate: string | undefined): string => {
+  if (!inputDate) return 'missing date'
+  // return new Intl.DateTimeFormat('en-US').format(inputDate)
+  return inputDate
+}
