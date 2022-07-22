@@ -1,6 +1,7 @@
 const eventFields = `
   _id,
   _createdAt,
+  _type,
   _updatedAt,
   publishedAt,
   title,
@@ -27,12 +28,56 @@ const eventFields = `
 const postFields = `
   _id,
   _createdAt,
+  _type,
   _updatedAt,
   publishedAt,
   title,
   body,
   themes,
   "slug": slug.current,
+`
+
+const personFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  "title": name,
+  sortby_name,
+  "slug": slug.current,
+`
+
+const themeFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  "slug": slug.current,
+`
+
+const partnerFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  type,
+  "slug": slug.current,
+`
+
+const pressFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  date,
+  publication,
+  link,
+  clipping {
+    asset->{url}
+  }
 `
 
 const relatedDocs = `*[_type != 'home' && references(^._id)]{ title, _type, _id, slug }`
@@ -118,7 +163,7 @@ export const postQuery = `
  `
 
 export const blogQuery = `
-*[_type == "post"] | order(date desc, _updatedAt desc) {
+*[_type == "post"] | order(publishedAt desc) {
   ${postFields}
 }`
 
@@ -133,7 +178,7 @@ export const postBySlugQuery = `
 `
 
 export const eventQuery = `
-*[_type == "event"] | order(date desc, _updatedAt desc) {
+*[_type == "event" && event_type != "exhibition"] | order(date desc, _updatedAt desc) {
   ${eventFields}
 }`
 
@@ -144,5 +189,68 @@ export const eventBySlugQuery = `
 `
 
 export const eventSlugsQuery = `
-*[_type == "event" && defined(slug.current)][].slug.current
+*[_type == "event" && event_type != "exhibition" && defined(slug.current)][].slug.current
 `
+
+export const exhibitionQuery = `
+*[_type == "event" && event_type == "exhibition" ] | order(date desc, _updatedAt desc) {
+  ${eventFields}
+}`
+
+export const exhibitionBySlugQuery = `
+*[_type == "event" && slug.current == $slug][0] {
+  ${eventFields}
+}
+`
+
+export const exhibitionSlugsQuery = `
+*[_type == "event" && event_type == "exhibition" && defined(slug.current)][].slug.current
+`
+
+export const peopleQuery = `
+*[_type == "person"] | order(sortby_name asc) {
+  ${personFields}
+}`
+
+export const personSlugsQuery = `
+*[_type == "person" && defined(slug.current)][].slug.current
+`
+
+export const personBySlugQuery = `
+*[_type == "person" && slug.current == $slug][0] {
+  ${personFields}
+}
+`
+
+export const docsByPersonQuery = `
+*[_type != "site" && references($person._id)] {
+  _id,
+  "title": coalesce(name, title),
+  "slug": slug.current,
+}
+`
+
+export const themeQuery = `
+*[_type == "theme"] | order(sortby_name asc) {
+  ${themeFields}
+}`
+
+export const themeSlugsQuery = `
+*[_type == "theme" && defined(slug.current)][].slug.current
+`
+
+export const themeBySlugQuery = `
+*[_type == "theme" && slug.current == $slug][0] {
+  ${themeFields}
+}
+`
+
+export const partnerQuery = `
+*[_type == "partner"] | order(title asc) {
+  ${partnerFields}
+}`
+
+export const pressQuery = `
+*[_type == "press"] | order(date desc) {
+  ${pressFields}
+}`

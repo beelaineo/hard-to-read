@@ -7,11 +7,10 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { css } from '@xstyled/styled-components'
 import Image from 'next/image'
 import { ContentBlock } from '../components/content-block'
-import styles from '../styles/Home.module.css'
 import { definitely, modalize } from '../utils'
 import { indexQuery, siteQuery } from '../lib/queries'
 import { Home, Modal } from '../interfaces'
-import { getClient, overlayDrafts } from '../lib/sanity.server'
+import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 
 const { useEffect, useRef } = React

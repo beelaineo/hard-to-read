@@ -24,10 +24,23 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Times New Roman', Times, serif;
   }
 
+  html, body, div {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar { 
+      display: none;
+  }
+
+
   a {
     cursor: pointer;
     color: inherit;
     text-decoration: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
   }
 `
 
