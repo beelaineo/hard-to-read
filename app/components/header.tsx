@@ -7,7 +7,7 @@ export default function Header() {
   const path = router.pathname
 
   const title =
-    path == '/about'
+    path == '/about' || path == '/'
       ? 'Hard'
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
 

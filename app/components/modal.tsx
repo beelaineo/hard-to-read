@@ -7,15 +7,47 @@ import { ContentBlock } from './content-block'
 
 const { useEffect, useState } = React
 
+interface WithPulseState {
+  pulseState: boolean
+  width: number
+  height: number
+}
+
+const Wrapper = styled.div<WithPulseState>`
+  ${({ pulseState, width, height }) => css`
+    width: ${width}px;
+    min-height: ${height}px;
+    background-color: ${pulseState ? 'red' : 'gray-200'};
+    border: 1px solid black;
+    position: absolute;
+    pointer-events: all;
+    cursor: grab;
+
+    button {
+      color: white;
+      mix-blend-mode: difference;
+    }
+  `}
+`
+
 export default function Modal({ modal }) {
   const { removeModal, pulseModal } = useModal()
   const { id, type, content } = modal
 
+  const [isDragging, setDragging] = useState(false)
   const [modalW, setModalW] = useState(270)
   const [modalH, setModalH] = useState(100)
 
   useEffect(() => {
-    setModalW(content._type == 'event' ? 480 : 120)
+    setModalW(
+      content._type == 'event'
+        ? 480
+        : content._type == 'image'
+        ? 480
+        : content._type == 'video'
+        ? 480
+        : 120,
+    )
   }, [])
 
   const { width, height } = useViewportSize()
@@ -42,6 +74,14 @@ export default function Modal({ modal }) {
     removeModal(modal)
   }
 
+  const handleStart = () => {
+    setTimeout(() => setDragging(true), 100)
+  }
+
+  const handleStop = () => {
+    setTimeout(() => setDragging(false), 100)
+  }
+
   const [pulseState, setPulseState] = useState(false)
 
   useEffect(() => {
@@ -53,15 +93,12 @@ export default function Modal({ modal }) {
   }, [pulseModal])
 
   return (
-    <Draggable defaultPosition={{ x: origin.x, y: origin.y }}>
-      <x.div
-        w={modalW}
-        minH={modalH}
-        bg={pulseState ? 'red' : 'gray-200'}
-        border={'1px solid black'}
-        position={'absolute'}
-        pointerEvents={'all'}
-      >
+    <Draggable
+      defaultPosition={{ x: origin.x, y: origin.y }}
+      onStart={() => handleStart()}
+      onStop={() => handleStop()}
+    >
+      <Wrapper width={modalW} height={modalH} pulseState={pulseState}>
         <x.button
           appearance={'none'}
           right={5}
@@ -73,8 +110,8 @@ export default function Modal({ modal }) {
         >
           x
         </x.button>
-        <ContentBlock content={modal.content} />
-      </x.div>
+        <ContentBlock content={modal.content} isDragging={isDragging} />
+      </Wrapper>
     </Draggable>
   )
 }

@@ -1930,6 +1930,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mux/mux-video-react@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@mux/mux-video-react@npm:0.5.1"
+  dependencies:
+    "@mux/playback-core": 0.9.0
+    prop-types: ^15.7.2
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18
+    react: ^17.0.2 || ^18
+    react-dom: ^17.0.2 || ^18
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 214ac55643a43213e03b5ca8fe998fffd05c30f1c83b9b51639467a61cf66465e867dd3e3ed90c4433480824ac3aeaa2562e435ae8ea44dbf0e02c166a026821
+  languageName: node
+  linkType: hard
+
+"@mux/playback-core@npm:0.9.0":
+  version: 0.9.0
+  resolution: "@mux/playback-core@npm:0.9.0"
+  dependencies:
+    hls.js: 1.1.5
+    mux-embed: ^4.7.0
+  checksum: eff627b968edda70c97ea7b291c71ac97f7be00f41cbf25374ee2ca48179f021ff7c820e6a132f754da4a5354c448cc3c55bdfb2aede9dbff62d6f7a2efe520d
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:12.2.2":
   version: 12.2.2
   resolution: "@next/env@npm:12.2.2"
@@ -6685,6 +6714,7 @@ __metadata:
     "@graphql-codegen/cli": ^1.21.8
     "@graphql-codegen/fragment-matcher": ^2.0.1
     "@graphql-codegen/typescript": ^1.23.0
+    "@mux/mux-video-react": ^0.5.1
     "@next/eslint-plugin-next": ^12.2.2
     "@portabletext/react": ^1.0.6
     "@sanity/block-content-to-react": ^3.0.0
@@ -6846,7 +6876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hls.js@npm:^1.1.5":
+"hls.js@npm:1.1.5, hls.js@npm:^1.1.5":
   version: 1.1.5
   resolution: "hls.js@npm:1.1.5"
   checksum: 7363eb8be6ad35be73fe3497a2fa1d493b42c76382ccc6b05f298394545eb75d6c466fb233748f3226859360d7aeea99bc5ea3e372ec074c6c2e354dcc5f6435
@@ -9336,6 +9366,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mux-embed@npm:^4.7.0":
+  version: 4.10.0
+  resolution: "mux-embed@npm:4.10.0"
+  checksum: 9a37d77179e14884e9d6bbca49762091e695385ef146428774db71aff62729ae428bcdc4a0c08c53638337a2d8c89ca0bd40426ead721b1ddfe140cd81f90e12
+  languageName: node
+  linkType: hard
+
 "nano-pubsub@npm:^1.0.2":
   version: 1.0.2
   resolution: "nano-pubsub@npm:1.0.2"
@@ -10566,7 +10603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:

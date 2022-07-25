@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@good-idea/unwind-edges": "^1.5.3",
+    "@mux/mux-video-react": "^0.5.1",
     "@portabletext/react": "^1.0.6",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.23.2",

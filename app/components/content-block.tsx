@@ -11,6 +11,8 @@ import {
   Theme as ThemeType,
 } from '../interfaces'
 import { EventBlock } from './event-block'
+import { ImageBlock } from './image-block'
+import { VideoBlock } from './video-block'
 interface ContentBlockProps {
   content:
     | EventType
@@ -21,10 +23,14 @@ interface ContentBlockProps {
     | ImageType
     | TextAttachmentType
     | ThemeType
+  isDragging: boolean
 }
 
 export const ContentBlock = React.forwardRef(
-  ({ content }: ContentBlockProps, ref: React.ForwardedRef<HTMLDivElement>) => {
+  (
+    { content, isDragging }: ContentBlockProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) => {
     switch (content._type) {
       case 'event':
         return <EventBlock content={content} />
@@ -57,11 +63,9 @@ export const ContentBlock = React.forwardRef(
           </div>
         )
       case 'image':
-        // return <ImageBlock content={content} ref={ref} />
-        return <div>{content._type}</div>
+        return <ImageBlock content={content} />
       case 'video':
-        // return <VideoBlock content={content} ref={ref} />
-        return <div>{content._type}</div>
+        return <VideoBlock content={content} isDragging={isDragging} />
       default:
         // @ts-ignore
         console.warn(`No content block for type "${content._type}"`)
