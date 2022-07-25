@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   line-height: 0;
 `
 
-export const VideoBlock = ({ content, isDragging }) => {
+export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   const [muted, setMuted] = useState<boolean>(true)
 
   const { related } = content
@@ -25,7 +25,8 @@ export const VideoBlock = ({ content, isDragging }) => {
   console.log(content)
 
   const handleClick = () => {
-    if (isDragging === true) return
+    if (isDragging === true && deltaPosition.x > 5 && deltaPosition.y > 5)
+      return
     setMuted(!muted)
   }
 

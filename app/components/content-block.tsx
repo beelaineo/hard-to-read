@@ -13,6 +13,12 @@ import {
 import { EventBlock } from './event-block'
 import { ImageBlock } from './image-block'
 import { VideoBlock } from './video-block'
+
+type DeltaPosition = {
+  x: number
+  y: number
+}
+
 interface ContentBlockProps {
   content:
     | EventType
@@ -24,11 +30,12 @@ interface ContentBlockProps {
     | TextAttachmentType
     | ThemeType
   isDragging: boolean
+  deltaPosition: DeltaPosition
 }
 
 export const ContentBlock = React.forwardRef(
   (
-    { content, isDragging }: ContentBlockProps,
+    { content, isDragging, deltaPosition }: ContentBlockProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     switch (content._type) {
@@ -65,7 +72,13 @@ export const ContentBlock = React.forwardRef(
       case 'image':
         return <ImageBlock content={content} />
       case 'video':
-        return <VideoBlock content={content} isDragging={isDragging} />
+        return (
+          <VideoBlock
+            content={content}
+            isDragging={isDragging}
+            deltaPosition={deltaPosition}
+          />
+        )
       default:
         // @ts-ignore
         console.warn(`No content block for type "${content._type}"`)

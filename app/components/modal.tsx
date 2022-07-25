@@ -35,6 +35,7 @@ export default function Modal({ modal }) {
   const { id, type, content } = modal
 
   const [isDragging, setDragging] = useState(false)
+  const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 })
   const [modalW, setModalW] = useState(270)
   const [modalH, setModalH] = useState(100)
 
@@ -75,11 +76,20 @@ export default function Modal({ modal }) {
   }
 
   const handleStart = () => {
-    setTimeout(() => setDragging(true), 100)
+    setTimeout(() => setDragging(true), 50)
+  }
+
+  const handleDrag = (e, ui) => {
+    const { x, y } = deltaPosition
+    const obj = {
+      x: x + ui.deltaX,
+      y: y + ui.deltaY,
+    }
+    setDeltaPosition(obj)
   }
 
   const handleStop = () => {
-    setTimeout(() => setDragging(false), 100)
+    setTimeout(() => setDragging(false), 50)
   }
 
   const [pulseState, setPulseState] = useState(false)
@@ -110,7 +120,11 @@ export default function Modal({ modal }) {
         >
           x
         </x.button>
-        <ContentBlock content={modal.content} isDragging={isDragging} />
+        <ContentBlock
+          content={modal.content}
+          deltaPosition={deltaPosition}
+          isDragging={isDragging}
+        />
       </Wrapper>
     </Draggable>
   )
