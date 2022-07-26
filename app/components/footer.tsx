@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
+import DuckSVG from './duck.svg'
 import NavLink from 'next/link'
 import styled, { x, css } from '@xstyled/styled-components'
 import { useSiteData } from '../providers/SiteDataProvider'
 import { useModal } from '../providers/ModalProvider'
 import { modalize } from '../utils'
+import { DefaultContext } from 'react-icons'
 const { useState, useEffect } = React
 
 interface WithActive {
@@ -17,6 +18,45 @@ const StyledLink = styled.a<WithActive>`
     text-decoration: ${active ? 'underline' : 'none'};
     :hover {
       text-decoration: underline;
+    }
+  `}
+`
+
+interface WithSpanBGColor {
+  span: number
+  bgColor: string
+}
+
+const Column = styled.div<WithSpanBGColor>`
+  ${({ theme, span, bgColor }) => css`
+    grid-column: span ${span};
+    padding: 4;
+    background-color: ${bgColor};
+    position: relative;
+    z-index: 10;
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: #fff;
+      opacity: 0.85;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 11;
+    }
+    &:nth-of-type(1) {
+      opacity: 0.75;
+    }
+    nav {
+      position: absolute;
+      z-index: 12;
+    }
+    svg path.cls-1 {
+      stroke: ${theme.colors.primary};
+    }
+    svg path:last-of-type {
+      fill: ${theme.colors.primary};
     }
   `}
 `
@@ -48,10 +88,11 @@ export default function Footer() {
       display={'grid'}
       gridTemplateColumns={10}
       gap={'1px'}
-      bg={'black'}
+      bg={'primary'}
       p={'1px'}
+      fontSize={'lg'}
     >
-      <x.section gridColumn={'span 3'} p={4} bg={'gray-200'}>
+      <Column span={3} bgColor={'primary'}>
         <x.nav display={'flex'} flexDirection={'column'}>
           <NavLink href="/blog">
             <StyledLink active={pathName === '/blog'}>Blog</StyledLink>
@@ -63,8 +104,8 @@ export default function Footer() {
             <StyledLink active={pathName === '/press'}>Press</StyledLink>
           </NavLink>
         </x.nav>
-      </x.section>
-      <x.section gridColumn={'span 4'} p={4} bg={'white'}>
+      </Column>
+      <Column span={4} bgColor={'primary'}>
         <x.nav display={'flex'} flexDirection={'column'}>
           <NavLink href="/events">
             <StyledLink active={pathName === '/events'}>Events</StyledLink>
@@ -84,8 +125,8 @@ export default function Footer() {
             <StyledLink active={pathName === '/partners'}>Partners</StyledLink>
           </NavLink>
         </x.nav>
-      </x.section>
-      <x.section gridColumn={'span 3'} p={4} bg={'white'} position={'relative'}>
+      </Column>
+      <Column span={3} bgColor={'primary'}>
         {socials && socials.length > 0 ? (
           <x.nav display={'flex'} flexDirection={'column'}>
             {socials.map((s) => {
@@ -102,15 +143,16 @@ export default function Footer() {
             })}
           </x.nav>
         ) : null}
-        <x.div position={'absolute'} right={24} bottom={16} cursor={'pointer'}>
-          <Image
-            src={'/duck.png'}
-            width={'140'}
-            height={'120'}
-            onClick={() => handleQuack()}
-          />
+        <x.div
+          position={'absolute'}
+          right={24}
+          bottom={16}
+          cursor={'pointer'}
+          zIndex={12}
+        >
+          <DuckSVG width={140} onClick={() => handleQuack()} />
         </x.div>
-      </x.section>
+      </Column>
     </x.footer>
   )
 }

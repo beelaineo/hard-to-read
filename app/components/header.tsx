@@ -12,7 +12,7 @@ export default function Header() {
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
 
   return (
-    <x.header position={'fixed'} left={0} right={0} top={0} m={4}>
+    <x.header position={'fixed'} left={0} right={0} top={0} m={4} zIndex={10}>
       <x.h1
         display={'grid'}
         gridTemplateColumns={10}

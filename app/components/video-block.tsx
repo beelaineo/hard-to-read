@@ -25,8 +25,7 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   console.log(content)
 
   const handleClick = () => {
-    if (isDragging === true && deltaPosition.x > 5 && deltaPosition.y > 5)
-      return
+    if (isDragging === true) return
     setMuted(!muted)
   }
 

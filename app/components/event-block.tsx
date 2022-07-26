@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: block;
   position: relative;
-  background-color: #ffefc3;
+  background-color: primary;
   padding: 6;
 `
 

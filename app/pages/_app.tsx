@@ -5,7 +5,6 @@ import Head from 'next/head'
 import Modals from '../components/modals'
 
 const Main = styled.div`
-  background-color: background;
   transition: background-color 0.3s;
 `
 
