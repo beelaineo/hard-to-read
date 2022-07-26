@@ -6,6 +6,7 @@ import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { modalize } from '../../utils'
+import { ExhibitionListing } from '../../components/exhibition-listing'
 
 const Exhibitions = ({ exhibitionDocs, siteData, preview }) => {
   const { addModals } = useModal()
@@ -20,24 +21,10 @@ const Exhibitions = ({ exhibitionDocs, siteData, preview }) => {
         <Head>
           <title>Exhibitions</title>
         </Head>
-        <x.div px={3}>
-          {exhibitionDocs.map((post) => {
-            return (
-              <x.div key={post._id}>
-                {/* <Link href={`/events/${post.slug}`}> */}
-                <x.a
-                  display={'grid'}
-                  gridTemplateColumns={'10'}
-                  onClick={() => handleItemClick(post)}
-                >
-                  <x.div gridColumn={'span 3'}>{post.title}</x.div>
-                  <x.div gridColumn={'span 1'}>{post.date}</x.div>
-                  <x.div>{post.title}</x.div>
-                </x.a>
-                {/* </Link> */}
-              </x.div>
-            )
-          })}
+        <x.div px={0} display={'grid'} gridTemplateColumns={'10'} gap={8}>
+          {exhibitionDocs.map((post, i) => (
+            <ExhibitionListing key={post._id} post={post} i={i} />
+          ))}
         </x.div>
       </Layout>
     </>

@@ -16,14 +16,33 @@ const { useEffect, useState } = React
 
 interface WithColor {
   color: string
+  i: number
 }
 
 const Wrapper = styled.div<WithColor>`
-  ${({ color }) => css`
+  ${({ color, i }) => css`
     position: relative;
     z-index: 0;
-    margin: 0 -4;
-    padding: 0 4;
+    border: 1px solid;
+    border-color: ${color};
+    min-height: 67vh;
+    grid-column: ${(i % 3) - 1 === 0 ? 'span 4' : 'span 3'};
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    a {
+      position: relative;
+      display: flex;
+      height: 100%;
+      max-width: 75%;
+      margin: auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4;
+      text-align: center;
+    }
     &:hover {
       background-color: ${color};
       &:after {
@@ -40,7 +59,6 @@ const Wrapper = styled.div<WithColor>`
       }
       a {
         z-index: 1;
-        position: relative;
       }
     }
   `}
@@ -65,7 +83,7 @@ const Wrapper = styled.div<WithColor>`
 // themes,
 // persons,
 
-export const EventListing = ({ post }) => {
+export const ExhibitionListing = ({ post, i }) => {
   const [namedPersons, setNamedPersons] = useState<string[]>([])
   const { addModals } = useModal()
 
@@ -77,8 +95,18 @@ export const EventListing = ({ post }) => {
   const now = new Date()
   const date = new Date(post.date)
 
-  const diffYears = differenceInCalendarYears(now, date)
   const diffDays = differenceInDays(now, date)
+
+  const formatRange = (d1, d2, locale) => {
+    return new Intl.DateTimeFormat(locale, {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      //@ts-ignore
+    }).formatRange(d1, d2)
+  }
+
+  const end = new Date(post.end_date)
 
   useEffect(() => {
     const sortedPersons = post.persons?.sort((a, b) =>
@@ -91,39 +119,25 @@ export const EventListing = ({ post }) => {
     <Wrapper
       color={post.event_program == 'pillowtalk' ? 'secondary' : 'primary'}
       key={post._id}
+      i={i}
     >
       <x.a
-        display={'grid'}
-        gridTemplateColumns={'10'}
-        alignItems={'baseline'}
         onClick={() => handleItemClick(post)}
         my={2}
         color={post.event_program == 'pillowtalk' ? 'secondary' : 'primary'}
       >
-        <x.div gridColumn={'1 / 4'} fontSize={'lg'}>
+        <x.div fontSize={'lg'}>
           {/* date (required), end_date, start, end, timezone */}
-          {diffDays < 8
-            ? format(date, 'eeee, MMMM d')
-            : diffYears < 1
+          {date && end
+            ? formatRange(date, end, 'en')
+            : date
             ? format(date, 'MMMM d, yyyy')
-            : format(date, 'MMMM yyyy')}
-          {diffYears < 1
-            ? ' (' + formatDistanceToNow(date, { addSuffix: true }) + ')'
             : null}
-          <br />
-          {diffYears < 1 && post.start ? post.start : null}
-          {diffYears < 1 && post.start && post.end ? ' to ' + post.end : null}
-          {diffYears < 1 && post.start && post.timezone
-            ? ' ' + post.timezone
-            : null}
-          {diffYears < 1 && post.start && post.end && post.end_date
-            ? ', ends ' + format(new Date(post.end_date), 'MMM d')
-            : post.end_date && diffDays < 8
-            ? 'ends ' + format(new Date(post.end_date), 'eeee, MMMM d')
-            : null}
+          {diffDays < 1 ? <br /> : null}
+          {diffDays < 1 ? 'opening note here' : null}
         </x.div>
-        <x.div gridColumn={'span 4'} px={2} color={'black'}>
-          <x.h2 fontSize={'2xl'} mb={0}>
+        <x.div px={2} color={'black'}>
+          <x.h2 fontSize={'3xl'} mb={0}>
             <x.span>{post.title}</x.span>
           </x.h2>
           {namedPersons?.length > 0 ? (
@@ -138,7 +152,7 @@ export const EventListing = ({ post }) => {
             </x.div>
           ) : null}
         </x.div>
-        <x.div gridColumn={'8 / 10'} px={5} fontSize={'lg'}>
+        <x.div px={5} fontSize={'lg'}>
           {post.themes
             ? post.themes
                 .map((t) => {
