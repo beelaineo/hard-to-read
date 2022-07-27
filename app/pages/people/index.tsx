@@ -1,18 +1,16 @@
+import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import { peopleQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
-import { useModal } from '../../providers/ModalProvider'
-import { modalize } from '../../utils'
+import { PersonListing } from '../../components/person-listing'
+
+const { useEffect, useState } = React
 
 const People = ({ peopleDocs, siteData, preview }) => {
-  const { addModals } = useModal()
-
-  const handleItemClick = (person) => {
-    addModals([modalize(person)])
-  }
+  console.log(peopleDocs)
 
   return (
     <>
@@ -20,21 +18,15 @@ const People = ({ peopleDocs, siteData, preview }) => {
         <Head>
           <title>People</title>
         </Head>
-        <x.div px={0}>
+        <x.div
+          px={0}
+          display={'grid'}
+          gridTemplateColumns={{ _: 3, sm: 6, md: 6, lg: 10 }}
+          gridAutoRows={{ _: '28vw', sm: '14vw', md: '14vw', lg: '8.5vw' }}
+          gap={4}
+        >
           {peopleDocs.map((post) => {
-            return (
-              <x.div key={post._id}>
-                {/* <Link href={`/events/${post.slug}`}> */}
-                <x.a
-                  display={'grid'}
-                  gridTemplateColumns={'10'}
-                  onClick={() => handleItemClick(post)}
-                >
-                  <x.div gridColumn={'span 3'}>{post.title}</x.div>
-                </x.a>
-                {/* </Link> */}
-              </x.div>
-            )
+            return <PersonListing post={post} key={post._id} />
           })}
         </x.div>
       </Layout>

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import styled, { x, css } from '@xstyled/styled-components'
+import styled, { x, css, useColor } from '@xstyled/styled-components'
 import { Event as EventType, SanityImage, Modal } from '../interfaces'
 import { PortableText } from '@portabletext/react'
 import {
@@ -16,11 +16,13 @@ const { useEffect, useState } = React
 
 interface WithColor {
   color: string
+  bgColor: string
+  bgColorHover: string
   i: number
 }
 
 const Wrapper = styled.div<WithColor>`
-  ${({ color, i }) => css`
+  ${({ color, bgColor, bgColorHover, i }) => css`
     position: relative;
     z-index: 0;
     border: 1px solid;
@@ -31,31 +33,25 @@ const Wrapper = styled.div<WithColor>`
     grid-template-columns: 1fr;
     align-items: center;
     justify-content: center;
+    background-color: white;
     a {
       position: relative;
       display: flex;
       height: 100%;
-      max-width: 75%;
+      max-width: 100%;
+      width: 100%;
+      padding: 0 20%;
       margin: auto;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 4;
       text-align: center;
+      background-color: ${bgColor};
     }
     &:hover {
-      background-color: ${color};
-      &:after {
-        position: absolute;
-        content: '';
-        background-color: #fff;
-        opacity: 0.85;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        pointer-events: none;
+      a {
+        background-color: ${bgColorHover};
       }
       a {
         z-index: 1;
@@ -108,6 +104,13 @@ export const ExhibitionListing = ({ post, i }) => {
 
   const end = new Date(post.end_date)
 
+  const color =
+    useColor(
+      post.event_program == 'pillowtalk' ? 'secondary' : 'primary',
+    )?.toString() || 'rgba(0, 0, 0, 1.0)'
+  const bgColor = color?.replace('1.0', '0.05')
+  const bgColorHover = color?.replace('1.0', '0.15')
+
   useEffect(() => {
     const sortedPersons = post.persons?.sort((a, b) =>
       a?.sortby_name > b?.sortby_name ? 1 : -1,
@@ -117,7 +120,9 @@ export const ExhibitionListing = ({ post, i }) => {
 
   return (
     <Wrapper
-      color={post.event_program == 'pillowtalk' ? 'secondary' : 'primary'}
+      color={color}
+      bgColor={bgColor}
+      bgColorHover={bgColorHover}
       key={post._id}
       i={i}
     >

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
+//@ts-ignore
 import DuckSVG from './duck.svg'
 import NavLink from 'next/link'
 import styled, { x, css } from '@xstyled/styled-components'
@@ -29,11 +30,20 @@ interface WithSpanBGColor {
 
 const Column = styled.div<WithSpanBGColor>`
   ${({ theme, span, bgColor }) => css`
-    grid-column: span ${span};
+    grid-column: span 1;
     padding: 4;
     background-color: ${bgColor};
     position: relative;
     z-index: 10;
+    @media (min-width: sm) {
+      grid-column: span 2;
+    }
+    @media (min-width: md) {
+      grid-column: span 3;
+    }
+    @media (min-width: lg) {
+      grid-column: span ${span};
+    }
     &:after {
       content: '';
       position: absolute;
@@ -86,7 +96,7 @@ export default function Footer() {
       right={0}
       minHeight={160}
       display={'grid'}
-      gridTemplateColumns={10}
+      gridTemplateColumns={{ _: 3, sm: 6, md: 9, lg: 10 }}
       gap={'1px'}
       bg={'primary'}
       p={'1px'}

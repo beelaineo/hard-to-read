@@ -45,6 +45,7 @@ const personFields = `
   "title": name,
   sortby_name,
   "slug": slug.current,
+  "totalReferences": count(*[_type in ['event', 'post'] && references(^._id)]),
 `
 
 const themeFields = `
@@ -54,6 +55,7 @@ const themeFields = `
   _updatedAt,
   title,
   "slug": slug.current,
+  "totalReferences": count(*[_type in ['event', 'post'] && references(^._id)]),
 `
 
 const partnerFields = `
@@ -208,9 +210,9 @@ export const exhibitionSlugsQuery = `
 `
 
 export const peopleQuery = `
-*[_type == "person"] | order(sortby_name asc) {
+*[_type == "person"] {
   ${personFields}
-}`
+} | order(totalReferences desc, sortby_name asc)`
 
 export const personSlugsQuery = `
 *[_type == "person" && defined(slug.current)][].slug.current
