@@ -1,5 +1,5 @@
 import S from '@sanity/desk-tool/structure-builder'
-import { AiOutlineGlobal, AiOutlineHome } from 'react-icons/ai'
+import { AiOutlineGlobal, AiOutlineHome, AiOutlineAlert } from 'react-icons/ai'
 
 export default () =>
   S.list()
@@ -20,6 +20,14 @@ export default () =>
           S.document()
             .schemaType('home')
             .documentId('home')
+        ),
+      S.listItem()
+        .title('Pop-ups')
+        .icon(AiOutlineAlert)
+        .child(
+          S.document()
+            .schemaType('popups')
+            .documentId('popups')
         ),
       ...S.documentTypeListItems().filter(listItem => !['siteSettings','home'].includes(listItem.getId()))
     ])
