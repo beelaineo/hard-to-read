@@ -18,12 +18,20 @@ export const partner = {
       initialValue: 'default',
       options: {
         list: [
-          {title: 'Uncategorized', value: 'default'},
+          {title: 'Publishing', value: 'default'},
           {title: 'Sponsoring', value: 'sponsor'},
           {title: 'Fundraising', value: 'fundraiser'},
+          {title: 'Venue', value: 'venue'},
         ],
         layout: 'radio'
       }
+    },
+    {
+      title: 'Associated Places',
+      name: 'place',
+      type: 'array',
+      of: [{name: 'placeRef', type: 'reference', to: {type: 'place'}}],
+      hidden: ({document}) => document?.type != 'venue',
     },
     {
       title: 'Link (optional)',
