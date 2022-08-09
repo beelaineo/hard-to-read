@@ -1,5 +1,7 @@
 export * from './event'
 export * from './person'
+export * from './book'
+export * from './bookCollection'
 export * from './place'
 export * from './post'
 export * from './theme'

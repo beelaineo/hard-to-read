@@ -89,6 +89,12 @@ export const event = {
       type: 'url',
     },
     {
+      name: 'books',
+      title: 'Books and Collections',
+      type: 'array',
+      of: [{name: 'bookRef', type: 'reference', to: {type: 'book'}}, {name: 'collectionRef', type: 'reference', to: {type: 'bookCollection'}}],
+    },
+    {
       name: 'texts',
       title: 'Texts',
       type: 'array',

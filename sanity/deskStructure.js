@@ -29,5 +29,5 @@ export default () =>
             .schemaType('popups')
             .documentId('popups')
         ),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings','home'].includes(listItem.getId()))
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings','home','popups'].includes(listItem.getId()))
     ])
