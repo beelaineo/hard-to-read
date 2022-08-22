@@ -49,10 +49,14 @@ export const blockContent = {
                 type: 'reference',
                 title: 'Reference',
                 to: [
+                  { type: 'event' },
                   { type: 'post' },
                   { type: 'person' },
                   { type: 'place' },
                   { type: 'partner' },
+                  { type: 'book' },
+                  { type: 'bookCollection' },
+                  { type: 'theme' },
                 ]
               }
             ]
