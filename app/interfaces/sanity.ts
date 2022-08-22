@@ -349,6 +349,13 @@ export interface Book extends SanityDocument {
   authorRef?: Array<SanityKeyedReference<Person>>;
 
   /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
    * Link — `url`
    *
    *
@@ -391,6 +398,13 @@ export interface BookCollection extends SanityDocument {
    *
    */
   subtitle?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Place / Venue — `array`
@@ -509,6 +523,13 @@ export interface Partner extends SanityDocument {
    *
    */
   type?: "default" | "sponsor" | "fundraiser" | "venue";
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Associated Places — `array`
