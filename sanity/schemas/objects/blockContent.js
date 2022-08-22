@@ -71,5 +71,8 @@ export const blockContent = {
       type: 'image',
       options: {hotspot: true},
     },
+    {
+      type: 'youtube'
+    },
   ],
 }

@@ -6,7 +6,7 @@ import * as documents from './documents'
 import * as objects from './objects'
 
 const { event, person, place, post, book, bookCollection, theme, press, home, popups, partner } = documents
-const { blockContent, externalLink, textAttachment,pdfAttachment } = objects
+const { blockContent, externalLink, textAttachment,pdfAttachment, youtube } = objects
 
 export default createSchema({
   name: 'default',
@@ -27,5 +27,6 @@ export default createSchema({
     siteSettings,
     textAttachment,
     pdfAttachment,
+    youtube,
   ]),
 })

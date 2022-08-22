@@ -785,6 +785,7 @@ export type BlockContent = Array<
       crop?: SanityImageCrop;
       hotspot?: SanityImageHotspot;
     }>
+  | SanityKeyed<Youtube>
 >;
 
 export type ExternalLink = {
@@ -830,6 +831,16 @@ export type PdfAttachment = {
    *
    */
   title?: string;
+};
+
+export type Youtube = {
+  _type: "youtube";
+  /**
+   * YouTube video URL — `url`
+   *
+   *
+   */
+  url?: string;
 };
 
 export type Documents =
