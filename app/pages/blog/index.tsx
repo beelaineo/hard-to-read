@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { blogQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import * as React from 'react'
+import { x } from '@xstyled/styled-components'
 
 export default function Index({ allPosts, preview }) {
   return (
@@ -16,8 +17,18 @@ export default function Index({ allPosts, preview }) {
           <title>Blog</title>
         </Head>
         <Container>
-          {allPosts.map((post) => (
-            <Post key={post.slug} post={post} />
+          {allPosts.map((post, i) => (
+            <>
+              {i > 0 ? (
+                <x.hr
+                  my={12}
+                  h={'2px'}
+                  maxW={800}
+                  backgroundColor={'primary'}
+                />
+              ) : null}
+              <Post key={post.slug} post={post} />
+            </>
           ))}
         </Container>
       </Layout>

@@ -5,9 +5,10 @@ import YouTube from 'react-youtube'
 import { getImageDimensions } from '@sanity/asset-utils'
 import createImageUrlBuilder from '@sanity/image-url'
 import { sanityConfig } from '../lib/config'
-import styled, { x, css } from '@xstyled/styled-components'
+import styled, { x, css, th } from '@xstyled/styled-components'
 import Image from 'next/image'
 import Link from 'next/link'
+import { themeBySlugQuery } from '../lib/queries'
 
 const imageBuilder = createImageUrlBuilder(sanityConfig)
 
@@ -66,7 +67,7 @@ const serializers: PortableTextComponents = {
           : type
       return (
         <Link href={href}>
-          <x.a textDecoration={'underline'}>{children}</x.a>
+          <x.a display={'inline-block'}>{children}</x.a>
         </Link>
       )
     },
@@ -75,7 +76,7 @@ const serializers: PortableTextComponents = {
         ? '_blank'
         : undefined
       return (
-        <x.a href={value.href} target={target} textDecoration={'underline'}>
+        <x.a href={value.href} target={target}>
           {children}
         </x.a>
       )
@@ -115,10 +116,16 @@ const Wrapper = styled.div`
     }
     blockquote {
       margin: 4 6;
-      background-color: ${theme.colors.primary.replace('1.0', '0.1')};
+      background-color: ${theme.colors.primary10};
       padding: 6;
       font-style: italic;
       border-left: 4px solid ${theme.colors.primary};
+    }
+
+    a {
+      border-bottom: 2px;
+      border-style: solid;
+      border-color: primary;
     }
 
     img,

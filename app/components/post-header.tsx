@@ -8,7 +8,9 @@ export default function PostHeader({ title, date }) {
       <x.h1 mb={1} fontSize={'4xl'}>
         {title}
       </x.h1>
-      <x.p fontSize={'lg'}>{formattedDate}</x.p>
+      <x.p color={'primary'} fontSize={'lg'}>
+        {formattedDate}
+      </x.p>
     </x.header>
   )
 }

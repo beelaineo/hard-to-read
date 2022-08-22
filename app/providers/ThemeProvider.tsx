@@ -60,6 +60,7 @@ export const ThemeProvider = ({ children }: Props) => {
       ...defaultTheme.colors,
       primary: dyad[0],
       secondary: dyad[1],
+      primary10: dyad[0]?.replace('1.0', '0.1'),
     },
   }
   const siteBG = dyad[0]?.replace('1.0', '0.05')
