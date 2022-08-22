@@ -1,3 +1,4 @@
+import * as React from 'react'
 import Link from 'next/link'
 import { x } from '@xstyled/styled-components'
 import { useRouter } from 'next/router'
@@ -9,6 +10,8 @@ export default function Header() {
   const title =
     path == '/about' || path == '/'
       ? 'Hard'
+      : path.includes('/blog')
+      ? 'Blog'
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
 
   return (

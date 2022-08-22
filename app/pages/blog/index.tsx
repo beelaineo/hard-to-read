@@ -4,9 +4,9 @@ import Container from '../../components/container'
 import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
 import Image from 'next/image'
-import styles from '../../styles/Home.module.css'
 import { blogQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
+import * as React from 'react'
 
 export default function Index({ allPosts, preview }) {
   return (

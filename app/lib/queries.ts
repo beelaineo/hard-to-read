@@ -32,7 +32,16 @@ const postFields = `
   _updatedAt,
   publishedAt,
   title,
-  body,
+  body[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        "slug": @.reference->slug,
+        "type": @.reference->_type
+      }
+    }
+  },
   themes,
   "slug": slug.current,
 `

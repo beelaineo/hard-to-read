@@ -2,8 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Container from '../../components/container'
-import PostBody from '../../components/post-body'
-import PostHeader from '../../components/post-header'
+import BlogPost from '../../components/blog-post'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import { SITE_NAME } from '../../lib/constants'
@@ -11,6 +10,7 @@ import { postQuery, postSlugsQuery, siteQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import * as React from 'react'
 
 const Post = ({ data, preview }) => {
   const router = useRouter()
@@ -51,8 +51,7 @@ const Post = ({ data, preview }) => {
                 />
               )}
             </Head>
-            <PostHeader title={post.title} date={post.publishedAt} />
-            <PostBody content={post.body} />
+            <BlogPost post={post} />
           </article>
         ) : null}
       </Container>
