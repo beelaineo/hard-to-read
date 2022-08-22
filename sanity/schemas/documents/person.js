@@ -19,6 +19,7 @@ export const person = {
         source: 'name',
         maxLength: 120,
       },
+      validation: Rule => Rule.required(),
     },
     {
       name: 'sortby_name',

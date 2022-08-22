@@ -19,6 +19,7 @@ export const post = {
         source: 'title',
         maxLength: 96,
       },
+      validation: Rule => Rule.required(),
     },
     {
       name: 'themes',

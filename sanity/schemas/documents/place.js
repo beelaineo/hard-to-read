@@ -19,6 +19,7 @@ export const place = {
         source: 'name',
         maxLength: 160,
       },
+      validation: Rule => Rule.required(),
     },
     {
       name: 'address',

@@ -23,6 +23,7 @@ export const event = {
         source: 'title',
         maxLength: 120,
       },
+      validation: Rule => Rule.required(),
     },
     {
       name: 'date',

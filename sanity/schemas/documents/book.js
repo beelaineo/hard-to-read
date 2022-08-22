@@ -24,6 +24,16 @@ export const book = {
       of: [{name: 'personRef', type: 'reference', to: {type: 'person'}}]
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 120,
+      },
+      validation: Rule => Rule.required(),
+    },
+    {
       title: 'Link',
       name: 'link',
       type: 'url',

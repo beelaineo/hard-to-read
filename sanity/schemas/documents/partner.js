@@ -27,6 +27,16 @@ export const partner = {
       }
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 120,
+      },
+      validation: Rule => Rule.required(),
+    },
+    {
       title: 'Associated Places',
       name: 'place',
       type: 'array',

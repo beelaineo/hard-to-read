@@ -18,6 +18,16 @@ export const bookCollection = {
       type: 'string',
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 120,
+      },
+      validation: Rule => Rule.required(),
+    },
+    {
       title: 'Place / Venue',
       name: 'place',
       type: 'array',
