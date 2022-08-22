@@ -841,6 +841,13 @@ export type Youtube = {
    *
    */
   url?: string;
+
+  /**
+   * Start time (optional) — `number`
+   *
+   * in seconds
+   */
+  time?: number;
 };
 
 export type Documents =

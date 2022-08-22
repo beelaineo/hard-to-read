@@ -11,12 +11,18 @@ const Preview = ({value}) => {
 export const youtube = {
   name: 'youtube',
   type: 'object',
-  title: 'YouTube Embed',
+  title: 'YouTube',
   fields: [
     {
       name: 'url',
       type: 'url',
       title: 'YouTube video URL'
+    },
+    {
+      name: 'time',
+      type: 'number',
+      title: 'Start time (optional)',
+      description: 'in seconds'
     }
   ],
   preview: {
