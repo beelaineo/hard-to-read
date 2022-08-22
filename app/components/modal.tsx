@@ -11,12 +11,14 @@ interface WithPulseState {
   pulseState: boolean
   width: number
   height: number
+  zIndex: number
 }
 
 const Wrapper = styled.div<WithPulseState>`
-  ${({ pulseState, width, height }) => css`
+  ${({ pulseState, width, height, zIndex }) => css`
     width: ${width}px;
     min-height: ${height}px;
+    z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : 'gray-200'};
     border: 1px solid black;
     position: absolute;
@@ -30,7 +32,7 @@ const Wrapper = styled.div<WithPulseState>`
   `}
 `
 
-export default function Modal({ modal }) {
+export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const { removeModal, pulseModal } = useModal()
   const { id, type, content } = modal
 
@@ -38,6 +40,14 @@ export default function Modal({ modal }) {
   const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 })
   const [modalW, setModalW] = useState(270)
   const [modalH, setModalH] = useState(100)
+  const [zIndex, setZIndex] = useState(i)
+
+  useEffect(() => {
+    if (zFloor > count) {
+      setZIndex(zFloor + 1)
+      setZFloor(zFloor + 1)
+    }
+  }, [])
 
   useEffect(() => {
     setModalW(
@@ -77,6 +87,8 @@ export default function Modal({ modal }) {
 
   const handleStart = () => {
     setTimeout(() => setDragging(true), 50)
+    setZIndex(zFloor + 1)
+    setZFloor(zFloor + 1)
   }
 
   const handleDrag = (e, ui) => {
@@ -90,6 +102,7 @@ export default function Modal({ modal }) {
 
   const handleStop = () => {
     setTimeout(() => setDragging(false), 50)
+    console.log('zIndex:', zIndex)
   }
 
   const [pulseState, setPulseState] = useState(false)
@@ -108,7 +121,12 @@ export default function Modal({ modal }) {
       onStart={() => handleStart()}
       onStop={() => handleStop()}
     >
-      <Wrapper width={modalW} height={modalH} pulseState={pulseState}>
+      <Wrapper
+        width={modalW}
+        height={modalH}
+        pulseState={pulseState}
+        zIndex={zIndex}
+      >
         <x.button
           appearance={'none'}
           right={5}

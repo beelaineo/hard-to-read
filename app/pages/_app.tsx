@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { AppProps } from 'next/app'
 import { Providers } from '../providers/AllProviders'
 import styled from '@xstyled/styled-components'
