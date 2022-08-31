@@ -1,8 +1,5 @@
 import { x } from '@xstyled/styled-components'
 import * as React from 'react'
-import { urlForImage, usePreviewSubscription } from '../lib/sanity'
-import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
-const { useEffect, useState } = React
 
 export default function PressList({ pressDocs }) {
   return (
@@ -11,17 +8,51 @@ export default function PressList({ pressDocs }) {
         return (
           <x.div
             key={post._id}
-            display={'grid'}
-            gridTemplateColumns={'10'}
+            display={{ _: 'grid', sm: 'grid' }}
+            gridTemplateColumns={{ _: 8, sm: 6, md: 9, lg: 10 }}
+            columnGap={{ _: 2, sm: 8 }}
             my={4}
           >
-            <x.div gridColumn={'3 / 4'}>{post.date}</x.div>
-            <x.div gridColumn={'4 / 8'}>{post.title}</x.div>
-            <x.div gridColumn={'8 / 10'}>{post.publication}</x.div>
+            <x.div
+              gridColumn={{
+                _: 'span 2',
+                sm: 'span 1',
+                md: '2 / 4',
+                lg: '2 / 4',
+              }}
+              textAlign={{ _: 'left', md: 'right' }}
+            >
+              {post.date}
+            </x.div>
+            <x.div
+              gridColumn={{
+                _: 'span 3',
+                sm: 'span 3',
+                md: '4 / 7',
+                lg: '4 / 8',
+              }}
+            >
+              {post.title}
+            </x.div>
+            <x.div
+              gridColumn={{
+                _: 'span 2',
+                sm: 'span 1',
+                md: '7 / 9',
+                lg: '8 / 10',
+              }}
+            >
+              {post.publication}
+            </x.div>
             {post.link ? (
               <x.a
-                gridColumn={'span 1 / 11'}
-                px={5}
+                gridColumn={{
+                  _: 'span 1',
+                  sm: 'span 1',
+                  md: '9 / 10',
+                  lg: 'span 1 / 11',
+                }}
+                textAlign={'right'}
                 href={post.link}
                 target={'_blank'}
               >
@@ -29,8 +60,13 @@ export default function PressList({ pressDocs }) {
               </x.a>
             ) : post.clipping ? (
               <x.a
-                gridColumn={'span 1 / 11'}
-                px={5}
+                gridColumn={{
+                  _: 'span 1',
+                  sm: 'span 1',
+                  md: '9 / 10',
+                  lg: 'span 1 / 11',
+                }}
+                textAlign={'right'}
                 href={post.clipping.asset.url}
                 target={'_blank'}
               >

@@ -33,6 +33,11 @@ const PortableTextWrapper = styled.div`
   p {
     margin-bottom: 6;
   }
+  a {
+    border-bottom: 2px;
+    border-style: solid;
+    border-color: primary;
+  }
 `
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {

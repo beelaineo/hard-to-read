@@ -26,6 +26,10 @@ const PressToggleWrapper = styled.div`
 
 const PressWrapper = styled.div`
   grid-column: span 10;
+  a:hover {
+    text-decoration: underline;
+    color: primary;
+  }
 `
 
 const PortableTextWrapper = styled.div`

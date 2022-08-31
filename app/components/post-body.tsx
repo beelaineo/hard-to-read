@@ -48,21 +48,21 @@ const serializers: PortableTextComponents = {
     internalLink: ({ value, children }) => {
       const { slug = {}, type } = value
       const href =
-        type == 'book'
+        type == 'book' && slug?.current
           ? `/books/${slug.current}`
-          : type == 'bookCollection'
+          : type == 'bookCollection' && slug?.current
           ? `/collections/${slug.current}`
-          : type == 'event'
+          : type == 'event' && slug?.current
           ? `/events/${slug.current}`
-          : type == 'partner'
+          : type == 'partner' && slug?.current
           ? `/partners/${slug.current}`
-          : type == 'person'
+          : type == 'person' && slug?.current
           ? `/people/${slug.current}`
-          : type == 'place'
+          : type == 'place' && slug?.current
           ? `/places/${slug.current}`
-          : type == 'post'
+          : type == 'post' && slug?.current
           ? `/blog/${slug.current}`
-          : type == 'theme'
+          : type == 'theme' && slug?.current
           ? `/themes/${slug.current}`
           : type
       return (

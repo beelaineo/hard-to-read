@@ -104,11 +104,14 @@ export default function Footer() {
     >
       <Column span={3} bgColor={'primary'}>
         <x.nav display={'flex'} flexDirection={'column'}>
+          <NavLink href="/about">
+            <StyledLink active={pathName === '/about'}>About</StyledLink>
+          </NavLink>
           <NavLink href="/blog">
             <StyledLink active={pathName === '/blog'}>Blog</StyledLink>
           </NavLink>
-          <NavLink href="/about">
-            <StyledLink active={pathName === '/about'}>About</StyledLink>
+          <NavLink href="/partners">
+            <StyledLink active={pathName === '/partners'}>Partners</StyledLink>
           </NavLink>
           <NavLink href="/press">
             <StyledLink active={pathName === '/press'}>Press</StyledLink>
@@ -117,6 +120,9 @@ export default function Footer() {
       </Column>
       <Column span={4} bgColor={'primary'}>
         <x.nav display={'flex'} flexDirection={'column'}>
+          <NavLink href="/books">
+            <StyledLink active={pathName === '/books'}>Books</StyledLink>
+          </NavLink>
           <NavLink href="/events">
             <StyledLink active={pathName === '/events'}>Events</StyledLink>
           </NavLink>
@@ -130,9 +136,6 @@ export default function Footer() {
           </NavLink>
           <NavLink href="/themes">
             <StyledLink active={pathName === '/themes'}>Themes</StyledLink>
-          </NavLink>
-          <NavLink href="/partners">
-            <StyledLink active={pathName === '/partners'}>Partners</StyledLink>
           </NavLink>
         </x.nav>
       </Column>
