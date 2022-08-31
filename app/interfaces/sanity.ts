@@ -254,6 +254,13 @@ export interface Place extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * City/Place (optional) — `string`
+   *
+   *
+   */
+  city?: string;
+
+  /**
    * Address — `text`
    *
    *

@@ -22,6 +22,11 @@ export const place = {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'city',
+      title: 'City/Place (optional)',
+      type: 'string',
+    },
+    {
       name: 'address',
       title: 'Address',
       type: 'text',
