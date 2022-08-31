@@ -135,21 +135,16 @@ export const EventListing = ({ post }) => {
               color={
                 post.event_program == 'pillowtalk' ? 'secondary' : 'primary'
               }
-              fontSize={'lg'}
+              fontSize={'xs'}
+              letterSpacing={0.33}
               pt={2}
             >
               {namedPersons.join(', ')}
             </x.div>
           ) : null}
         </x.div>
-        <x.div gridColumn={'8 / 10'} px={5} fontSize={'lg'}>
-          {post.themes
-            ? post.themes
-                .map((t) => {
-                  return t.title
-                })
-                .join(', ')
-            : null}
+        <x.div gridColumn={'8 / 11'} px={5} fontSize={'lg'}>
+          {post.place ? post.place?.name : null}
         </x.div>
       </x.a>
     </Wrapper>

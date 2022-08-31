@@ -20,7 +20,7 @@ const eventFields = `
   images,
   videos,
   links,
-  place,
+  place->,
   themes[]->,
   persons[]->,
 `
