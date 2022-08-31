@@ -64,6 +64,7 @@ export const ThemeProvider = ({ children }: Props) => {
     },
   }
   const siteBG = dyad[0]?.replace('1.0', '0.05')
+  const selectBG = dyad[0]?.replace('1.0', '0.1')
 
   const GlobalStyle = createGlobalStyle`
     html {
@@ -73,6 +74,10 @@ export const ThemeProvider = ({ children }: Props) => {
       font-family: 'Times New Roman', Times, serif;
     }
 
+    *::selection {
+      background-color: ${selectBG};
+    }
+    
     html, body, div {
       -ms-overflow-style: none;
       scrollbar-width: none;

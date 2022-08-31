@@ -46,25 +46,6 @@ const Wrapper = styled.div<WithColor>`
   `}
 `
 
-// title,
-// date,
-// end_date,
-// start,
-// end,
-// timezone,
-// event_type,
-// event_program,
-// text,
-// action_label,
-// action_link,
-// texts,
-// images,
-// videos,
-// links,
-// place,
-// themes,
-// persons,
-
 export const EventListing = ({ post }) => {
   const [namedPersons, setNamedPersons] = useState<string[]>([])
   const { addModals } = useModal()
@@ -102,23 +83,23 @@ export const EventListing = ({ post }) => {
       >
         <x.div gridColumn={'1 / 4'} fontSize={'lg'}>
           {/* date (required), end_date, start, end, timezone */}
-          {diffDays < 8
+          {diffDays < 1
             ? format(date, 'eeee, MMMM d')
-            : diffYears < 1
-            ? format(date, 'MMMM d, yyyy')
             : format(date, 'MMMM yyyy')}
-          {diffYears < 1
+          {diffDays == 0
+            ? ' (today!)'
+            : diffDays > -90 && diffDays < 0
             ? ' (' + formatDistanceToNow(date, { addSuffix: true }) + ')'
             : null}
           <br />
-          {diffYears < 1 && post.start ? post.start : null}
-          {diffYears < 1 && post.start && post.end ? ' to ' + post.end : null}
-          {diffYears < 1 && post.start && post.timezone
+          {diffDays < 1 && post.start ? post.start : null}
+          {diffDays < 1 && post.start && post.end ? ' to ' + post.end : null}
+          {diffDays < 1 && post.start && post.timezone
             ? ' ' + post.timezone
             : null}
-          {diffYears < 1 && post.start && post.end && post.end_date
+          {diffDays < 1 && post.start && post.end && post.end_date
             ? ', ends ' + format(new Date(post.end_date), 'MMM d')
-            : post.end_date && diffDays < 8
+            : post.end_date && diffDays < 1
             ? 'ends ' + format(new Date(post.end_date), 'eeee, MMMM d')
             : null}
         </x.div>
