@@ -24,6 +24,12 @@ const Wrapper = styled.div<WithColor>`
     z-index: 0;
     margin: 0 -4;
     padding: 0 4;
+    span.htr {
+      color: primary;
+    }
+    span.pillowtalk {
+      color: secondary;
+    }
     &:hover {
       background-color: ${color};
       &:after {
@@ -60,6 +66,21 @@ export const EventListing = ({ post }) => {
 
   const diffYears = differenceInCalendarYears(now, date)
   const diffDays = differenceInDays(now, date)
+
+  const formatTitle = (title: string) => {
+    const regex = title.includes('Pillow Talk')
+      ? new RegExp('(Pillow Talk\\W|Pillow Talk)', 'ig')
+      : new RegExp('(Hard to Read KIDS:|Hard to Read\\W|Hard to Read)', 'ig')
+    const subst = `<span class='${
+      title.includes('Pillow Talk') ? 'pillowtalk' : 'htr'
+    }'>$1</span>`
+
+    // The substituted value will be contained in the result variable
+    const result = title.replace(regex, subst)
+    console.log('Substitution result: ', result)
+
+    return { __html: result }
+  }
 
   useEffect(() => {
     const sortedPersons = post.persons?.sort((a, b) =>
@@ -104,9 +125,11 @@ export const EventListing = ({ post }) => {
             : null}
         </x.div>
         <x.div gridColumn={'span 4'} px={2} color={'black'}>
-          <x.h2 fontSize={'2xl'} mb={0}>
-            <x.span>{post.title}</x.span>
-          </x.h2>
+          <x.h2
+            fontSize={'2xl'}
+            mb={0}
+            dangerouslySetInnerHTML={formatTitle(post.title)}
+          />
           {namedPersons?.length > 0 ? (
             <x.div
               color={
