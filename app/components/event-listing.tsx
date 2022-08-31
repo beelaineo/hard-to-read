@@ -144,7 +144,17 @@ export const EventListing = ({ post }) => {
           ) : null}
         </x.div>
         <x.div gridColumn={'8 / 11'} px={5} fontSize={'lg'}>
-          {post.place ? post.place?.name : null}
+          {post.place ? (
+            <>
+              {post.place?.name}
+              {post.place?.city ? (
+                <>
+                  <br />
+                  {post.place?.city}
+                </>
+              ) : null}
+            </>
+          ) : null}
         </x.div>
       </x.a>
     </Wrapper>
