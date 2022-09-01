@@ -75,6 +75,7 @@ const partnerFields = `
   title,
   type,
   "slug": slug.current,
+  link,
 `
 
 const pressFields = `

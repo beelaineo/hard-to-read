@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '../../components/layout'
@@ -17,6 +18,7 @@ const Partners = ({ partnerDocs, siteData, preview }) => {
   const partners = partnerDocs.filter((p) => p.type == 'default')
   const sponsors = partnerDocs.filter((p) => p.type == 'sponsor')
   const fundraisers = partnerDocs.filter((p) => p.type == 'fundraiser')
+  const venues = partnerDocs.filter((p) => p.type == 'venue')
 
   return (
     <>
@@ -24,33 +26,92 @@ const Partners = ({ partnerDocs, siteData, preview }) => {
         <Head>
           <title>Partners</title>
         </Head>
-        <x.div px={0} display={'grid'} gridTemplateColumns={'10'}>
+        <x.div
+          px={0}
+          display={'grid'}
+          gridTemplateColumns={'10'}
+          lineHeight={1.5}
+        >
           <x.div gridColumn={'span 3'}>
-            <h2>Publishers</h2>
+            <x.h2 color={'primary'}>Publishers</x.h2>
             {partners.map((post) => {
               return (
                 <x.div key={post._id}>
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
+                  {post.link ? (
+                    <x.a
+                      fontSize={'md'}
+                      ml={1}
+                      color={'primary'}
+                      target={'_blank'}
+                      href={post.link}
+                    >
+                      ↗
+                    </x.a>
+                  ) : null}
                 </x.div>
               )
             })}
           </x.div>
           <x.div gridColumn={'span 4'}>
-            <h2>Sponsors</h2>
-            {sponsors.map((post) => {
+            <x.h2 color={'primary'}>Venues</x.h2>
+            {venues.map((post) => {
               return (
                 <x.div key={post._id}>
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
+                  {post.link ? (
+                    <x.a
+                      fontSize={'md'}
+                      ml={1}
+                      color={'primary'}
+                      target={'_blank'}
+                      href={post.link}
+                    >
+                      ↗
+                    </x.a>
+                  ) : null}
                 </x.div>
               )
             })}
           </x.div>
           <x.div gridColumn={'span 3'}>
-            <h2>Fundraisers</h2>
+            <x.h2 color={'primary'}>Sponsors</x.h2>
+            {sponsors.map((post) => {
+              return (
+                <x.div key={post._id}>
+                  <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
+                  {post.link ? (
+                    <x.a
+                      fontSize={'md'}
+                      ml={1}
+                      color={'primary'}
+                      target={'_blank'}
+                      href={post.link}
+                    >
+                      ↗
+                    </x.a>
+                  ) : null}
+                </x.div>
+              )
+            })}
+            <x.h2 mt={4} color={'primary'}>
+              Fundraisers
+            </x.h2>
             {fundraisers.map((post) => {
               return (
                 <x.div key={post._id}>
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
+                  {post.link ? (
+                    <x.a
+                      fontSize={'md'}
+                      ml={1}
+                      color={'primary'}
+                      target={'_blank'}
+                      href={post.link}
+                    >
+                      ↗
+                    </x.a>
+                  ) : null}
                 </x.div>
               )
             })}
