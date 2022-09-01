@@ -34,6 +34,12 @@ const Wrapper = styled.div<WithColor>`
     align-items: center;
     justify-content: center;
     background-color: white;
+    span.htr {
+      color: primary;
+    }
+    span.pillowtalk {
+      color: secondary;
+    }
     a {
       position: relative;
       display: flex;
@@ -104,6 +110,21 @@ export const ExhibitionListing = ({ post, i }) => {
 
   const end = new Date(post.end_date)
 
+  const formatTitle = (title: string) => {
+    const regex = title.includes('Pillow Talk')
+      ? new RegExp('(Pillow Talk\\W|Pillow Talk)', 'ig')
+      : new RegExp('(Hard to Read KIDS:|Hard to Read\\W|Hard to Read)', 'ig')
+    const subst = `<span class='${
+      title.includes('Pillow Talk') ? 'pillowtalk' : 'htr'
+    }'>$1</span>`
+
+    // The substituted value will be contained in the result variable
+    const result = title.replace(regex, subst)
+    console.log('Substitution result: ', result)
+
+    return { __html: result }
+  }
+
   const color =
     useColor(
       post.event_program == 'pillowtalk' ? 'secondary' : 'primary',
@@ -143,7 +164,7 @@ export const ExhibitionListing = ({ post, i }) => {
         </x.div>
         <x.div px={2} color={'black'}>
           <x.h2 fontSize={'3xl'} mb={0}>
-            <x.span>{post.title}</x.span>
+            <x.span dangerouslySetInnerHTML={formatTitle(post.title)} />
           </x.h2>
           {namedPersons?.length > 0 ? (
             <x.div
