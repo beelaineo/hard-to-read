@@ -1,3 +1,4 @@
+import * as React from 'react'
 import Alert from '../components/alert'
 import Header from '../components/header'
 import Footer from '../components/footer'

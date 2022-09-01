@@ -122,6 +122,10 @@ const Wrapper = styled.div`
       border-left: 4px solid ${theme.colors.primary};
     }
 
+    strong {
+      color: primary;
+    }
+
     a {
       border-bottom: 2px;
       border-style: solid;

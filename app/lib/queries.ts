@@ -91,6 +91,36 @@ const pressFields = `
   }
 `
 
+const bookFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  "slug": slug.current,
+  author,
+  authorRef[]->,
+  link,
+  clipping {
+    asset->{url, metadata}
+  }
+`
+const bookCollectionFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  subtitle,
+  "slug": slug.current,
+  date,
+  display_date,
+  place[]->,
+  books[]-> {
+    ${bookFields}
+  }
+`
+
 const relatedDocs = `*[_type != 'home' && references(^._id)]{ title, _type, _id, slug }`
 
 export const siteQuery = `*[_id == "siteSettings"][0] {
@@ -264,4 +294,14 @@ export const partnerQuery = `
 export const pressQuery = `
 *[_type == "press"] | order(date desc) {
   ${pressFields}
+}`
+
+export const bookQuery = `
+*[_type == "book" && count(*[_type=="bookCollection" && references(^._id)]) == 0] | order(title asc) {
+  ${bookFields}
+}`
+
+export const bookCollectionQuery = `
+*[_type == "bookCollection"] | order(date desc) {
+  ${bookCollectionFields}
 }`
