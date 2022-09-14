@@ -5,14 +5,16 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
+        <Head />
+        <body>
           {/* Google tag (gtag.js - GA4) */}
           <Script
-            async
+            strategy="lazyOnload"
             src="https://www.googletagmanager.com/gtag/js?id=G-8FHF2D3337"
           />
           <Script
             id="gtag"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -20,8 +22,6 @@ export default class MyDocument extends Document {
               gtag('config', 'G-8FHF2D3337')`,
             }}
           />
-        </Head>
-        <body>
           <Main />
           <NextScript />
         </body>

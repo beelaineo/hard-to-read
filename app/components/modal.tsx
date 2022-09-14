@@ -4,6 +4,7 @@ import { useModal } from '../providers/ModalProvider'
 import { useViewportSize } from '../utils'
 import Draggable from 'react-draggable'
 import { ContentBlock } from './content-block'
+import { pageview } from '../lib/ga'
 
 const { useEffect, useState } = React
 
@@ -43,13 +44,17 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const [zIndex, setZIndex] = useState(i)
 
   useEffect(() => {
+    console.log('modal', modal)
+    const slug = content?.slug?.current || content?.slug
+    console.log(
+      'pageview url:',
+      `/modal/${slug ? type + '/' + slug : type + '/' + id}`,
+    )
+    pageview(`/modal/${slug ? type + '/' + slug : type + '/' + id}`)
     if (zFloor > count) {
       setZIndex(zFloor + 1)
       setZFloor(zFloor + 1)
     }
-  }, [])
-
-  useEffect(() => {
     setModalW(
       content._type == 'event'
         ? 480
