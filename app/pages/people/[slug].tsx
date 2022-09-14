@@ -15,6 +15,7 @@ import { x } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { Modal } from '../../interfaces'
 import { modalize } from '../../utils'
+import { NextSeo } from 'next-seo'
 
 const { useEffect } = React
 
@@ -37,11 +38,13 @@ const Person = ({ data, preview }) => {
 
   return (
     <Layout preview={preview}>
-      <Head>
-        <title>
-          {personDoc.title} | {SITE_NAME}
-        </title>
-      </Head>
+      <NextSeo
+        title={data.personDoc.title}
+        openGraph={{
+          url: `https://hardtoread.us/people/${data.personDoc.slug}`,
+          title: data.personDoc.title,
+        }}
+      />
     </Layout>
   )
 }

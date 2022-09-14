@@ -15,6 +15,7 @@ import { x } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { Modal } from '../../interfaces'
 import { modalize } from '../../utils'
+import { NextSeo } from 'next-seo'
 
 const { useEffect } = React
 
@@ -22,6 +23,23 @@ const Exhibition = ({ data, preview }) => {
   const router = useRouter()
   const slug = data?.eventDoc?.slug
   const { addModals } = useModal()
+
+  const defaults = { nonTextBehavior: 'remove' }
+
+  const blocksToText = (blocks, opts = {}) => {
+    const options = Object.assign({}, defaults, opts)
+    return blocks
+      .map((block) => {
+        if (block._type !== 'block' || !block.children) {
+          return options.nonTextBehavior === 'remove'
+            ? ''
+            : `[${block._type} block]`
+        }
+
+        return block.children.map((child) => child.text).join('')
+      })
+      .join('\n\n')
+  }
 
   const {
     data: { eventDoc, siteData },
@@ -37,11 +55,14 @@ const Exhibition = ({ data, preview }) => {
 
   return (
     <Layout preview={preview}>
-      <Head>
-        <title>
-          {eventDoc.title} | {SITE_NAME}
-        </title>
-      </Head>
+      <NextSeo
+        title={eventDoc.title}
+        openGraph={{
+          url: `https://hardtoread.us/exhibitions/${eventDoc.slug}`,
+          title: eventDoc.title,
+          description: blocksToText(eventDoc.text),
+        }}
+      />
     </Layout>
   )
 }

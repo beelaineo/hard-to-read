@@ -6,6 +6,7 @@ import { peopleQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { PersonListing } from '../../components/person-listing'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useState } = React
 
@@ -15,9 +16,13 @@ const People = ({ peopleDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>People</title>
-        </Head>
+        <NextSeo
+          title="People | Hard to Read"
+          openGraph={{
+            url: 'https://hardtoread.us/people',
+            title: 'People',
+          }}
+        />
         <x.div
           px={0}
           display={'grid'}
