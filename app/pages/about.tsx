@@ -41,42 +41,26 @@ const PortableTextWrapper = styled.div`
 `
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [siteData, pressDocs] = await Promise.all([
+  const [siteData] = await Promise.all([
     await getClient(preview).fetch(siteQuery),
-    overlayDrafts(await getClient(preview).fetch(pressQuery)),
   ])
   return {
-    props: { siteData, pressDocs, preview },
+    props: { siteData, preview },
   }
 }
 
-const About = ({ siteData, pressDocs, preview }) => {
-  const [pressOpen, setPressOpen] = useState(false)
-
-  const togglePress = () => {
-    setPressOpen(!pressOpen)
-  }
-
+const About = ({ siteData, preview }) => {
+  console.log('about', siteData)
   return (
     <>
       <Layout preview={preview}>
         <NextSeo
           title="About | Hard to Read"
-          description="This example uses more of the available config options."
+          description={siteData.description}
           openGraph={{
             url: 'https://hardtoread.us/about',
             title: 'About',
-            description: 'Open Graph Description',
-            images: [
-              {
-                url: 'https://www.example.ie/og-image-01.jpg',
-                width: 800,
-                height: 600,
-                alt: 'Og Image Alt',
-                type: 'image/jpeg',
-              },
-            ],
-            site_name: 'Hard to Read',
+            description: siteData.description,
           }}
         />
         <Grid>

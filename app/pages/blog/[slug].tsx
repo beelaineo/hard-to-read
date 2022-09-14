@@ -5,12 +5,12 @@ import Container from '../../components/container'
 import BlogPost from '../../components/blog-post'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
-import { SITE_NAME } from '../../lib/constants'
 import { postQuery, postSlugsQuery, siteQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import * as React from 'react'
+import { NextSeo } from 'next-seo'
 
 const Post = ({ data, preview }) => {
   const router = useRouter()
@@ -28,6 +28,8 @@ const Post = ({ data, preview }) => {
     return <ErrorPage statusCode={404} />
   }
 
+  console.log('blog post', post)
+
   return (
     <Layout preview={preview}>
       <Container>
@@ -35,22 +37,32 @@ const Post = ({ data, preview }) => {
           <PostTitle>Loading…</PostTitle>
         ) : post ? (
           <article>
-            <Head>
-              <title>
-                {post.title} | {SITE_NAME}
-              </title>
-              {post.coverImage && (
-                <meta
-                  key="ogImage"
-                  property="og:image"
-                  content={urlForImage(post.coverImage)
-                    .width(1200)
-                    .height(627)
-                    .fit('crop')
-                    .url()}
-                />
-              )}
-            </Head>
+            <NextSeo
+              title={`${post.title} | Hard to Read`}
+              description={siteData.description}
+              openGraph={{
+                url: `https://hardtoread.us/blog/${post.slug}`,
+                title: post.title,
+                description: siteData.description,
+                type: 'article',
+                article: {
+                  publishedTime: post.publishedAt,
+                  modifiedTime: post._updatedAt,
+                },
+                images: [
+                  {
+                    url: urlForImage(post.coverImage.url)
+                      .width(850)
+                      .height(650)
+                      .fit('crop')
+                      .url(),
+                    width: 850,
+                    height: 650,
+                    alt: post.title,
+                  },
+                ],
+              }}
+            />
             <BlogPost post={post} />
           </article>
         ) : null}

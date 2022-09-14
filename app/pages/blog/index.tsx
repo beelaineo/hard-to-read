@@ -8,14 +8,19 @@ import { blogQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import * as React from 'react'
 import { x } from '@xstyled/styled-components'
+import { NextSeo } from 'next-seo'
 
 export default function Index({ allPosts, preview }) {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Blog</title>
-        </Head>
+        <NextSeo
+          title="Blog | Hard to Read"
+          openGraph={{
+            url: 'https://hardtoread.us/blog',
+            title: 'Blog',
+          }}
+        />
         <Container>
           {allPosts.map((post, i) => (
             <>

@@ -32,6 +32,7 @@ const postFields = `
   _updatedAt,
   publishedAt,
   title,
+  "coverImage": body[_type == "image"][0].asset->,
   body[]{
     ...,
     markDefs[]{
@@ -301,6 +302,16 @@ export const bookQuery = `
 *[_type == "book" && count(*[_type=="bookCollection" && references(^._id)]) == 0] | order(title asc) {
   ${bookFields}
 }`
+
+export const bookSlugsQuery = `
+*[_type == "book" && defined(slug.current)][].slug.current
+`
+
+export const bookBySlugQuery = `
+*[_type == "book" && slug.current == $slug][0] {
+  ${bookFields}
+}
+`
 
 export const bookCollectionQuery = `
 *[_type == "bookCollection"] | order(date desc) {

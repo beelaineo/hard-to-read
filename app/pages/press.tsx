@@ -9,6 +9,7 @@ import { siteQuery, pressQuery } from '../lib/queries'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import { PortableText } from '@portabletext/react'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useState, useRef } = React
 
@@ -54,9 +55,15 @@ const Press = ({ siteData, pressDocs, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Press | Hard to Read</title>
-        </Head>
+        <NextSeo
+          title="Press | Hard to Read"
+          description={siteData.description}
+          openGraph={{
+            url: 'https://hardtoread.us/press',
+            title: 'Press',
+            description: siteData.description,
+          }}
+        />
         <Grid>
           <PressWrapper>
             <PressList pressDocs={pressDocs} />

@@ -12,6 +12,16 @@ export default function Header() {
       ? 'Hard'
       : path.includes('/blog')
       ? 'Blog'
+      : path.includes('/books')
+      ? 'Books'
+      : path.includes('/events')
+      ? 'Events'
+      : path.includes('/exhibitions')
+      ? 'Exhibitions'
+      : path.includes('/people')
+      ? 'People'
+      : path.includes('/themes')
+      ? 'Themes'
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
 
   return (

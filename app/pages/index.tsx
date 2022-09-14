@@ -12,6 +12,7 @@ import { indexQuery, siteQuery } from '../lib/queries'
 import { Home, Modal } from '../interfaces'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useRef } = React
 
@@ -54,9 +55,15 @@ const Index = ({ homeDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Hard to Read</title>
-        </Head>
+        <NextSeo
+          title="Hard to Read"
+          description={siteData.description}
+          openGraph={{
+            url: 'https://hardtoread.us/',
+            title: 'Home',
+            description: siteData.description,
+          }}
+        />
       </Layout>
     </>
   )

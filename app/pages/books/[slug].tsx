@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 import { SITE_NAME } from '../../lib/constants'
-import { themeSlugsQuery, themeBySlugQuery, siteQuery } from '../../lib/queries'
+import { bookSlugsQuery, bookBySlugQuery, siteQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -11,33 +11,42 @@ import { x } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { Modal } from '../../interfaces'
 import { modalize } from '../../utils'
+import { NextSeo } from 'next-seo'
 
 const { useEffect } = React
 
-const Theme = ({ data, preview }) => {
+const Book = ({ data, preview }) => {
   const router = useRouter()
-  const slug = data?.themeDoc?.slug
+  const slug = data?.bookDoc?.slug
   const { addModals } = useModal()
 
   const {
-    data: { themeDoc, siteData },
-  } = usePreviewSubscription(themeBySlugQuery, {
+    data: { bookDoc, siteData },
+  } = usePreviewSubscription(bookBySlugQuery, {
     params: { slug },
     initialData: data,
     enabled: preview && slug,
   })
 
   useEffect(() => {
-    addModals([modalize(data.themeDoc)])
+    addModals([modalize(data.bookDoc)])
   }, [])
 
   return (
     <Layout preview={preview}>
-      <Head>
-        <title>
-          {themeDoc.title} | {SITE_NAME}
-        </title>
-      </Head>
+      <NextSeo
+        title={`${bookDoc.title} | Hard to Read`}
+        description={siteData.description}
+        openGraph={{
+          url: `https://hardtoread.us/blog/${bookDoc.slug}`,
+          title: bookDoc.title,
+          type: 'book',
+          book: {
+            releaseDate: bookDoc.date,
+            authors: [bookDoc.author],
+          },
+        }}
+      />
     </Layout>
   )
 }
@@ -46,8 +55,8 @@ export const getStaticProps: GetStaticProps = async ({
   params,
   preview = false,
 }) => {
-  const [themeDoc, siteData] = await Promise.all([
-    await getClient(preview).fetch(themeBySlugQuery, {
+  const [bookDoc, siteData] = await Promise.all([
+    await getClient(preview).fetch(bookBySlugQuery, {
       slug: params?.slug,
     }),
     await getClient(preview).fetch(siteQuery),
@@ -57,7 +66,7 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       preview,
       data: {
-        themeDoc,
+        bookDoc,
         siteData,
       },
     },
@@ -65,11 +74,11 @@ export const getStaticProps: GetStaticProps = async ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await sanityClient.fetch(themeSlugsQuery)
+  const paths = await sanityClient.fetch(bookSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: false,
   }
 }
 
-export default Theme
+export default Book

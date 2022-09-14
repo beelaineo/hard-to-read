@@ -10,6 +10,7 @@ import { modalize } from '../../utils'
 import { ThemeListing } from '../../components/theme-listing'
 import { CollectionListing } from '../../components/collection-listing'
 import { BookListing } from '../../components/book-listing'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useState } = React
 
@@ -23,9 +24,13 @@ const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Books</title>
-        </Head>
+        <NextSeo
+          title="Books | Hard to Read"
+          openGraph={{
+            url: 'https://hardtoread.us/books',
+            title: 'Books',
+          }}
+        />
         <x.div px={0} fontSize={'lg'} mt={-50}>
           {bookCollectionDocs.map((post) => (
             <CollectionListing post={post} key={post._id} />
