@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Head from 'next/head'
 import Layout from '../components/layout'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { x, css } from '@xstyled/styled-components'
@@ -8,6 +7,7 @@ import { siteQuery, pressQuery } from '../lib/queries'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import { PortableText } from '@portabletext/react'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useState, useRef } = React
 
@@ -60,9 +60,25 @@ const About = ({ siteData, pressDocs, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>About | Hard to Read</title>
-        </Head>
+        <NextSeo
+          title="About | Hard to Read"
+          description="This example uses more of the available config options."
+          openGraph={{
+            url: 'https://hardtoread.us/about',
+            title: 'About',
+            description: 'Open Graph Description',
+            images: [
+              {
+                url: 'https://www.example.ie/og-image-01.jpg',
+                width: 800,
+                height: 600,
+                alt: 'Og Image Alt',
+                type: 'image/jpeg',
+              },
+            ],
+            site_name: 'Hard to Read',
+          }}
+        />
         <Grid>
           <PortableTextWrapper>
             <PortableText value={siteData.about} />

@@ -110,6 +110,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   useEffect(() => {
     if (pulseModal === id) {
       setPulseState(true)
+      setZIndex(zFloor + 1)
+      setZFloor(zFloor + 1)
     } else {
       setPulseState(false)
     }
