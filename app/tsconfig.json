@@ -12,9 +12,15 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "outDir": "./dist",
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -24,7 +30,11 @@
     "isolatedModules": true,
     "incremental": true
   },
-  "include": ["./*", ".*"],
+  "include": [
+    "./*",
+    ".*",
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules",
     "../node_modules",
