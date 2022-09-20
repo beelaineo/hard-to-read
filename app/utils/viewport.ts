@@ -22,7 +22,14 @@ export const useViewportSize = (args?: UseViewportArgs): ViewportSize => {
     setCurrentHeight(window.innerHeight)
   }
 
-  useEffect(updateWidth, [])
+  useEffect(() => {
+    function handleResize() {
+      updateWidth()
+    }
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const timeout = setTimeout(() => {

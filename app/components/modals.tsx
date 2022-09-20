@@ -11,7 +11,7 @@ export default function Modals() {
 
   return (
     <x.div
-      position={'fixed'}
+      position={{ _: 'static', sm: 'fixed' }}
       top={0}
       bottom={0}
       left={0}
