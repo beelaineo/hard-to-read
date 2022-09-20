@@ -6756,6 +6756,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hamburger-react@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "hamburger-react@npm:2.5.0"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18
+  checksum: 5c3835a1b271fd50f5fcc600d55d0dc296cb05c2eed5ec4bf6386c3da6f5b33a370f6ff5b81ebe97f29beb41cc37f5f5d4c5ff958507435e6561a15c8f7e3562
+  languageName: node
+  linkType: hard
+
 "har-schema@npm:^2.0.0":
   version: 2.0.0
   resolution: "har-schema@npm:2.0.0"
@@ -6824,6 +6833,7 @@ __metadata:
     graphql-cli: ^4.1.0
     graphql-request: ^3.7.0
     graphql-tag: ^2.12.6
+    hamburger-react: ^2.5.0
     hls.js: ^1.2.1
     husky: ^7.0.4
     jest: ^27.5.1

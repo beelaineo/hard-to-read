@@ -2,12 +2,15 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 //@ts-ignore
 import DuckSVG from './duck.svg'
+import { VscDebugRestart } from 'react-icons/vsc'
+import { Squeeze as Hamburger } from 'hamburger-react'
 import NavLink from 'next/link'
 import styled, { x, css } from '@xstyled/styled-components'
 import { useSiteData } from '../providers/SiteDataProvider'
 import { useModal } from '../providers/ModalProvider'
 import { modalize } from '../utils'
 import { DefaultContext } from 'react-icons'
+import { themeBySlugQuery } from '../lib/queries'
 const { useState, useEffect } = React
 
 interface WithActive {
@@ -35,8 +38,14 @@ const Column = styled.div<WithSpanBGColor>`
     background-color: ${bgColor};
     position: relative;
     z-index: 10;
+    #duckIcon {
+      display: none;
+    }
     @media (min-width: sm) {
       grid-column: span 2;
+      #duckIcon {
+        display: block;
+      }
     }
     @media (min-width: md) {
       grid-column: span 3;
@@ -78,6 +87,7 @@ export default function Footer() {
   const { modals, resetModals } = useModal()
   const pathName = router.pathname
 
+  const [isMenuOpen, setMenuOpen] = useState(false)
   const [pageFX, setPageFX] = useState<HTMLAudioElement | null>(null)
   useEffect(() => setPageFX(new Audio('/page.mp3')), [])
 
@@ -89,83 +99,120 @@ export default function Footer() {
   }
 
   return (
-    <x.footer
-      position={'fixed'}
-      bottom={0}
-      left={0}
-      right={0}
-      minHeight={160}
-      display={'grid'}
-      gridTemplateColumns={{ _: 3, sm: 6, md: 9, lg: 10 }}
-      gap={'1px'}
-      bg={'primary'}
-      p={'1px'}
-      fontSize={'lg'}
-    >
-      <Column span={3} bgColor={'primary'}>
-        <x.nav display={'flex'} flexDirection={'column'}>
-          <NavLink href="/about">
-            <StyledLink active={pathName === '/about'}>About</StyledLink>
-          </NavLink>
-          <NavLink href="/blog">
-            <StyledLink active={pathName === '/blog'}>Blog</StyledLink>
-          </NavLink>
-          <NavLink href="/partners">
-            <StyledLink active={pathName === '/partners'}>Partners</StyledLink>
-          </NavLink>
-          <NavLink href="/press">
-            <StyledLink active={pathName === '/press'}>Press</StyledLink>
-          </NavLink>
-        </x.nav>
-      </Column>
-      <Column span={4} bgColor={'primary'}>
-        <x.nav display={'flex'} flexDirection={'column'}>
-          <NavLink href="/books">
-            <StyledLink active={pathName === '/books'}>Books</StyledLink>
-          </NavLink>
-          <NavLink href="/events">
-            <StyledLink active={pathName === '/events'}>Events</StyledLink>
-          </NavLink>
-          <NavLink href="/exhibitions">
-            <StyledLink active={pathName === '/exhibitions'}>
-              Exhibitions
-            </StyledLink>
-          </NavLink>
-          <NavLink href="/people">
-            <StyledLink active={pathName === '/people'}>People</StyledLink>
-          </NavLink>
-          <NavLink href="/themes">
-            <StyledLink active={pathName === '/themes'}>Themes</StyledLink>
-          </NavLink>
-        </x.nav>
-      </Column>
-      <Column span={3} bgColor={'primary'}>
-        {socials && socials.length > 0 ? (
+    <>
+      <x.footer
+        position={'fixed'}
+        bottom={0}
+        top={{ _: 0, sm: 'unset' }}
+        m={{ _: 4, sm: 0 }}
+        mt={14}
+        mb={16}
+        left={0}
+        right={0}
+        minHeight={160}
+        display={{ _: isMenuOpen ? 'grid' : 'none', sm: 'grid' }}
+        gridTemplateColumns={{ _: 1, sm: 6, md: 9, lg: 10 }}
+        gap={'1px'}
+        bg={'primary'}
+        p={'1px'}
+        fontSize={{ _: '2xl', sm: 'lg' }}
+        zIndex={{ _: 99, sm: 'inherit' }}
+      >
+        <Column span={3} bgColor={'primary'}>
           <x.nav display={'flex'} flexDirection={'column'}>
-            {socials.map((s) => {
-              return (
-                <x.a
-                  textDecoration={{ _: 'none', hover: 'underline' }}
-                  key={s._key}
-                  href={s.url}
-                  target={'_blank'}
-                >
-                  {s.title}
-                </x.a>
-              )
-            })}
+            <NavLink href="/about">
+              <StyledLink active={pathName === '/about'}>About</StyledLink>
+            </NavLink>
+            <NavLink href="/blog">
+              <StyledLink active={pathName === '/blog'}>Blog</StyledLink>
+            </NavLink>
+            <NavLink href="/partners">
+              <StyledLink active={pathName === '/partners'}>
+                Partners
+              </StyledLink>
+            </NavLink>
+            <NavLink href="/press">
+              <StyledLink active={pathName === '/press'}>Press</StyledLink>
+            </NavLink>
           </x.nav>
-        ) : null}
-        <x.div
-          position={'absolute'}
-          right={24}
-          bottom={16}
-          cursor={'pointer'}
-          zIndex={12}
-        >
-          <DuckSVG width={140} onClick={() => handleQuack()} />
-        </x.div>
-      </Column>
-    </x.footer>
+        </Column>
+        <Column span={4} bgColor={'primary'}>
+          <x.nav display={'flex'} flexDirection={'column'}>
+            <NavLink href="/books">
+              <StyledLink active={pathName === '/books'}>Books</StyledLink>
+            </NavLink>
+            <NavLink href="/events">
+              <StyledLink active={pathName === '/events'}>Events</StyledLink>
+            </NavLink>
+            <NavLink href="/exhibitions">
+              <StyledLink active={pathName === '/exhibitions'}>
+                Exhibitions
+              </StyledLink>
+            </NavLink>
+            <NavLink href="/people">
+              <StyledLink active={pathName === '/people'}>People</StyledLink>
+            </NavLink>
+            <NavLink href="/themes">
+              <StyledLink active={pathName === '/themes'}>Themes</StyledLink>
+            </NavLink>
+          </x.nav>
+        </Column>
+        <Column span={3} bgColor={'primary'}>
+          {socials && socials.length > 0 ? (
+            <x.nav display={'flex'} flexDirection={'column'}>
+              {socials.map((s) => {
+                return (
+                  <x.a
+                    textDecoration={{ _: 'none', hover: 'underline' }}
+                    key={s._key}
+                    href={s.url}
+                    target={'_blank'}
+                  >
+                    {s.title}
+                  </x.a>
+                )
+              })}
+            </x.nav>
+          ) : null}
+          <x.div
+            position={'absolute'}
+            right={24}
+            bottom={16}
+            cursor={'pointer'}
+            zIndex={12}
+          >
+            <DuckSVG width={140} id="duckIcon" onClick={() => handleQuack()} />
+          </x.div>
+        </Column>
+      </x.footer>
+      <x.div
+        position={'fixed'}
+        display={{ _: 'block', sm: 'none' }}
+        left={12}
+        bottom={12}
+        cursor={'pointer'}
+        zIndex={12}
+        color={'primary'}
+      >
+        <Hamburger
+          size={40}
+          toggled={isMenuOpen}
+          toggle={setMenuOpen}
+          label="Show menu"
+        />
+      </x.div>
+      <x.div
+        position={'fixed'}
+        display={{ _: 'block', sm: 'none' }}
+        right={12}
+        bottom={14}
+        cursor={'pointer'}
+        zIndex={12}
+        fontSize={40}
+        color={'primary'}
+      >
+        <VscDebugRestart id="resetIcon" onClick={() => handleQuack()} />
+      </x.div>
+    </>
   )
 }
