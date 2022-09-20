@@ -13,16 +13,18 @@ interface WithPulseState {
   width: number
   height: number
   zIndex: number
+  isMobile?: boolean
 }
 
 const Wrapper = styled.div<WithPulseState>`
-  ${({ pulseState, width, height, zIndex }) => css`
-    width: ${width}px;
+  ${({ pulseState, width, height, zIndex, isMobile }) => css`
+    width: ${isMobile ? 'auto' : width + 'px'};
     min-height: ${height}px;
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : 'gray-200'};
     border: 1px solid black;
-    position: absolute;
+    margin: ${isMobile ? 4 : 0};
+    position: ${isMobile ? 'static' : 'absolute'};
     pointer-events: all;
     cursor: grab;
 
@@ -122,12 +124,36 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
     }
   }, [pulseModal])
 
-  return (
+  return width < 640 ? (
+    <Wrapper
+      width={modalW}
+      height={modalH}
+      pulseState={pulseState}
+      zIndex={zIndex}
+      isMobile={true}
+    >
+      <x.button
+        appearance={'none'}
+        right={5}
+        top={5}
+        position={'absolute'}
+        bg={'transparent'}
+        zIndex={2}
+        onClick={() => handleCloseClick(modal)}
+      >
+        x
+      </x.button>
+      <ContentBlock
+        content={modal.content}
+        deltaPosition={deltaPosition}
+        isDragging={isDragging}
+      />
+    </Wrapper>
+  ) : (
     <Draggable
       defaultPosition={{ x: origin.x, y: origin.y }}
       onStart={() => handleStart()}
       onStop={() => handleStop()}
-      disabled={width < 640}
     >
       <Wrapper
         width={modalW}
