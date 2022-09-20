@@ -1,6 +1,5 @@
 import * as React from 'react'
 import type { GetStaticProps } from 'next'
-import Head from 'next/head'
 import Layout from '../../components/layout'
 import { themeQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
@@ -8,6 +7,7 @@ import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { modalize } from '../../utils'
 import { ThemeListing } from '../../components/theme-listing'
+import { NextSeo } from 'next-seo'
 
 const { useEffect, useState } = React
 
@@ -24,9 +24,13 @@ const Themes = ({ themeDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Themes</title>
-        </Head>
+        <NextSeo
+          title="Themes | Hard to Read"
+          openGraph={{
+            url: 'https://hardtoread.us/themes',
+            title: 'Themes',
+          }}
+        />
         <x.div
           px={0}
           display={'grid'}

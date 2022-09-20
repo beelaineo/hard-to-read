@@ -39,7 +39,7 @@ const Person = ({ data, preview }) => {
   return (
     <Layout preview={preview}>
       <NextSeo
-        title={data.personDoc.title}
+        title={`${data.personDoc.title} | Hard to Read`}
         openGraph={{
           url: `https://hardtoread.us/people/${data.personDoc.slug}`,
           title: data.personDoc.title,

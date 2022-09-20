@@ -56,7 +56,7 @@ const Exhibition = ({ data, preview }) => {
   return (
     <Layout preview={preview}>
       <NextSeo
-        title={eventDoc.title}
+        title={`${eventDoc.title} | Hard to Read`}
         openGraph={{
           url: `https://hardtoread.us/exhibitions/${eventDoc.slug}`,
           title: eventDoc.title,

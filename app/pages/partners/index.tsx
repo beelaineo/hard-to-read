@@ -7,6 +7,7 @@ import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { modalize } from '../../utils'
+import { NextSeo } from 'next-seo'
 
 const Partners = ({ partnerDocs, siteData, preview }) => {
   const { addModals } = useModal()
@@ -23,9 +24,13 @@ const Partners = ({ partnerDocs, siteData, preview }) => {
   return (
     <>
       <Layout preview={preview}>
-        <Head>
-          <title>Partners</title>
-        </Head>
+        <NextSeo
+          title="Partners | Hard to Read"
+          openGraph={{
+            url: 'https://hardtoread.us/partners',
+            title: 'Partners',
+          }}
+        />
         <x.div
           px={0}
           display={'grid'}
