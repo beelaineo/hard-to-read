@@ -23,11 +23,11 @@ const Wrapper = styled.div<WithLoaded>`
     background-color: primary20;
     padding: 6;
     p {
-      color: ${loaded ? 'black' : 'primary10'};
+      color: ${loaded ? 'black' : 'primary0'};
       transition: color 10s ease-in-out;
     }
     a.permalink {
-      color: ${loaded ? 'primary' : 'primary10'};
+      color: ${loaded ? 'primary' : 'primary0'};
       transition: color 10s ease-in-out;
     }
     p a {

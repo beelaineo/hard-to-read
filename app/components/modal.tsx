@@ -20,6 +20,8 @@ const Wrapper = styled.div<WithPulseState>`
   ${({ pulseState, width, height, zIndex, isMobile }) => css`
     width: ${isMobile ? 'auto' : width + 'px'};
     min-height: ${height}px;
+    max-height: ${isMobile ? 'unset' : '100vh'};
+    overflow-y: scroll;
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : 'gray-200'};
     border: 1px solid;

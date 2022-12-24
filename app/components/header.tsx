@@ -25,7 +25,15 @@ export default function Header() {
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
 
   return (
-    <x.header position={'fixed'} left={0} right={0} top={0} m={4} zIndex={10}>
+    <x.header
+      position={'fixed'}
+      left={0}
+      right={0}
+      top={0}
+      m={4}
+      zIndex={10}
+      pointerEvents={'none'}
+    >
       <x.h1
         display={'grid'}
         gridTemplateColumns={{ _: 3, sm: 6, md: 9, lg: 10 }}
@@ -34,7 +42,7 @@ export default function Header() {
       >
         <x.div gridColumn={{ _: 'span 1', sm: 'span 2', md: 'span 3' }}>
           <Link href="/">
-            <x.a>{title}</x.a>
+            <x.a pointerEvents={'all'}>{title}</x.a>
           </Link>
         </x.div>
         <x.div
@@ -46,12 +54,12 @@ export default function Header() {
           }}
         >
           <Link href="/">
-            <x.a>to</x.a>
+            <x.a pointerEvents={'all'}>to</x.a>
           </Link>
         </x.div>
         <x.div gridColumn={{ _: 'span 1', sm: 'span 2', md: 'span 3' }}>
           <Link href="/">
-            <x.a>Read</x.a>
+            <x.a pointerEvents={'all'}>Read</x.a>
           </Link>
         </x.div>
       </x.h1>

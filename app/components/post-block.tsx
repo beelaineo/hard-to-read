@@ -8,15 +8,32 @@ import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
 
-const Wrapper = styled.div`
-  height: auto;
-  min-height: 240px;
-  position: relative;
-  width: 100%;
-  display: block;
-  position: relative;
-  background-color: primary20;
-  padding: 6;
+interface WithLoaded {
+  loaded: boolean
+}
+
+const Wrapper = styled.div<WithLoaded>`
+  ${({ loaded }) => css`
+    height: auto;
+    min-height: 240px;
+    position: relative;
+    width: 100%;
+    display: block;
+    position: relative;
+    background-color: primary20;
+    padding: 6;
+    p {
+      color: ${loaded ? 'black' : 'primary0'};
+      transition: color 10s ease-in-out;
+    }
+    a.permalink {
+      color: ${loaded ? 'primary' : 'primary0'};
+      transition: color 10s ease-in-out;
+    }
+    p a {
+      color: secondary;
+    }
+  `}
 `
 
 const TextWrapper = styled.div`
@@ -42,6 +59,14 @@ export const PostBlock = ({ content }: PostBlockProps) => {
   } = content
   const { addModals } = useModal()
   const curClient = getClient(false)
+
+  const [loaded, setLoaded] = React.useState(false)
+
+  React.useEffect(() => {
+    setTimeout(function () {
+      setLoaded(true)
+    }, 3000)
+  }, [])
 
   const ptComponents: PortableTextComponents = {
     marks: {
@@ -69,9 +94,9 @@ export const PostBlock = ({ content }: PostBlockProps) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper loaded={loaded}>
       <h2>{title}</h2>
-      <div>{postBlockDate(publishedAt)}</div>
+      <p>{postBlockDate(publishedAt)}</p>
       <TextWrapper>
         {body ? (
           <PortableText value={body[0]} components={ptComponents} />
@@ -84,7 +109,7 @@ export const PostBlock = ({ content }: PostBlockProps) => {
           textDecoration={'underline'}
           color={'primary'}
         >
-          Read more
+          Read more...
         </x.a>
       </Link>
     </Wrapper>

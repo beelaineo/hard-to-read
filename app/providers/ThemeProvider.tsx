@@ -60,6 +60,7 @@ export const ThemeProvider = ({ children }: Props) => {
       ...defaultTheme.colors,
       primary: dyad[0],
       secondary: dyad[1],
+      primary0: dyad[0]?.replace('1.0', '0'),
       primary10: dyad[0]?.replace('1.0', '0.1'),
       primary20: dyad[0]?.replace('1.0', '0.2'),
       primary30: dyad[0]?.replace('1.0', '0.3'),
@@ -108,7 +109,13 @@ export const ThemeProvider = ({ children }: Props) => {
 
     h1, h2, h3, h4, h5, h6 {
       margin-bottom: 1rem;
+      line-height: 1.1;
     }
+
+    p {
+      line-height: 1.33;
+    }
+
     header a:hover {
       border-bottom: 2px solid ${dyad[0]};
     }

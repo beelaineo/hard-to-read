@@ -12,7 +12,7 @@ export default function Layout({ preview, children }) {
       <x.div className="min-h-screen">
         <Alert preview={preview} />
         <Header />
-        <x.main px={4} pt={{ _: 0, sm: 100 }} pb={{ _: 16, sm: 200 }}>
+        <x.main px={4} pt={{ _: 16, sm: 100 }} pb={{ _: 16, sm: 200 }}>
           {children}
         </x.main>
         <Footer />

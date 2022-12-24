@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Layout from '../../components/layout'
-import { themeQuery, siteQuery } from '../../lib/queries'
+import { themeQuery, siteQuery, themePopupsQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
@@ -11,8 +11,14 @@ import { NextSeo } from 'next-seo'
 
 const { useEffect, useState } = React
 
-const Themes = ({ themeDocs, siteData, preview }) => {
+const Themes = ({ themeDocs, siteData, popups, preview }) => {
   const { addModals } = useModal()
+
+  useEffect(() => {
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+  }, [])
 
   const handleItemClick = (theme) => {
     addModals([modalize(theme)])
@@ -50,12 +56,13 @@ const Themes = ({ themeDocs, siteData, preview }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [themeDocs, siteData] = await Promise.all([
+  const [themeDocs, siteData, popups] = await Promise.all([
     overlayDrafts(await getClient(preview).fetch(themeQuery)),
     await getClient(preview).fetch(siteQuery),
+    await getClient(preview).fetch(themePopupsQuery),
   ])
   return {
-    props: { themeDocs, siteData, preview },
+    props: { themeDocs, siteData, popups, preview },
   }
 }
 

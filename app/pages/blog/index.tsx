@@ -4,13 +4,25 @@ import Container from '../../components/container'
 import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
 import Image from 'next/image'
-import { blogQuery, siteQuery } from '../../lib/queries'
+import { blogQuery, siteQuery, blogPopupsQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import * as React from 'react'
 import { x } from '@xstyled/styled-components'
 import { NextSeo } from 'next-seo'
+import { definitely, modalize } from '../../utils'
+import { useModal } from '../../providers/ModalProvider'
 
-export default function Index({ allPosts, preview }) {
+const { useEffect } = React
+
+export default function Index({ allPosts, popups, preview }) {
+  const { addModals } = useModal()
+
+  useEffect(() => {
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+  }, [])
+
   return (
     <>
       <Layout preview={preview}>
@@ -42,11 +54,12 @@ export default function Index({ allPosts, preview }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [allPosts, siteData] = await Promise.all([
+  const [allPosts, popups, siteData] = await Promise.all([
     overlayDrafts(await getClient(preview).fetch(blogQuery)),
+    await getClient(preview).fetch(blogPopupsQuery),
     await getClient(preview).fetch(siteQuery),
   ])
   return {
-    props: { allPosts, siteData, preview },
+    props: { allPosts, popups, siteData, preview },
   }
 }

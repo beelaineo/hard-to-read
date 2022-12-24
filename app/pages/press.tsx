@@ -5,7 +5,7 @@ import PressList from '../components/press-list'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { x, css } from '@xstyled/styled-components'
 import { definitely, modalize } from '../utils'
-import { siteQuery, pressQuery } from '../lib/queries'
+import { siteQuery, pressQuery, pressPopupsQuery } from '../lib/queries'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import { PortableText } from '@portabletext/react'
@@ -42,16 +42,25 @@ const PortableTextWrapper = styled.div`
 `
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [siteData, pressDocs] = await Promise.all([
+  const [siteData, pressDocs, popups] = await Promise.all([
     await getClient(preview).fetch(siteQuery),
     overlayDrafts(await getClient(preview).fetch(pressQuery)),
+    await getClient(preview).fetch(pressPopupsQuery),
   ])
   return {
-    props: { siteData, pressDocs, preview },
+    props: { siteData, pressDocs, popups, preview },
   }
 }
 
-const Press = ({ siteData, pressDocs, preview }) => {
+const Press = ({ siteData, pressDocs, popups, preview }) => {
+  const { addModals } = useModal()
+
+  useEffect(() => {
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+  }, [])
+
   return (
     <>
       <Layout preview={preview}>

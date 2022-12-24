@@ -9,6 +9,8 @@ import Modals from '../components/modals'
 
 const Main = styled.div`
   transition: background-color 0.3s;
+  display: flex;
+  flex-direction: column;
 `
 
 function MyApp({ Component, pageProps, pageProps: allPageProps }: AppProps) {
@@ -26,8 +28,8 @@ function MyApp({ Component, pageProps, pageProps: allPageProps }: AppProps) {
       <DefaultSeo {...SEO} />
       <Main>
         <Component {...pageProps} />
+        <Modals />
       </Main>
-      <Modals />
     </Providers>
   )
 }

@@ -17,6 +17,8 @@ export default function Modals() {
       left={0}
       right={0}
       pointerEvents={'none'}
+      order={{ _: -1, sm: 0 }}
+      pt={{ _: 16, sm: 0 }}
     >
       {modals.map((modal, i) => (
         <Modal

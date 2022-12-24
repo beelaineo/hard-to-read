@@ -210,6 +210,10 @@ export const blogQuery = `
   ${postFields}
 }`
 
+export const blogPopupsQuery = `
+*[_type == "popups"][0].blog[]->
+`
+
 export const postSlugsQuery = `
 *[_type == "post" && defined(slug.current)][].slug.current
 `
@@ -235,6 +239,10 @@ export const eventSlugsQuery = `
 *[_type == "event" && event_type != "exhibition" && defined(slug.current)][].slug.current
 `
 
+export const eventPopupsQuery = `
+*[_type == "popups"][0].events[]->
+`
+
 export const exhibitionQuery = `
 *[_type == "event" && event_type == "exhibition" ] | order(date desc, _updatedAt desc) {
   ${eventFields}
@@ -254,6 +262,10 @@ export const peopleQuery = `
 *[_type == "person"] {
   ${personFields}
 } | order(totalReferences desc, sortby_name asc)`
+
+export const peoplePopupsQuery = `
+*[_type == "popups"][0].people[]->
+`
 
 export const personSlugsQuery = `
 *[_type == "person" && defined(slug.current)][].slug.current
@@ -278,6 +290,10 @@ export const themeQuery = `
   ${themeFields}
 }`
 
+export const themePopupsQuery = `
+*[_type == "popups"][0].themes[]->
+`
+
 export const themeSlugsQuery = `
 *[_type == "theme" && defined(slug.current)][].slug.current
 `
@@ -297,6 +313,10 @@ export const pressQuery = `
 *[_type == "press"] | order(date desc) {
   ${pressFields}
 }`
+
+export const pressPopupsQuery = `
+*[_type == "popups"][0].press[]->
+`
 
 export const bookQuery = `
 *[_type == "book" && count(*[_type=="bookCollection" && references(^._id)]) == 0] | order(title asc) {

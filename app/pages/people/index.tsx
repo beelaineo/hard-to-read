@@ -2,15 +2,25 @@ import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '../../components/layout'
-import { peopleQuery, siteQuery } from '../../lib/queries'
+import { peoplePopupsQuery, peopleQuery, siteQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { PersonListing } from '../../components/person-listing'
 import { NextSeo } from 'next-seo'
+import { definitely, modalize } from '../../utils'
+import { useModal } from '../../providers/ModalProvider'
 
 const { useEffect, useState } = React
 
-const People = ({ peopleDocs, siteData, preview }) => {
+const People = ({ peopleDocs, siteData, popups, preview }) => {
+  const { addModals } = useModal()
+
+  useEffect(() => {
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+  }, [])
+
   return (
     <>
       <Layout preview={preview}>
@@ -38,12 +48,13 @@ const People = ({ peopleDocs, siteData, preview }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [peopleDocs, siteData] = await Promise.all([
+  const [peopleDocs, popups, siteData] = await Promise.all([
     overlayDrafts(await getClient(preview).fetch(peopleQuery)),
+    await getClient(preview).fetch(peoplePopupsQuery),
     await getClient(preview).fetch(siteQuery),
   ])
   return {
-    props: { peopleDocs, siteData, preview },
+    props: { peopleDocs, siteData, popups, preview },
   }
 }
 
