@@ -28,8 +28,6 @@ const Post = ({ data, preview }) => {
     return <ErrorPage statusCode={404} />
   }
 
-  console.log('blog post', post)
-
   return (
     <Layout preview={preview}>
       <Container>

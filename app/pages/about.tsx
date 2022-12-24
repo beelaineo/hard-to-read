@@ -50,7 +50,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
 }
 
 const About = ({ siteData, preview }) => {
-  console.log('about', siteData)
   return (
     <>
       <Layout preview={preview}>

@@ -13,6 +13,7 @@ import {
 import { EventBlock } from './event-block'
 import { ImageBlock } from './image-block'
 import { VideoBlock } from './video-block'
+import { PostBlock } from './post-block'
 
 type DeltaPosition = {
   x: number
@@ -49,12 +50,7 @@ export const ContentBlock = React.forwardRef(
           </div>
         )
       case 'post':
-        // return <PostBlock content={content} ref={ref}/>
-        return (
-          <div>
-            {content._type} - {content.title}
-          </div>
-        )
+        return <PostBlock content={content} />
       case 'place':
         // return <PlaceBlock content={content} ref={ref} />
         return (

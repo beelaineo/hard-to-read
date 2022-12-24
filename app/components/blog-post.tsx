@@ -9,7 +9,6 @@ import styled, { x, css } from '@xstyled/styled-components'
 import Link from 'next/link'
 
 export default function Post({ post }) {
-  console.log(post)
   return (
     <x.article maxW={800} my={4}>
       <PostHeader

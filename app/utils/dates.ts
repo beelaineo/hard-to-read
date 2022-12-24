@@ -30,3 +30,9 @@ export const eventBlockDate = (inputDate: string | undefined): string => {
   // return new Intl.DateTimeFormat('en-US').format(inputDate)
   return inputDate
 }
+
+export const postBlockDate = (inputDate: string | undefined): string => {
+  if (!inputDate) return 'missing date'
+  const date = new Date(inputDate)
+  return new Intl.DateTimeFormat('en-US').format(date)
+}

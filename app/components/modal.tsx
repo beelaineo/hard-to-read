@@ -22,7 +22,8 @@ const Wrapper = styled.div<WithPulseState>`
     min-height: ${height}px;
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : 'gray-200'};
-    border: 1px solid black;
+    border: 1px solid;
+    border-color: primary;
     margin: ${isMobile ? 4 : 0};
     position: ${isMobile ? 'static' : 'absolute'};
     pointer-events: all;
@@ -46,19 +47,14 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const [zIndex, setZIndex] = useState(i)
 
   useEffect(() => {
-    console.log('modal', modal)
     const slug = content?.slug?.current || content?.slug
-    console.log(
-      'pageview url:',
-      `/modal/${slug ? type + '/' + slug : type + '/' + id}`,
-    )
     pageview(`/modal/${slug ? type + '/' + slug : type + '/' + id}`)
     if (zFloor > count) {
       setZIndex(zFloor + 1)
       setZFloor(zFloor + 1)
     }
     setModalW(
-      content._type == 'event'
+      content._type == 'event' || content._type == 'post'
         ? 480
         : content._type == 'image'
         ? 480
@@ -109,7 +105,6 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
 
   const handleStop = () => {
     setTimeout(() => setDragging(false), 50)
-    console.log('zIndex:', zIndex)
   }
 
   const [pulseState, setPulseState] = useState(false)

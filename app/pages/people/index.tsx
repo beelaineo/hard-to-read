@@ -11,8 +11,6 @@ import { NextSeo } from 'next-seo'
 const { useEffect, useState } = React
 
 const People = ({ peopleDocs, siteData, preview }) => {
-  console.log(peopleDocs)
-
   return (
     <>
       <Layout preview={preview}>

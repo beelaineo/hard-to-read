@@ -22,7 +22,6 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   const { related } = content
   const { _id, assetId, playbackId, uploadId, status, data } = content.asset
   const { aspect_ratio, duration } = data
-  console.log(content)
 
   const handleClick = () => {
     if (isDragging === true) return

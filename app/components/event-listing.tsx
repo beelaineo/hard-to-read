@@ -60,7 +60,6 @@ export const EventListing = ({ post }) => {
     addModals([modalize(post)])
   }
 
-  console.log('event listing', post)
   const now = new Date()
   const date = new Date(post.date)
 
@@ -77,7 +76,6 @@ export const EventListing = ({ post }) => {
 
     // The substituted value will be contained in the result variable
     const result = title.replace(regex, subst)
-    console.log('Substitution result: ', result)
 
     return { __html: result }
   }

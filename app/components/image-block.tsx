@@ -30,7 +30,6 @@ export const ImageBlock = ({ content }) => {
   const height = metadata.dimensions.height
   const ratio = metadata.dimensions.aspectRatio
 
-  console.log('image', content)
   return (
     <Wrapper>
       <Image src={url} width={width} height={height} />

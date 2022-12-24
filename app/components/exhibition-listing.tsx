@@ -34,6 +34,9 @@ const Wrapper = styled.div<WithColor>`
     align-items: center;
     justify-content: center;
     background-color: white;
+    @media (max-width: lg) {
+      grid-column: span 10;
+    }
     span.htr {
       color: primary;
     }
@@ -93,7 +96,6 @@ export const ExhibitionListing = ({ post, i }) => {
     addModals([modalize(post)])
   }
 
-  console.log('event listing', post)
   const now = new Date()
   const date = new Date(post.date)
 
@@ -120,7 +122,6 @@ export const ExhibitionListing = ({ post, i }) => {
 
     // The substituted value will be contained in the result variable
     const result = title.replace(regex, subst)
-    console.log('Substitution result: ', result)
 
     return { __html: result }
   }
