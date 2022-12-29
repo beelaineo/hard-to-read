@@ -4,6 +4,7 @@ import {
   Event as EventType,
   Person as PersonType,
   Post as PostType,
+  Press as PressType,
   Place as PlaceType,
   MuxVideoBlock as VideoType,
   ImageBlock as ImageType,
@@ -14,10 +15,18 @@ import { EventBlock } from './event-block'
 import { ImageBlock } from './image-block'
 import { VideoBlock } from './video-block'
 import { PostBlock } from './post-block'
+import { PressBlock } from './press-block'
 
 type DeltaPosition = {
   x: number
   y: number
+}
+
+interface PressPopupType extends Omit<PressType, 'clipping'> {
+  clipping?: {
+    url: string
+    extension: string
+  }
 }
 
 interface ContentBlockProps {
@@ -27,6 +36,7 @@ interface ContentBlockProps {
     | PostType
     | PlaceType
     | VideoType
+    | PressPopupType
     | ImageType
     | TextAttachmentType
     | ThemeType
@@ -51,6 +61,8 @@ export const ContentBlock = React.forwardRef(
         )
       case 'post':
         return <PostBlock content={content} />
+      case 'press':
+        return <PressBlock content={content} />
       case 'place':
         // return <PlaceBlock content={content} ref={ref} />
         return (

@@ -129,73 +129,82 @@ export const siteQuery = `*[_id == "siteSettings"][0] {
   ...
 }
 `
+const popupDocs = `
+_type == 'eventRef' => @->{
+  ..., 
+  _id, 
+  '_key': ^._key,
+  images[] {
+    _key,
+    _type,
+    asset->
+  },
+  persons[] {
+    _key,
+    'person': @->
+  },
+  place->,
+  themes[] {
+    _key,
+    'theme': @->
+  },
+},
+_type == 'personRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  'related': ${relatedDocs}
+},
+_type == 'placeRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  'related': ${relatedDocs}
+},
+_type == 'postRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  themes[]->
+},
+_type == 'pressRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  'clipping': clipping.asset->
+},
+_type == 'themeRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  'related': ${relatedDocs}
+},
+_type == 'image' => {
+  '_id': asset._ref,
+  _key,
+  asset->,
+  '_type': 'image',
+  'related': ${relatedDocs}
+},
+_type == 'mux.video' => {
+  '_id': asset._ref,
+  _key,
+  asset->,
+  '_type': 'video',
+  'related': ${relatedDocs}
+},
+_type == 'textAttachment' => {
+  _key,
+  '_id': _key,
+  ...
+}
+`
 
 export const indexQuery = `
 *[_id == "home"] {
   ...,
   content[] {
-    _type == 'eventRef' => @->{
-      ..., 
-      _id, 
-      '_key': ^._key,
-      images[] {
-        _key,
-        _type,
-        asset->
-      },
-      persons[] {
-        _key,
-        'person': @->
-      },
-      place->,
-      themes[] {
-        _key,
-        'theme': @->
-      },
-    },
-    _type == 'personRef' => @->{
-      ...,
-      _id,
-      '_key': ^._key,
-      'related': ${relatedDocs}
-    },
-    _type == 'placeRef' => @->{
-      ...,
-      _id,
-      '_key': ^._key,
-      'related': ${relatedDocs}
-    },
-    _type == 'postRef' => @->{
-      ...,
-      _id,
-      '_key': ^._key,
-      themes[]->
-    },
-    _type == 'themeRef' => @->{
-      ...,
-      _id,
-      '_key': ^._key,
-      'related': ${relatedDocs}
-    },
-    _type == 'image' => {
-      '_id': asset._ref,
-      _key,
-      asset->,
-      '_type': 'image',
-      'related': ${relatedDocs}
-    },
-    _type == 'mux.video' => {
-      '_id': asset._ref,
-      _key,
-      asset->,
-      '_type': 'video',
-      'related': ${relatedDocs}
-    },
-    _type == 'textAttachment' => {
-      _key,
-      '_id': _key,
-      ...
-    }
+    ${popupDocs}
   }
 }`
 
@@ -211,7 +220,9 @@ export const blogQuery = `
 }`
 
 export const blogPopupsQuery = `
-*[_type == "popups"][0].blog[]->
+*[_type == "popups"][0].blog[] {
+  ${popupDocs}
+}
 `
 
 export const postSlugsQuery = `
@@ -240,7 +251,9 @@ export const eventSlugsQuery = `
 `
 
 export const eventPopupsQuery = `
-*[_type == "popups"][0].events[]->
+*[_type == "popups"][0].events[] {
+  ${popupDocs}
+}
 `
 
 export const exhibitionQuery = `
@@ -264,7 +277,9 @@ export const peopleQuery = `
 } | order(totalReferences desc, sortby_name asc)`
 
 export const peoplePopupsQuery = `
-*[_type == "popups"][0].people[]->
+*[_type == "popups"][0].people[] {
+  ${popupDocs}
+}
 `
 
 export const personSlugsQuery = `
@@ -291,7 +306,9 @@ export const themeQuery = `
 }`
 
 export const themePopupsQuery = `
-*[_type == "popups"][0].themes[]->
+*[_type == "popups"][0].themes[] {
+  ${popupDocs}
+}
 `
 
 export const themeSlugsQuery = `
@@ -315,7 +332,9 @@ export const pressQuery = `
 }`
 
 export const pressPopupsQuery = `
-*[_type == "popups"][0].press[]->
+*[_type == "popups"][0].press[] {
+  ${popupDocs}
+}
 `
 
 export const bookQuery = `

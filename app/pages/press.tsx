@@ -57,6 +57,7 @@ const Press = ({ siteData, pressDocs, popups, preview }) => {
 
   useEffect(() => {
     if (!popups) return
+    console.log('POPUPS press', popups)
     const modals = popups.map((m) => modalize(m))
     addModals(modals)
   }, [])

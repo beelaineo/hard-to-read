@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
-//@ts-ignore
-import DuckSVG from './duck.svg'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { Squeeze as Hamburger } from 'hamburger-react'
 import NavLink from 'next/link'
@@ -174,15 +172,6 @@ export default function Footer() {
               })}
             </x.nav>
           ) : null}
-          <x.div
-            position={'absolute'}
-            right={24}
-            bottom={16}
-            cursor={'pointer'}
-            zIndex={12}
-          >
-            <DuckSVG width={140} id="duckIcon" onClick={() => handleQuack()} />
-          </x.div>
         </Column>
       </x.footer>
       <x.div

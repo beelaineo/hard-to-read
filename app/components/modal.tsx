@@ -20,10 +20,10 @@ const Wrapper = styled.div<WithPulseState>`
   ${({ pulseState, width, height, zIndex, isMobile }) => css`
     width: ${isMobile ? 'auto' : width + 'px'};
     min-height: ${height}px;
-    max-height: ${isMobile ? 'unset' : '100vh'};
+    max-height: ${isMobile ? 'unset' : '90vh'};
     overflow-y: scroll;
     z-index: ${zIndex};
-    background-color: ${pulseState ? 'red' : 'gray-200'};
+    background-color: ${pulseState ? 'red' : '#fff'};
     border: 1px solid;
     border-color: primary;
     margin: ${isMobile ? 4 : 0};
@@ -58,6 +58,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
     setModalW(
       content._type == 'event' || content._type == 'post'
         ? 480
+        : content._type == 'press'
+        ? 320
         : content._type == 'image'
         ? 480
         : content._type == 'video'
