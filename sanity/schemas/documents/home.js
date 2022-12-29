@@ -16,7 +16,36 @@ export const home = {
       name: 'content',
       title: 'Featured Content',
       type: 'array',
-      of: [{name: 'eventRef', type: 'reference', to: {type: 'event'}}, {name: 'personRef', type: 'reference', to: {type: 'person'}}, {name: 'placeRef', type: 'reference', to: {type: 'place'}}, {name: 'postRef', type: 'reference', to: {type: 'post'}}, {type: 'image'}, {type: 'mux.video'}, {name: 'themeRef', type: 'reference', to: {type: 'theme'}}, {type: 'textAttachment'}],
+      of: [
+        {name: 'eventRef', type: 'reference', to: {type: 'event'}},
+        {name: 'personRef', type: 'reference', to: {type: 'person'}},
+        {name: 'placeRef', type: 'reference', to: {type: 'place'}},
+        {name: 'postRef', type: 'reference', to: {type: 'post'}},
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              options: {
+                isHighlighted: true,
+              }
+            },
+            {
+              name: 'alt',
+              title: 'Alternative text',
+              type: 'string',
+              options: {
+                isHighlighted: true,
+              }
+            }
+          ]
+        },
+        {type: 'mux.video'},
+        {name: 'themeRef', type: 'reference', to: {type: 'theme'}},
+        {type: 'textAttachment'}
+      ],
     },
   ],
 

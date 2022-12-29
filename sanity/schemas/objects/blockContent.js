@@ -69,7 +69,24 @@ export const blockContent = {
     // as a block type.
     {
       type: 'image',
-      options: {hotspot: true},
+      fields: [
+        {
+          name: 'caption',
+          title: 'Caption',
+          type: 'string',
+          options: {
+            isHighlighted: true,
+          }
+        },
+        {
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          options: {
+            isHighlighted: true,
+          }
+        }
+      ]
     },
     {
       type: 'youtube'

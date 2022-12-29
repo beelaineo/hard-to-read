@@ -83,6 +83,8 @@ export type ImageBlock = {
   _type: 'image'
   asset: SanityImageAsset
   related: RelatedType
+  caption?: string
+  alt?: string
 }
 
 export type TextAttachmentBlock = {

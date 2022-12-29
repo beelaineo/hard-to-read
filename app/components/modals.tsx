@@ -25,7 +25,10 @@ const Wrapper = styled.div`
   }
   @media (max-width: sm) {
     &.press,
-    &.partners {
+    &.partners,
+    &.events,
+    &.themes,
+    &.people {
       order: -1;
     }
   }

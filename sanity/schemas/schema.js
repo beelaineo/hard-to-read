@@ -27,6 +27,6 @@ export default createSchema({
     siteSettings,
     textAttachment,
     pdfAttachment,
-    youtube,
+    youtube
   ]),
 })

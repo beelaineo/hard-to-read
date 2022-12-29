@@ -105,7 +105,29 @@ export const event = {
       name: 'images',
       title: 'Images',
       type: 'array',
-      of: [{type: 'image'}],
+      of: [
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              options: {
+                isHighlighted: true,
+              }
+            },
+            {
+              name: 'alt',
+              title: 'Alternative text',
+              type: 'string',
+              options: {
+                isHighlighted: true,
+              }
+            }
+          ]
+        }
+      ],
     },
     {
       name: 'videos',
