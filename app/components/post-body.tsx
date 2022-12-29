@@ -12,10 +12,10 @@ import { themeBySlugQuery } from '../lib/queries'
 
 const imageBuilder = createImageUrlBuilder(sanityConfig)
 
-const SampleImageComponent = ({ value, isInline }) => {
+const ImageComponent = ({ value, isInline }) => {
   const { width, height } = getImageDimensions(value)
   return (
-    <x.div h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
+    <x.figure h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
       <Image
         src={imageBuilder
           .image(value)
@@ -23,18 +23,27 @@ const SampleImageComponent = ({ value, isInline }) => {
           .fit('max')
           .auto('format')
           .url()}
-        alt={value.alt || ' '}
+        alt={
+          value.alt ||
+          value.caption ||
+          'Inline image in body text from Hard to Read'
+        }
         loading="lazy"
         width={width}
         height={height}
       />
-    </x.div>
+      {value?.caption && (
+        <x.figcaption color={'secondary'} fontSize={16}>
+          {value.caption}
+        </x.figcaption>
+      )}
+    </x.figure>
   )
 }
 
 const serializers: PortableTextComponents = {
   types: {
-    image: SampleImageComponent,
+    image: ImageComponent,
     //@ts-ignore
     youtube: ({ value }) => {
       console.log('VALUE', value)

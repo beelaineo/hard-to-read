@@ -1,10 +1,10 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import Image from 'next/image'
-import styled, { css } from '@xstyled/styled-components'
+import styled, { css, x } from '@xstyled/styled-components'
 import { SanityImageAsset } from '../interfaces'
 
-const Wrapper = styled.div`
+const Wrapper = styled.figure`
   height: auto;
   position: relative;
   width: 100%;
@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   img {
     pointer-events: none;
   }
+  figcaption {
+    backdrop-filter: blur(2px);
+    background-color: primary30;
+    line-height: 1.1;
+  }
 `
 
 const TextWrapper = styled.div`
@@ -24,7 +29,7 @@ const TextWrapper = styled.div`
 `
 
 export const ImageBlock = ({ content }) => {
-  const { related } = content
+  const { related, caption, alt } = content
   const { assetId, metadata, originalFilename, uploadId, url } = content.asset
   const width = metadata.dimensions.width
   const height = metadata.dimensions.height
@@ -32,7 +37,26 @@ export const ImageBlock = ({ content }) => {
 
   return (
     <Wrapper>
-      <Image src={url} width={width} height={height} />
+      <Image
+        src={url}
+        width={width}
+        height={height}
+        alt={alt || caption || 'image'}
+        loading="lazy"
+      />
+      {caption && (
+        <x.figcaption
+          position={'absolute'}
+          color={'white'}
+          px={4}
+          py={6}
+          w={'100%'}
+          bottom={0}
+          fontSize={16}
+        >
+          {caption}
+        </x.figcaption>
+      )}
     </Wrapper>
   )
 }

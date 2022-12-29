@@ -137,6 +137,8 @@ _type == 'eventRef' => @->{
   images[] {
     _key,
     _type,
+    caption,
+    alt,
     asset->
   },
   persons[] {
@@ -188,6 +190,8 @@ _type == 'themeRef' => @->{
 _type == 'image' => {
   '_id': asset._ref,
   _key,
+  caption,
+  alt,
   asset->,
   '_type': 'image',
   'related': ${relatedDocs}
