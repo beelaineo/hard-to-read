@@ -43,10 +43,10 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
         <x.div
           px={0}
           display={'grid'}
-          gridTemplateColumns={'10'}
+          gridTemplateColumns={{ _: '12', lg: '10' }}
           lineHeight={1.5}
         >
-          <x.div gridColumn={'span 3'}>
+          <x.div gridColumn={{ _: 'span 12', sm: 'span 4', lg: 'span 3' }}>
             <x.h2 color={'primary'}>Publishers</x.h2>
             {partners.map((post) => {
               return (
@@ -67,7 +67,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
               )
             })}
           </x.div>
-          <x.div gridColumn={'span 4'}>
+          <x.div gridColumn={{ _: 'span 12', sm: 'span 4', lg: 'span 4' }}>
             <x.h2 color={'primary'}>Venues</x.h2>
             {venues.map((post) => {
               return (
@@ -88,7 +88,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
               )
             })}
           </x.div>
-          <x.div gridColumn={'span 3'}>
+          <x.div gridColumn={{ _: 'span 12', sm: 'span 3', lg: 'span 3' }}>
             <x.h2 color={'primary'}>Sponsors</x.h2>
             {sponsors.map((post) => {
               return (
