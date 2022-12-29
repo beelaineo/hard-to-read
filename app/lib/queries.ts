@@ -123,7 +123,7 @@ const bookCollectionFields = `
   }
 `
 
-const relatedDocs = `*[_type != 'home' && references(^._id)]{ title, _type, _id, slug }`
+const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
 
 export const siteQuery = `*[_id == "siteSettings"][0] {
   ...
@@ -331,6 +331,12 @@ export const partnerQuery = `
 *[_type == "partner"] | order(title asc) {
   ${partnerFields}
 }`
+
+export const partnersPopupsQuery = `
+*[_type == "popups"][0].partners[] {
+  ${popupDocs}
+}
+`
 
 export const pressQuery = `
 *[_type == "press"] | order(date desc) {

@@ -34,7 +34,6 @@ const Wrapper = styled.div<WithLoaded>`
       color: primary;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1rem;
     }
   `}
 `
@@ -46,7 +45,7 @@ const TextWrapper = styled.div`
 `
 
 interface PartnerPopupType extends PartnerType {
-  relatedDocs?: [Record<string, unknown>]
+  related?: any[]
 }
 
 interface PartnerBlockProps {
@@ -54,12 +53,16 @@ interface PartnerBlockProps {
 }
 
 export const PartnerBlock = ({ content }: PartnerBlockProps) => {
-  const { title, _updatedAt, _createdAt, link, relatedDocs, _id } = content
+  const { title, type, _updatedAt, _createdAt, link, related, _id } = content
 
   const { addModals } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
+
+  const handleItemClick = (doc) => {
+    addModals([modalize(doc)])
+  }
 
   React.useEffect(() => {
     setTimeout(function () {
@@ -71,22 +74,40 @@ export const PartnerBlock = ({ content }: PartnerBlockProps) => {
 
   return (
     <Wrapper loaded={loaded}>
-      {/* <x.p className="meta">
-        {postBlockDate(date)}
-        {publication && <em>{publication}</em>}
-      </x.p> */}
-      <x.h2 fontSize={18}>{title}</x.h2>
+      <x.h2 fontSize={18} mb={0}>
+        {title}
+      </x.h2>
+      <x.p className="meta">{type}</x.p>
       {link && (
-        <Link href={link}>
-          <x.a
-            pt={4}
-            display={'inline-block'}
-            textDecoration={'underline'}
-            color={'primary'}
-          >
-            Link
-          </x.a>
-        </Link>
+        <x.a
+          pt={1}
+          display={'inline-block'}
+          textDecoration={'underline'}
+          color={'primary'}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Link
+        </x.a>
+      )}
+
+      {related && (
+        <x.ul>
+          {related.map((doc) => (
+            <li key={doc._id}>
+              <x.a
+                pt={4}
+                display={'inline-block'}
+                textDecoration={'underline'}
+                color={'primary'}
+                onClick={() => handleItemClick(doc)}
+              >
+                {doc.title}
+              </x.a>
+            </li>
+          ))}
+        </x.ul>
       )}
     </Wrapper>
   )

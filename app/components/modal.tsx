@@ -58,7 +58,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
     setModalW(
       content._type == 'event' || content._type == 'post'
         ? 480
-        : content._type == 'press'
+        : content._type == 'press' || content._type == 'partner'
         ? 320
         : content._type == 'image'
         ? 480
