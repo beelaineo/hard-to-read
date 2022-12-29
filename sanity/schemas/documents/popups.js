@@ -1,6 +1,6 @@
 import { AiOutlineAlert } from 'react-icons/ai'
 
-const popupDocs = [{name: 'eventRef', type: 'reference', to: {type: 'event'}}, {name: 'personRef', type: 'reference', to: {type: 'person'}}, {name: 'placeRef', type: 'reference', to: {type: 'place'}}, {name: 'postRef', type: 'reference', to: {type: 'post'}}, {type: 'image'}, {type: 'mux.video'}, {name: 'themeRef', type: 'reference', to: {type: 'theme'}}, {name: 'pressRef', type: 'reference', to: {type: 'press'}}, {type: 'textAttachment'}]
+const popupDocs = [{name: 'eventRef', type: 'reference', to: {type: 'event'}}, {name: 'partnerRef', type: 'reference', to: {type: 'partner'}}, {name: 'personRef', type: 'reference', to: {type: 'person'}}, {name: 'placeRef', type: 'reference', to: {type: 'place'}}, {name: 'postRef', type: 'reference', to: {type: 'post'}}, {type: 'image'}, {type: 'mux.video'}, {name: 'themeRef', type: 'reference', to: {type: 'theme'}}, {name: 'pressRef', type: 'reference', to: {type: 'press'}}, {type: 'textAttachment'}]
 
 export const popups = {
   name: 'popups',

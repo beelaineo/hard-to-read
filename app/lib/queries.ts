@@ -173,6 +173,12 @@ _type == 'pressRef' => @->{
   '_key': ^._key,
   'clipping': clipping.asset->
 },
+_type == 'partnerRef' => @->{
+  ...,
+  _id,
+  '_key': ^._key,
+  'related': ${relatedDocs}
+},
 _type == 'themeRef' => @->{
   ...,
   _id,

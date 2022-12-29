@@ -605,6 +605,7 @@ export interface Popups extends SanityDocument {
    */
   events?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
@@ -627,6 +628,7 @@ export interface Popups extends SanityDocument {
    */
   people?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
@@ -649,6 +651,7 @@ export interface Popups extends SanityDocument {
    */
   blog?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
@@ -671,6 +674,7 @@ export interface Popups extends SanityDocument {
    */
   themes?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
@@ -693,6 +697,7 @@ export interface Popups extends SanityDocument {
    */
   press?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
@@ -715,6 +720,7 @@ export interface Popups extends SanityDocument {
    */
   partners?: Array<
     | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
