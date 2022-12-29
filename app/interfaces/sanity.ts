@@ -155,6 +155,20 @@ export interface Event extends SanityDocument {
       asset: SanityReference<SanityImageAsset>;
       crop?: SanityImageCrop;
       hotspot?: SanityImageHotspot;
+
+      /**
+       * Caption — `string`
+       *
+       *
+       */
+      caption?: string;
+
+      /**
+       * Alternative text — `string`
+       *
+       *
+       */
+      alt?: string;
     }>
   >;
 
@@ -583,6 +597,20 @@ export interface Home extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -614,6 +642,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -637,6 +679,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -660,6 +716,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -683,6 +753,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -706,6 +790,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -729,6 +827,20 @@ export interface Popups extends SanityDocument {
         asset: SanityReference<SanityImageAsset>;
         crop?: SanityImageCrop;
         hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
       }>
     | SanityKeyed<MuxVideo>
     | SanityKeyedReference<Theme>
@@ -797,6 +909,20 @@ export type BlockContent = Array<
       asset: SanityReference<SanityImageAsset>;
       crop?: SanityImageCrop;
       hotspot?: SanityImageHotspot;
+
+      /**
+       * Caption — `string`
+       *
+       *
+       */
+      caption?: string;
+
+      /**
+       * Alternative text — `string`
+       *
+       *
+       */
+      alt?: string;
     }>
   | SanityKeyed<Youtube>
 >;
