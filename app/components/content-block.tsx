@@ -50,18 +50,19 @@ interface ContentBlockProps {
     | ThemeType
   isDragging: boolean
   deltaPosition: DeltaPosition
+  color?: string
 }
 
 export const ContentBlock = React.forwardRef(
   (
-    { content, isDragging, deltaPosition }: ContentBlockProps,
+    { content, isDragging, deltaPosition, color }: ContentBlockProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     switch (content._type) {
       case 'event':
         return <EventBlock content={content} />
       case 'person':
-        return <PersonBlock content={content} />
+        return <PersonBlock content={content} color={color} />
       case 'post':
         return <PostBlock content={content} />
       case 'press':

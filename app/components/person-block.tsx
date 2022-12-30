@@ -10,16 +10,17 @@ import Link from 'next/link'
 
 interface WithLoaded {
   loaded: boolean
+  color?: string
 }
 
 const Wrapper = styled.div<WithLoaded>`
-  ${({ theme, loaded }) => css`
+  ${({ theme, loaded, color }) => css`
     height: auto;
     position: relative;
     width: 100%;
     display: block;
     position: relative;
-    background-color: primary20;
+    background-color: ${color ? color.replace('1.0', '0.2') : 'primary20'};
     padding: 6;
     p {
       color: ${loaded ? 'black' : 'primary0'};
@@ -51,9 +52,10 @@ interface PersonPopupType extends Omit<PersonType, 'name'> {
 
 interface PersonBlockProps {
   content: PersonPopupType
+  color?: string
 }
 
-export const PersonBlock = ({ content }: PersonBlockProps) => {
+export const PersonBlock = ({ content, color }: PersonBlockProps) => {
   console.log('content', content)
 
   const { addModals } = useModal()
@@ -72,7 +74,7 @@ export const PersonBlock = ({ content }: PersonBlockProps) => {
   }, [])
 
   return (
-    <Wrapper loaded={loaded}>
+    <Wrapper loaded={loaded} color={color}>
       <x.h2 mb={0}>{content.title}</x.h2>
       {content.link && (
         <x.a

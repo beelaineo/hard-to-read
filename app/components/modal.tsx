@@ -26,19 +26,19 @@ const Wrapper = styled.div<WithPulseState>`
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : '#fff'};
     border: 1px solid;
-    border-color: primary;
+    border-color: ${color ? color : 'primary'};
     margin: ${isMobile ? 4 : 0};
     position: ${isMobile ? 'static' : 'absolute'};
     pointer-events: all;
     cursor: grab;
 
     button {
-      color: primary;
-      background-color: primary20;
+      color: ${color ? color : 'primary'};
+      background-color: ${color ? color.replace('1.0', '0.2') : 'primary20'};
       border-radius: 0 0 0 100%;
       position: absolute;
       right: -1px;
-      border-color: primary;
+      border-color: ${color ? color : 'primary'};
       border: 1px solid;
       top: -1px;
       appearance: none;
@@ -53,7 +53,7 @@ const Wrapper = styled.div<WithPulseState>`
         width: 0.75rem;
       }
       svg line {
-        stroke: primary;
+        stroke: ${color ? color : 'primary'};
       }
     }
     .button-bg {
@@ -217,6 +217,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
           content={modal.content}
           deltaPosition={deltaPosition}
           isDragging={isDragging}
+          color={color}
         />
       </Wrapper>
     </Draggable>
