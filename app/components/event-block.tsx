@@ -10,17 +10,18 @@ import Link from 'next/link'
 
 interface WithLoaded {
   loaded: boolean
+  program: 'hardtoread' | 'pillowtalk'
 }
 
 const Wrapper = styled.div<WithLoaded>`
-  ${({ loaded }) => css`
+  ${({ loaded, program }) => css`
     height: auto;
     min-height: 240px;
     position: relative;
     width: 100%;
     display: block;
     position: relative;
-    background-color: primary20;
+    background-color: ${program == 'pillowtalk' ? 'secondary20' : 'primary20'};
     padding: 6;
     p {
       color: ${loaded ? 'black' : 'primary0'};
@@ -103,7 +104,7 @@ export const EventBlock = ({ content }) => {
   }
 
   return (
-    <Wrapper loaded={loaded}>
+    <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
       <p>
         {place?.name}

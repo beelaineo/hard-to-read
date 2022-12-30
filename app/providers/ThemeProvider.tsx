@@ -67,6 +67,13 @@ export const ThemeProvider = ({ children }: Props) => {
       primary40: dyad[0]?.replace('1.0', '0.4'),
       primary50: dyad[0]?.replace('1.0', '0.5'),
       primary60: dyad[0]?.replace('1.0', '0.6'),
+      secondary0: dyad[1]?.replace('1.0', '0'),
+      secondary10: dyad[1]?.replace('1.0', '0.1'),
+      secondary20: dyad[1]?.replace('1.0', '0.2'),
+      secondary30: dyad[1]?.replace('1.0', '0.3'),
+      secondary40: dyad[1]?.replace('1.0', '0.4'),
+      secondary50: dyad[1]?.replace('1.0', '0.5'),
+      secondary60: dyad[1]?.replace('1.0', '0.6'),
     },
   }
   const siteBG = dyad[0]?.replace('1.0', '0.05')

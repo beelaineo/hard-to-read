@@ -34,7 +34,11 @@ const Wrapper = styled.div<WithPulseState>`
 
     button {
       color: ${color ? color : 'primary'};
-      background-color: ${color ? color.replace('1.0', '0.2') : 'primary20'};
+      background-color: ${color && color == 'secondary'
+        ? 'secondary20'
+        : color
+        ? color.replace('1.0', '0.2')
+        : 'primary20'};
       border-radius: 0 0 0 100%;
       position: absolute;
       right: -1px;
@@ -73,7 +77,15 @@ const Wrapper = styled.div<WithPulseState>`
 
 export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const { removeModal, pulseModal } = useModal()
-  const { id, type, content, color } = modal
+  const { id, type, content } = modal
+  console.log('modal content', content)
+  const color =
+    modal?.type == 'event' && content?.event_program == 'pillowtalk'
+      ? 'secondary'
+      : modal.color
+      ? modal.color
+      : null
+  console.log('modal color', color)
 
   console.log('modal content', modal)
 

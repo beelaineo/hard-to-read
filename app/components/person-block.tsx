@@ -107,6 +107,16 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
           ))}
         </x.ul>
       )}
+      <Link href={'/people/' + content.slug}>
+        <x.a
+          textDecoration={'underline'}
+          display={'inline-block'}
+          my={4}
+          color={'primary'}
+        >
+          (permalink)
+        </x.a>
+      </Link>
     </Wrapper>
   )
 }
