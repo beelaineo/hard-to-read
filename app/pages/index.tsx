@@ -13,6 +13,7 @@ import { Home, Modal } from '../interfaces'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 const { useEffect, useRef } = React
 
@@ -35,8 +36,10 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
 const Index = ({ homeDocs, siteData, preview }) => {
   const homeDoc: Home = homeDocs[0]
   const firstBlockRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+
   const { _updatedAt, title, content } = homeDoc
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
   // const defaultSeo = {
   //   title: title,
   //   description: seo?.description,
@@ -47,10 +50,27 @@ const Index = ({ homeDocs, siteData, preview }) => {
   // }
 
   useEffect(() => {
+    console.log('isMobile useEffect: ', isMobile)
+
+    const handleRouteChange = () => {
+      console.log('handleRouteChange isMobile: ', isMobile)
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+
     if (!content) return
+
     const modals = content.map((m) => modalize(m))
     addModals(modals)
-  }, [])
+
+    router.events.on('routeChangeStart', () => {
+      handleRouteChange()
+    })
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [isMobile])
 
   return (
     <>

@@ -32,8 +32,40 @@ const Wrapper = styled.div<WithPulseState>`
     cursor: grab;
 
     button {
-      color: white;
-      mix-blend-mode: difference;
+      color: primary;
+      background-color: primary20;
+      border-radius: 0 0 0 100%;
+      position: absolute;
+      right: -1px;
+      border-color: primary;
+      border: 1px solid;
+      top: -1px;
+      appearance: none;
+      position: absolute;
+      z-index: 3;
+      height: 2rem;
+      width: 2rem;
+      svg {
+        margin-left: 0.4rem;
+        margin-top: 0rem;
+        height: 0.75rem;
+        width: 0.75rem;
+      }
+      svg line {
+        stroke: primary;
+      }
+    }
+    .button-bg {
+      background-color: #fff;
+      border-radius: 0 0 0 100%;
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      appearance: none;
+      position: absolute;
+      z-index: 2;
+      height: calc(2rem - 1px);
+      width: calc(2rem - 1px);
     }
   `}
 `
@@ -131,17 +163,6 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
       zIndex={zIndex}
       isMobile={true}
     >
-      <x.button
-        appearance={'none'}
-        right={5}
-        top={5}
-        position={'absolute'}
-        bg={'transparent'}
-        zIndex={2}
-        onClick={() => handleCloseClick(modal)}
-      >
-        x
-      </x.button>
       <ContentBlock
         content={modal.content}
         deltaPosition={deltaPosition}
@@ -160,17 +181,31 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         pulseState={pulseState}
         zIndex={zIndex}
       >
-        <x.button
-          appearance={'none'}
-          right={5}
-          top={5}
-          position={'absolute'}
-          bg={'transparent'}
-          zIndex={2}
-          onClick={() => handleCloseClick(modal)}
-        >
-          x
+        <x.button onClick={() => handleCloseClick(modal)}>
+          <svg
+            viewBox="0 0 12 12"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="1"
+              y1="11"
+              x2="11"
+              y2="1"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
+            <line
+              x1="1"
+              y1="1"
+              x2="11"
+              y2="11"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
         </x.button>
+        <x.div className="button-bg" />
         <ContentBlock
           content={modal.content}
           deltaPosition={deltaPosition}

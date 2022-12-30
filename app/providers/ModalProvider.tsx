@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { definitely } from '../utils'
 import { Modal } from '../interfaces'
-
+import { useRouter } from 'next/router'
 const { useEffect, useContext, useState } = React
 
 interface ModalContextValue {
@@ -10,6 +10,8 @@ interface ModalContextValue {
   removeModal: (modal: Modal) => void
   resetModals: () => void
   pulseModal: string
+  isMobile: boolean
+  setMobile: (width: number) => void
 }
 
 const ModalContext = React.createContext<ModalContextValue | undefined>({
@@ -18,6 +20,8 @@ const ModalContext = React.createContext<ModalContextValue | undefined>({
   removeModal: (modal: Modal) => Promise<void>,
   resetModals: () => Promise<void>,
   pulseModal: '',
+  isMobile: false,
+  setMobile: (width: number) => Promise<void>,
 })
 
 export const ModalConsumer = ModalContext.Consumer
@@ -38,7 +42,12 @@ export const ModalProvider = ({ children }: Props) => {
   const [modals, setModals] = useState<Modal[]>([])
   const [pulseModal, setPulseModal] = useState<string>('')
   const [quack, setQuack] = useState<HTMLAudioElement | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  const router = useRouter()
+
   useEffect(() => setQuack(new Audio('/quack.mp3')), [])
+  useEffect(() => setIsMobile(window.innerWidth < 640), [])
 
   const addModals = (inputModals: Modal[]) => {
     const uniqueModals = inputModals.filter((m) => {
@@ -59,6 +68,10 @@ export const ModalProvider = ({ children }: Props) => {
     }
   }
 
+  const setMobile = (width: number) => {
+    setIsMobile(width < 640)
+  }
+
   const removeModal = (modal: Modal) => {
     setModals(modals.filter((m) => m.id !== modal.id))
   }
@@ -74,6 +87,8 @@ export const ModalProvider = ({ children }: Props) => {
     removeModal,
     resetModals,
     pulseModal,
+    isMobile,
+    setMobile,
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

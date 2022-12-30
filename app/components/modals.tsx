@@ -31,6 +31,7 @@ const Wrapper = styled.div`
     &.people {
       order: -1;
     }
+    padding-bottom: 3rem;
   }
 `
 

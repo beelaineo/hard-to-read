@@ -144,6 +144,7 @@ const Wrapper = styled.div`
     img,
     iframe {
       margin: 6 0;
+      max-width: 100%;
     }
   `}
 `

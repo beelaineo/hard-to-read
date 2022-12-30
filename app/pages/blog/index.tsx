@@ -11,17 +11,28 @@ import { x } from '@xstyled/styled-components'
 import { NextSeo } from 'next-seo'
 import { definitely, modalize } from '../../utils'
 import { useModal } from '../../providers/ModalProvider'
-
 const { useEffect } = React
+import { useRouter } from 'next/router'
 
 export default function Index({ allPosts, popups, preview }) {
-  const { addModals } = useModal()
+  const { addModals, isMobile, resetModals } = useModal()
+  const router = useRouter()
 
   useEffect(() => {
-    if (!popups) return
-    const modals = popups.map((m) => modalize(m))
-    addModals(modals)
-  }, [])
+    const handleRouteChange = () => {
+      console.log('handleRouteChange isMobile: ', isMobile)
+      if (isMobile == true) {
+        resetModals()
+      }
+      if (!popups) return
+      const modals = popups.map((m) => modalize(m))
+      addModals(modals)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   return (
     <>
