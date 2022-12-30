@@ -47,6 +47,8 @@ const postFields = `
   "slug": slug.current,
 `
 
+const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
+
 const personFields = `
   _id,
   _createdAt,
@@ -54,8 +56,10 @@ const personFields = `
   _updatedAt,
   "title": name,
   sortby_name,
+  link,
   "slug": slug.current,
   "totalReferences": count(*[_type in ['event', 'post'] && references(^._id)]),
+  "related": ${relatedDocs}
 `
 
 const themeFields = `
@@ -123,8 +127,6 @@ const bookCollectionFields = `
   }
 `
 
-const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
-
 export const siteQuery = `*[_id == "siteSettings"][0] {
   ...
 }
@@ -143,7 +145,10 @@ _type == 'eventRef' => @->{
   },
   persons[] {
     _key,
-    'person': @->
+    'person': @-> {
+      ...,
+      'title': name,
+    }
   },
   place->,
   themes[] {
@@ -153,12 +158,14 @@ _type == 'eventRef' => @->{
 },
 _type == 'personRef' => @->{
   ...,
+  'title': name,
   _id,
   '_key': ^._key,
   'related': ${relatedDocs}
 },
 _type == 'placeRef' => @->{
   ...,
+  'title': name,
   _id,
   '_key': ^._key,
   'related': ${relatedDocs}

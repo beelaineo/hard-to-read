@@ -8,9 +8,25 @@ import { useModal } from '../../providers/ModalProvider'
 import { modalize } from '../../utils'
 import { ExhibitionListing } from '../../components/exhibition-listing'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Exhibitions = ({ exhibitionDocs, siteData, preview }) => {
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   const handleItemClick = (post) => {
     addModals([modalize(post)])

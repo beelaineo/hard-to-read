@@ -10,17 +10,28 @@ import { NextSeo } from 'next-seo'
 import { eventPopupsQuery, eventQuery, siteQuery } from '../../lib/queries'
 import { definitely, modalize } from '../../utils'
 import { useModal } from '../../providers/ModalProvider'
+import { useRouter } from 'next/router'
 const { useEffect } = React
 
 const Events = ({ eventDocs, siteData, popups, preview }) => {
-  console.log('EVENT  popups', popups)
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
+  const router = useRouter()
 
   useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
     if (!popups) return
     const modals = popups.map((m) => modalize(m))
     addModals(modals)
-  }, [])
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   return (
     <>

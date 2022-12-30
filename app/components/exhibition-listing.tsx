@@ -138,7 +138,6 @@ export const ExhibitionListing = ({ post, i }) => {
       a?.sortby_name > b?.sortby_name ? 1 : -1,
     )
     setNamedPersons(sortedPersons?.map((p) => p?.name))
-    console.log('namedPersons: ', namedPersons)
   }, [])
 
   return (

@@ -20,7 +20,6 @@ export default function Index({ allPosts, popups, preview }) {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      console.log('handleRouteChange isMobile: ', isMobile)
       if (isMobile == true) {
         resetModals()
       }

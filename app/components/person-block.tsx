@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
-import { Partner as PartnerType, SanityImage } from '../interfaces'
+import { Person as PersonType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { postBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
@@ -44,16 +44,17 @@ const TextWrapper = styled.div`
   width: auto;
 `
 
-interface PartnerPopupType extends PartnerType {
+interface PersonPopupType extends Omit<PersonType, 'name'> {
   related?: any[]
+  title?: string
 }
 
-interface PartnerBlockProps {
-  content: PartnerPopupType
+interface PersonBlockProps {
+  content: PersonPopupType
 }
 
-export const PartnerBlock = ({ content }: PartnerBlockProps) => {
-  const { title, type, _updatedAt, _createdAt, link, related, _id } = content
+export const PersonBlock = ({ content }: PersonBlockProps) => {
+  console.log('content', content)
 
   const { addModals } = useModal()
   const curClient = getClient(false)
@@ -72,17 +73,14 @@ export const PartnerBlock = ({ content }: PartnerBlockProps) => {
 
   return (
     <Wrapper loaded={loaded}>
-      <x.h2 fontSize={18} mb={0}>
-        {title}
-      </x.h2>
-      <x.p className="meta">{type}</x.p>
-      {link && (
+      <x.h2 mb={0}>{content.title}</x.h2>
+      {content.link && (
         <x.a
           pt={1}
           display={'inline-block'}
           textDecoration={'underline'}
           color={'primary'}
-          href={link}
+          href={content.link}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -90,15 +88,15 @@ export const PartnerBlock = ({ content }: PartnerBlockProps) => {
         </x.a>
       )}
 
-      {related && (
-        <x.ul>
-          {related.map((doc) => (
+      {content.related && (
+        <x.ul pt={4}>
+          {content.related.map((doc) => (
             <li key={doc._id}>
               <x.a
-                pt={4}
+                pt={1}
                 display={'inline-block'}
                 textDecoration={'underline'}
-                color={'primary'}
+                color={'secondary'}
                 onClick={() => handleItemClick(doc)}
               >
                 {doc.title}

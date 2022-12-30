@@ -23,11 +23,12 @@ export const unique = <T>(array: T[]): T[] => {
   return [...set]
 }
 
-export const modalize = (doc: any) => {
+export const modalize = (doc: any, color?: string) => {
   const modalDoc: Modal = {
     id: doc._id,
     type: doc._type,
     content: doc,
+    color: color || undefined,
   }
   return modalDoc
 }

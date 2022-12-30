@@ -10,6 +10,7 @@ import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import { PortableText } from '@portabletext/react'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 const { useEffect, useState, useRef } = React
 
@@ -53,11 +54,27 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
 }
 
 const Press = ({ siteData, pressDocs, popups, preview }) => {
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   useEffect(() => {
     if (!popups) return
-    console.log('POPUPS press', popups)
     const modals = popups.map((m) => modalize(m))
     addModals(modals)
   }, [])

@@ -26,6 +26,7 @@ export type Modal = {
   id: string
   type: string
   content: ModalContent
+  color?: string
 }
 
 export type Maybe<T> = T | null

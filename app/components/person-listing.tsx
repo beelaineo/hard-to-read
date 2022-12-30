@@ -79,7 +79,7 @@ export const PersonListing = ({ post }) => {
   const bgColorHover = color?.replace('1.0', '0.15')
 
   const handleItemClick = (person) => {
-    addModals([modalize(person)])
+    addModals([modalize(person, color)])
   }
 
   return (

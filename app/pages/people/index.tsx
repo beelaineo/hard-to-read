@@ -9,17 +9,29 @@ import { PersonListing } from '../../components/person-listing'
 import { NextSeo } from 'next-seo'
 import { definitely, modalize } from '../../utils'
 import { useModal } from '../../providers/ModalProvider'
+import { useRouter } from 'next/router'
 
 const { useEffect, useState } = React
 
 const People = ({ peopleDocs, siteData, popups, preview }) => {
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
+  const router = useRouter()
 
   useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
     if (!popups) return
     const modals = popups.map((m) => modalize(m))
     addModals(modals)
-  }, [])
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   return (
     <>

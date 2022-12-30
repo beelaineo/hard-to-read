@@ -50,10 +50,7 @@ const Index = ({ homeDocs, siteData, preview }) => {
   // }
 
   useEffect(() => {
-    console.log('isMobile useEffect: ', isMobile)
-
     const handleRouteChange = () => {
-      console.log('handleRouteChange isMobile: ', isMobile)
       if (isMobile == true) {
         resetModals()
       }

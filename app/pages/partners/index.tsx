@@ -8,18 +8,29 @@ import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
 import { modalize } from '../../utils'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 const { useEffect } = React
 
 const Partners = ({ partnerDocs, siteData, popups, preview }) => {
-  const { addModals } = useModal()
+  const { addModals, resetModals, isMobile } = useModal()
+  const router = useRouter()
 
   useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
     if (!popups) return
-    console.log('POPUPS press', popups)
     const modals = popups.map((m) => modalize(m))
     addModals(modals)
-  }, [])
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   const handleItemClick = (partner) => {
     addModals([modalize(partner)])

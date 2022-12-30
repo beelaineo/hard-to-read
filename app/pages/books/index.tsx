@@ -11,11 +11,25 @@ import { ThemeListing } from '../../components/theme-listing'
 import { CollectionListing } from '../../components/collection-listing'
 import { BookListing } from '../../components/book-listing'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 const { useEffect, useState } = React
 
 const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
-  const { addModals } = useModal()
+  const { addModals, isMobile, resetModals } = useModal()
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isMobile == true) {
+        resetModals()
+      }
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.asPath])
 
   const handleItemClick = (book) => {
     addModals([modalize(book)])

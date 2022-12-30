@@ -14,10 +14,11 @@ interface WithPulseState {
   height: number
   zIndex: number
   isMobile?: boolean
+  color?: string
 }
 
 const Wrapper = styled.div<WithPulseState>`
-  ${({ pulseState, width, height, zIndex, isMobile }) => css`
+  ${({ pulseState, width, height, zIndex, isMobile, color }) => css`
     width: ${isMobile ? 'auto' : width + 'px'};
     min-height: ${height}px;
     max-height: ${isMobile ? 'unset' : '90vh'};
@@ -72,7 +73,9 @@ const Wrapper = styled.div<WithPulseState>`
 
 export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const { removeModal, pulseModal } = useModal()
-  const { id, type, content } = modal
+  const { id, type, content, color } = modal
+
+  console.log('modal content', modal)
 
   const [isDragging, setDragging] = useState(false)
   const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 })
@@ -90,7 +93,9 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
     setModalW(
       content._type == 'event' || content._type == 'post'
         ? 480
-        : content._type == 'press' || content._type == 'partner'
+        : content._type == 'press' ||
+          content._type == 'partner' ||
+          content._type == 'person'
         ? 320
         : content._type == 'image'
         ? 480
@@ -162,6 +167,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
       pulseState={pulseState}
       zIndex={zIndex}
       isMobile={true}
+      color={color}
     >
       <ContentBlock
         content={modal.content}
@@ -180,6 +186,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         height={modalH}
         pulseState={pulseState}
         zIndex={zIndex}
+        color={color}
       >
         <x.button onClick={() => handleCloseClick(modal)}>
           <svg

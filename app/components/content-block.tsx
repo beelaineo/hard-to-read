@@ -18,6 +18,7 @@ import { VideoBlock } from './video-block'
 import { PostBlock } from './post-block'
 import { PressBlock } from './press-block'
 import { PartnerBlock } from './partner-block'
+import { PersonBlock } from './person-block'
 
 type DeltaPosition = {
   x: number
@@ -60,12 +61,7 @@ export const ContentBlock = React.forwardRef(
       case 'event':
         return <EventBlock content={content} />
       case 'person':
-        // return <PersonBlock content={content} ref={ref}/>
-        return (
-          <div>
-            {content._type} - {content.name}
-          </div>
-        )
+        return <PersonBlock content={content} />
       case 'post':
         return <PostBlock content={content} />
       case 'press':
