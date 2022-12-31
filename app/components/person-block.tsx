@@ -107,7 +107,7 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
           ))}
         </x.ul>
       )}
-      <Link href={'/people/' + content.slug}>
+      <Link href={'/people/' + content.slug?.current}>
         <x.a
           textDecoration={'underline'}
           display={'inline-block'}

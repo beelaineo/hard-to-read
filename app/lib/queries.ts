@@ -47,7 +47,7 @@ const postFields = `
   "slug": slug.current,
 `
 
-const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
+export const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
 
 const personFields = `
   _id,
@@ -81,6 +81,25 @@ const partnerFields = `
   type,
   "slug": slug.current,
   link,
+`
+
+/**
+ * Place
+ *
+ *
+ */
+
+const placeFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  "title": name,
+  "slug": slug.current,
+  city,
+  address,
+  location,
+  link
 `
 
 const pressFields = `
@@ -131,7 +150,7 @@ export const siteQuery = `*[_id == "siteSettings"][0] {
   ...
 }
 `
-const popupDocs = `
+export const popupDocs = `
 _type == 'eventRef' => @->{
   ..., 
   _id, 
@@ -346,6 +365,22 @@ export const partnerQuery = `
 export const partnersPopupsQuery = `
 *[_type == "popups"][0].partners[] {
   ${popupDocs}
+}
+`
+
+export const placeSlugsQuery = `
+*[_type == "place" && defined(slug.current)][].slug.current
+`
+
+export const placeQuery = `
+*[_type == "place" && slug.current == $slug][0] {
+  ${placeFields}
+}
+`
+
+export const placeBySlugQuery = `
+*[_type == "place" && slug.current == $slug][0] {
+  ${placeFields}
 }
 `
 

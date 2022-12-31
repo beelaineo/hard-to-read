@@ -6,8 +6,15 @@ import { definitely, modalize } from '../utils'
 import { siteQuery, pressQuery } from '../lib/queries'
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
-import { PortableText } from '@portabletext/react'
+import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { NextSeo } from 'next-seo'
+import { getImageDimensions } from '@sanity/asset-utils'
+import createImageUrlBuilder from '@sanity/image-url'
+import { sanityConfig } from '../lib/config'
+import getYouTubeId from 'get-youtube-id'
+import YouTube from 'react-youtube'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const { useEffect, useState, useRef } = React
 
@@ -49,6 +56,89 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   }
 }
 
+const imageBuilder = createImageUrlBuilder(sanityConfig)
+
+const ImageComponent = ({ value, isInline }) => {
+  const { width, height } = getImageDimensions(value)
+  return (
+    <x.figure h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
+      <Image
+        src={imageBuilder
+          .image(value)
+          .width(800)
+          .fit('max')
+          .auto('format')
+          .url()}
+        alt={
+          value.alt ||
+          value.caption ||
+          'Inline image in body text from Hard to Read'
+        }
+        loading="lazy"
+        width={width}
+        height={height}
+      />
+      {value?.caption && (
+        <x.figcaption color={'secondary'} fontSize={16}>
+          {value.caption}
+        </x.figcaption>
+      )}
+    </x.figure>
+  )
+}
+
+const serializers: PortableTextComponents = {
+  types: {
+    image: ImageComponent,
+    //@ts-ignore
+    youtube: ({ value }) => {
+      console.log('VALUE', value)
+      const { url, time, key } = value
+      const id = getYouTubeId(url)
+      const opts = { playerVars: { start: time || 0 } }
+      if (id) return <YouTube key={key} videoId={id} opts={opts} />
+    },
+  },
+  marks: {
+    internalLink: ({ value, children }) => {
+      const { slug = {}, type } = value
+      const href =
+        type == 'book' && slug?.current
+          ? `/books/${slug.current}`
+          : type == 'bookCollection' && slug?.current
+          ? `/collections/${slug.current}`
+          : type == 'event' && slug?.current
+          ? `/events/${slug.current}`
+          : type == 'partner' && slug?.current
+          ? `/partners/${slug.current}`
+          : type == 'person' && slug?.current
+          ? `/people/${slug.current}`
+          : type == 'place' && slug?.current
+          ? `/places/${slug.current}`
+          : type == 'post' && slug?.current
+          ? `/blog/${slug.current}`
+          : type == 'theme' && slug?.current
+          ? `/themes/${slug.current}`
+          : type
+      return (
+        <Link href={href}>
+          <x.a display={'inline-block'}>{children}</x.a>
+        </Link>
+      )
+    },
+    link: ({ value, children }) => {
+      const target = (value.href || '').startsWith('http')
+        ? '_blank'
+        : undefined
+      return (
+        <x.a href={value.href} target={target}>
+          {children}
+        </x.a>
+      )
+    },
+  },
+}
+
 const About = ({ siteData, preview }) => {
   return (
     <>
@@ -64,7 +154,7 @@ const About = ({ siteData, preview }) => {
         />
         <Grid>
           <PortableTextWrapper>
-            <PortableText value={siteData.about} />
+            <PortableText value={siteData.about} components={serializers} />
           </PortableTextWrapper>
         </Grid>
       </Layout>

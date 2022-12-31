@@ -7,6 +7,7 @@ import { eventBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
+import { popupDocs, relatedDocs } from '../lib/queries'
 
 interface WithLoaded {
   loaded: boolean
@@ -84,7 +85,14 @@ export const EventBlock = ({ content }) => {
       internalLink: ({ children, value }) => {
         const handleItemClick = async (value) => {
           const doc = await curClient.fetch(
-            `*[_id == "${value.reference._ref}"][0]`,
+            `*[_id == "${value.reference._ref}"][0]{
+              _type == 'person' => {
+                ...,
+                'title': name
+              },
+              'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+            }
+            `,
           )
           addModals([modalize(doc)])
         }
@@ -107,7 +115,16 @@ export const EventBlock = ({ content }) => {
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
       <p>
-        {place?.name}
+        <Link href={`/places/${place?.slug?.current}`}>
+          <x.a
+            pt={0}
+            display={'inline-block'}
+            textDecoration={'underline'}
+            color={'primary'}
+          >
+            {place?.name}
+          </x.a>
+        </Link>
         <br />
         {place.address}
       </p>

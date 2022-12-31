@@ -9,6 +9,9 @@ import styled, { x, css, th } from '@xstyled/styled-components'
 import Image from 'next/image'
 import Link from 'next/link'
 import { themeBySlugQuery } from '../lib/queries'
+import { useModal } from '../providers/ModalProvider'
+import { modalize } from '../utils'
+import { getClient } from '../lib/sanity.server'
 
 const imageBuilder = createImageUrlBuilder(sanityConfig)
 
@@ -39,58 +42,6 @@ const ImageComponent = ({ value, isInline }) => {
       )}
     </x.figure>
   )
-}
-
-const serializers: PortableTextComponents = {
-  types: {
-    image: ImageComponent,
-    //@ts-ignore
-    youtube: ({ value }) => {
-      console.log('VALUE', value)
-      const { url, time, key } = value
-      const id = getYouTubeId(url)
-      const opts = { playerVars: { start: time || 0 } }
-      if (id) return <YouTube key={key} videoId={id} opts={opts} />
-    },
-  },
-  marks: {
-    internalLink: ({ value, children }) => {
-      const { slug = {}, type } = value
-      const href =
-        type == 'book' && slug?.current
-          ? `/books/${slug.current}`
-          : type == 'bookCollection' && slug?.current
-          ? `/collections/${slug.current}`
-          : type == 'event' && slug?.current
-          ? `/events/${slug.current}`
-          : type == 'partner' && slug?.current
-          ? `/partners/${slug.current}`
-          : type == 'person' && slug?.current
-          ? `/people/${slug.current}`
-          : type == 'place' && slug?.current
-          ? `/places/${slug.current}`
-          : type == 'post' && slug?.current
-          ? `/blog/${slug.current}`
-          : type == 'theme' && slug?.current
-          ? `/themes/${slug.current}`
-          : type
-      return (
-        <Link href={href}>
-          <x.a display={'inline-block'}>{children}</x.a>
-        </Link>
-      )
-    },
-    link: ({ value, children }) => {
-      const target = (value.href || '').startsWith('http')
-        ? '_blank'
-        : undefined
-      return (
-        <x.a href={value.href} target={target}>
-          {children}
-        </x.a>
-      )
-    },
-  },
 }
 
 const Wrapper = styled.div`
@@ -150,6 +101,88 @@ const Wrapper = styled.div`
 `
 
 export default function PostBody({ content }) {
+  const { addModals, isMobile } = useModal()
+  const curClient = getClient(false)
+
+  const serializers: PortableTextComponents = {
+    types: {
+      image: ImageComponent,
+      //@ts-ignore
+      youtube: ({ value }) => {
+        console.log('VALUE', value)
+        const { url, time, key } = value
+        const id = getYouTubeId(url)
+        const opts = { playerVars: { start: time || 0 } }
+        if (id) return <YouTube key={key} videoId={id} opts={opts} />
+      },
+    },
+    marks: {
+      internalLink: ({ value, children }) => {
+        const { slug = {}, type } = value
+
+        const handleItemClick = async (value) => {
+          const doc = await curClient.fetch(
+            `*[_id == "${value.reference._ref}"][0]{
+              _type == 'person' => {
+                ...,
+                'title': name
+              },
+              'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+            }
+            `,
+          )
+          addModals([modalize(doc)])
+        }
+
+        const href =
+          type == 'book' && slug?.current
+            ? `/books/${slug.current}`
+            : type == 'bookCollection' && slug?.current
+            ? `/collections/${slug.current}`
+            : type == 'event' && slug?.current
+            ? `/events/${slug.current}`
+            : type == 'partner' && slug?.current
+            ? `/partners/${slug.current}`
+            : type == 'person' && slug?.current
+            ? `/people/${slug.current}`
+            : type == 'place' && slug?.current
+            ? `/places/${slug.current}`
+            : type == 'post' && slug?.current
+            ? `/blog/${slug.current}`
+            : type == 'theme' && slug?.current
+            ? `/themes/${slug.current}`
+            : type
+
+        if (isMobile == true) {
+          return (
+            <Link href={href}>
+              <x.a display={'inline-block'}>{children}</x.a>
+            </Link>
+          )
+        } else {
+          return (
+            <x.a
+              onClick={() => handleItemClick(value)}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              {children}
+            </x.a>
+          )
+        }
+      },
+      link: ({ value, children }) => {
+        const target = (value.href || '').startsWith('http')
+          ? '_blank'
+          : undefined
+        return (
+          <x.a href={value.href} target={target}>
+            {children}
+          </x.a>
+        )
+      },
+    },
+  }
+
   return (
     <Wrapper>
       <PortableText value={content} components={serializers} />

@@ -20,6 +20,8 @@ export default function Header() {
       ? 'Exhibitions'
       : path.includes('/people')
       ? 'People'
+      : path.includes('/places')
+      ? 'Places'
       : path.includes('/themes')
       ? 'Themes'
       : router.pathname.slice(1).replace(/^\w/, (c) => c.toUpperCase())
