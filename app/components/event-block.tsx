@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import styled, { css, x } from '@xstyled/styled-components'
+import styled, { css, textDecoration, x } from '@xstyled/styled-components'
 import { Event as EventType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { eventBlockDate, modalize } from '../utils'
@@ -42,6 +42,13 @@ const TextWrapper = styled.div`
   margin: 0px;
   padding: 0;
   width: auto;
+`
+
+const MediaWrapper = styled.div`
+  margin: 1rem 0px;
+  padding: 0;
+  width: auto;
+  display: block;
 `
 
 interface EventBlockProps {
@@ -129,9 +136,40 @@ export const EventBlock = ({ content }) => {
         {place.address}
       </p>
       <p>{eventBlockDate(date)}</p>
+      {action_link && (
+        <x.a
+          href={action_link}
+          color={'primary'}
+          target="_blank"
+          rel="noreferrer"
+          display={'inline-block'}
+          p={'4 0'}
+          textDecoration={'underline'}
+        >
+          {action_label ? action_label : 'Link'} →
+        </x.a>
+      )}
       <TextWrapper>
         {text ? <PortableText value={text} components={ptComponents} /> : null}
       </TextWrapper>
+      {texts && texts.length > 0 && (
+        <MediaWrapper>
+          <span>Text: </span>
+          {texts &&
+            texts.map((text, i) => (
+              <x.a
+                key={i}
+                onClick={() => addModals([modalize(text)])}
+                target="_blank"
+                rel="noreferrer"
+                display={'inline'}
+              >
+                {text.title || text.asset.originalFilename || 'Untitled'}
+                {i < texts.length - 1 ? ', ' : ''}
+              </x.a>
+            ))}
+        </MediaWrapper>
+      )}
       <Link href={`/${event_type}s/${slug?.current}`}>
         <x.a
           pt={4}

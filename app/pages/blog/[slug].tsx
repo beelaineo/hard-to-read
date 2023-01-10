@@ -47,18 +47,20 @@ const Post = ({ data, preview }) => {
                   publishedTime: post.publishedAt,
                   modifiedTime: post._updatedAt,
                 },
-                images: [
-                  {
-                    url: urlForImage(post.coverImage.url)
-                      .width(850)
-                      .height(650)
-                      .fit('crop')
-                      .url(),
-                    width: 850,
-                    height: 650,
-                    alt: post.title,
-                  },
-                ],
+                ...(post.coverImage?.url && {
+                  images: [
+                    {
+                      url: urlForImage(post.coverImage.url)
+                        .width(850)
+                        .height(650)
+                        .fit('crop')
+                        .url(),
+                      width: 850,
+                      height: 650,
+                      alt: post.title,
+                    },
+                  ],
+                }),
               }}
             />
             <BlogPost post={post} />

@@ -16,9 +16,19 @@ const eventFields = `
   text,
   action_label,
   action_link,
-  texts,
-  images,
-  videos,
+  texts[]{
+    _key,
+    _type == 'pdfAttachment' => {
+      title,
+      asset->{url,originalFilename}
+    },
+    _type == 'textAttachment' => {
+      title,
+      body
+    }
+  },
+  images[]{_key, asset->},
+  videos[]{_key, asset->},
   links,
   place->,
   themes[]->,

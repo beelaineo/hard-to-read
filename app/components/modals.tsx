@@ -16,6 +16,12 @@ const Wrapper = styled.div`
     #duck path {
       fill: primary20;
     }
+    #duck #eye #pupil {
+      fill: primary;
+    }
+    #duck #eye path {
+      fill: none;
+    }
   }
   @media (min-width: sm) {
     grid-column: span 2;
