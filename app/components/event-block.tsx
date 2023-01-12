@@ -170,6 +170,42 @@ export const EventBlock = ({ content }) => {
             ))}
         </MediaWrapper>
       )}
+      {images && images.length > 0 && (
+        <MediaWrapper>
+          <span>Images: </span>
+          {images &&
+            images.map((image, i) => (
+              <x.a
+                key={i}
+                onClick={() => addModals([modalize(image)])}
+                target="_blank"
+                rel="noreferrer"
+                display={'inline'}
+              >
+                Image {i + 1}
+                {i < images.length - 1 ? ', ' : ''}
+              </x.a>
+            ))}
+        </MediaWrapper>
+      )}
+      {videos && videos.length > 0 && (
+        <MediaWrapper>
+          <span>Videos: </span>
+          {videos &&
+            videos.map((video, i) => (
+              <x.a
+                key={i}
+                onClick={() => addModals([modalize(video)])}
+                target="_blank"
+                rel="noreferrer"
+                display={'inline'}
+              >
+                Video {i + 1}
+                {i < videos.length - 1 ? ', ' : ''}
+              </x.a>
+            ))}
+        </MediaWrapper>
+      )}
       <Link href={`/${event_type}s/${slug?.current}`}>
         <x.a
           pt={4}
