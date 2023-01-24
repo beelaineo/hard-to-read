@@ -126,6 +126,11 @@ export const ThemeProvider = ({ children }: Props) => {
     header a:hover {
       border-bottom: 2px solid ${dyad[0]};
     }
+    @media screen and (max-width: sm) {
+      h1, h2 {
+        font-size: 2xl;
+      }
+    }
   `
   return (
     <XThemeProvider theme={theme}>

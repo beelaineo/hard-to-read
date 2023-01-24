@@ -8,6 +8,9 @@ import { useRouter } from 'next/router'
 const { useState, useEffect } = React
 
 const Wrapper = styled.div`
+  #modalsCount {
+    display: none;
+  }
   #duckIcon {
     display: none;
     .cls-1 {
@@ -25,7 +28,8 @@ const Wrapper = styled.div`
   }
   @media (min-width: sm) {
     grid-column: span 2;
-    #duckIcon {
+    #duckIcon,
+    #modalsCount {
       display: block;
     }
   }
@@ -87,6 +91,19 @@ export default function Modals() {
         zIndex={12}
       >
         <DuckSVG width={140} id="duckIcon" onClick={() => handleQuack()} />
+        {modals && modals.length > 0 && (
+          <x.span
+            id="modalsCount"
+            display={'block'}
+            position={'absolute'}
+            bottom={6}
+            right={8}
+            fontSize={12}
+            color={'primary'}
+          >
+            {modals.length}
+          </x.span>
+        )}
       </x.div>
     </Wrapper>
   )

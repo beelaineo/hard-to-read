@@ -29,7 +29,7 @@ const Wrapper = styled.div<WithLoaded>`
       transition: color 10s ease-in-out;
     }
     a.permalink {
-      color: ${loaded ? 'primary' : 'primary0'};
+      color: ${'primary'};
       transition: color 10s ease-in-out;
     }
     p a {
@@ -49,6 +49,9 @@ const MediaWrapper = styled.div`
   padding: 0;
   width: auto;
   display: block;
+  span {
+    transition: color 10s ease-in-out;
+  }
 `
 
 interface EventBlockProps {
@@ -115,6 +118,20 @@ export const EventBlock = ({ content }) => {
           </x.a>
         )
       },
+      link: ({ children, value }) => {
+        return (
+          <x.a
+            href={value.href}
+            rel="noreferrer"
+            textDecoration={'underline'}
+            zIndex={2}
+            color={'secondary'}
+            target="_blank"
+          >
+            {children}
+          </x.a>
+        )
+      },
     },
   }
 
@@ -143,8 +160,11 @@ export const EventBlock = ({ content }) => {
           target="_blank"
           rel="noreferrer"
           display={'inline-block'}
-          p={'4 0'}
-          textDecoration={'underline'}
+          borderWidth={1}
+          borderStyle={'solid'}
+          m={'2 0'}
+          p={'2 3'}
+          backgroundColor={{ _: 'transparent', hover: 'primary20' }}
         >
           {action_label ? action_label : 'Link'} →
         </x.a>
@@ -154,7 +174,7 @@ export const EventBlock = ({ content }) => {
       </TextWrapper>
       {texts && texts.length > 0 && (
         <MediaWrapper>
-          <span>Text: </span>
+          <x.span color={loaded ? 'black' : 'primary0'}>Text: </x.span>
           {texts &&
             texts.map((text, i) => (
               <x.a
@@ -163,6 +183,7 @@ export const EventBlock = ({ content }) => {
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
+                color={'primary'}
               >
                 {text.title || text.asset.originalFilename || 'Untitled'}
                 {i < texts.length - 1 ? ', ' : ''}
@@ -172,7 +193,7 @@ export const EventBlock = ({ content }) => {
       )}
       {images && images.length > 0 && (
         <MediaWrapper>
-          <span>Images: </span>
+          <x.span color={loaded ? 'black' : 'primary0'}>Images: </x.span>
           {images &&
             images.map((image, i) => (
               <x.a
@@ -181,6 +202,7 @@ export const EventBlock = ({ content }) => {
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
+                color={'primary'}
               >
                 Image {i + 1}
                 {i < images.length - 1 ? ', ' : ''}
@@ -190,7 +212,7 @@ export const EventBlock = ({ content }) => {
       )}
       {videos && videos.length > 0 && (
         <MediaWrapper>
-          <span>Videos: </span>
+          <x.span color={loaded ? 'black' : 'primary0'}>Videos: </x.span>
           {videos &&
             videos.map((video, i) => (
               <x.a
@@ -199,6 +221,7 @@ export const EventBlock = ({ content }) => {
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
+                color={'primary'}
               >
                 Video {i + 1}
                 {i < videos.length - 1 ? ', ' : ''}
@@ -213,6 +236,7 @@ export const EventBlock = ({ content }) => {
           textDecoration={'underline'}
           color={'primary'}
           className={'permalink'}
+          fontSize={12}
         >
           (permalink)
         </x.a>

@@ -100,29 +100,72 @@ export const EventListing = ({ post }) => {
         my={2}
         color={post.event_program == 'pillowtalk' ? 'secondary' : 'primary'}
       >
-        <x.div gridColumn={'1 / 4'} fontSize={'lg'}>
+        <x.div
+          gridColumn={'1 / 4'}
+          fontSize={'lg'}
+          display={{ _: 'none', sm: 'block' }}
+        >
           {/* date (required), end_date, start, end, timezone */}
           {diffDays < 1
             ? format(date, 'eeee, MMMM d')
             : format(date, 'MMMM yyyy')}
-          {diffDays == 0
-            ? ' (today!)'
-            : diffDays > -90 && diffDays < 0
-            ? ' (' + formatDistanceToNow(date, { addSuffix: true }) + ')'
-            : null}
           <br />
           {diffDays < 1 && post.start ? post.start : null}
           {diffDays < 1 && post.start && post.end ? ' to ' + post.end : null}
           {diffDays < 1 && post.start && post.timezone
             ? ' ' + post.timezone
             : null}
+          {diffDays == 0 ? (
+            <>
+              <br />
+              (!today)
+            </>
+          ) : diffDays > -90 && diffDays < 0 ? (
+            <>
+              <br />({formatDistanceToNow(date, { addSuffix: true })})
+            </>
+          ) : null}
           {diffDays < 1 && post.start && post.end && post.end_date
             ? ', ends ' + format(new Date(post.end_date), 'MMM d')
             : post.end_date && diffDays < 1
             ? 'ends ' + format(new Date(post.end_date), 'eeee, MMMM d')
             : null}
         </x.div>
-        <x.div gridColumn={'span 4'} px={2} color={'black'}>
+        <x.div
+          gridColumn={'1 / 4'}
+          fontSize={'md'}
+          display={{ _: 'block', sm: 'none' }}
+        >
+          {/* date (required), end_date, start, end, timezone */}
+          {diffDays < 1 ? format(date, 'eee, MMM d') : format(date, 'MMM yyyy')}
+          <br />
+          {diffDays < 1 && post.start ? post.start : null}
+          {diffDays < 1 && post.start && post.end ? ' to ' + post.end : null}
+          {diffDays < 1 && post.start && post.timezone
+            ? ' ' + post.timezone
+            : null}
+          {diffDays == 0 ? (
+            <>
+              <br />
+              (!today)
+            </>
+          ) : diffDays > -90 && diffDays < 0 ? (
+            <>
+              <br />({formatDistanceToNow(date, { addSuffix: true })})
+            </>
+          ) : null}
+          {diffDays < 1 && post.start && post.end && post.end_date
+            ? ', ends ' + format(new Date(post.end_date), 'MMM d')
+            : post.end_date && diffDays < 1
+            ? 'ends ' + format(new Date(post.end_date), 'eee, MMM d')
+            : null}
+        </x.div>
+        <x.div
+          gridColumn={'span 4'}
+          px={2}
+          color={'black'}
+          display={{ _: 'none', sm: 'block' }}
+        >
           <x.h2
             fontSize={'2xl'}
             mb={0}
@@ -141,7 +184,53 @@ export const EventListing = ({ post }) => {
             </x.div>
           ) : null}
         </x.div>
-        <x.div gridColumn={'8 / 11'} px={5} fontSize={'lg'}>
+        <x.div
+          gridColumn={'span 4'}
+          color={'black'}
+          display={{ _: 'block', sm: 'none' }}
+          px={2}
+        >
+          <x.h2
+            fontSize={'xl'}
+            mb={0}
+            dangerouslySetInnerHTML={formatTitle(post.title)}
+          />
+          {namedPersons?.length > 0 ? (
+            <x.div
+              color={
+                post.event_program == 'pillowtalk' ? 'secondary' : 'primary'
+              }
+              fontSize={'xs'}
+              letterSpacing={0.33}
+              pt={2}
+            >
+              {namedPersons.join(', ')}
+            </x.div>
+          ) : null}
+        </x.div>
+        <x.div
+          gridColumn={'8 / 11'}
+          px={5}
+          fontSize={'lg'}
+          display={{ _: 'none', sm: 'block' }}
+        >
+          {post.place ? (
+            <>
+              {post.place?.name}
+              {post.place?.city ? (
+                <>
+                  <br />
+                  {post.place?.city}
+                </>
+              ) : null}
+            </>
+          ) : null}
+        </x.div>
+        <x.div
+          gridColumn={'8 / 11'}
+          fontSize={'md'}
+          display={{ _: 'block', sm: 'none' }}
+        >
           {post.place ? (
             <>
               {post.place?.name}

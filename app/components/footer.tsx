@@ -190,18 +190,20 @@ export default function Footer() {
           label="Show menu"
         />
       </x.div>
-      <x.div
-        position={'fixed'}
-        display={{ _: 'block', sm: 'none' }}
-        right={12}
-        bottom={14}
-        cursor={'pointer'}
-        zIndex={12}
-        fontSize={40}
-        color={'primary'}
-      >
-        <VscDebugRestart id="resetIcon" onClick={() => handleQuack()} />
-      </x.div>
+      {pathName !== '/' ? (
+        <x.div
+          position={'fixed'}
+          display={{ _: 'block', sm: 'none' }}
+          right={12}
+          bottom={14}
+          cursor={'pointer'}
+          zIndex={12}
+          fontSize={40}
+          color={'primary'}
+        >
+          <VscDebugRestart id="resetIcon" onClick={() => handleQuack()} />
+        </x.div>
+      ) : null}
     </>
   )
 }

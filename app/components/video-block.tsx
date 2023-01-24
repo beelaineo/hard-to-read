@@ -23,6 +23,8 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   const { _id, assetId, playbackId, uploadId, status, data } = content.asset
   const { aspect_ratio, duration } = data
 
+  console.log('VideoBlock', content)
+
   const handleClick = () => {
     if (isDragging === true) return
     setMuted(!muted)

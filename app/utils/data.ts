@@ -24,6 +24,7 @@ export const unique = <T>(array: T[]): T[] => {
 }
 
 export const modalize = (doc: any, color?: string) => {
+  console.log('modalize', doc)
   const modalDoc: Modal = {
     id: doc._id,
     type: doc._type,

@@ -22,6 +22,7 @@ export default function Post({ post }) {
           display={'inline-block'}
           my={4}
           color={'primary'}
+          fontSize={12}
         >
           (permalink)
         </x.a>

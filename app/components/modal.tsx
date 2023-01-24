@@ -192,6 +192,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
       defaultPosition={{ x: origin.x, y: origin.y }}
       onStart={() => handleStart()}
       onStop={() => handleStop()}
+      cancel="a"
     >
       <Wrapper
         width={modalW}

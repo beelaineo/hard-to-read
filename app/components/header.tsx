@@ -38,28 +38,29 @@ export default function Header() {
     >
       <x.h1
         display={'grid'}
-        gridTemplateColumns={{ _: 3, sm: 6, md: 9, lg: 10 }}
+        gridTemplateColumns={{ _: 10, sm: 6, md: 9, lg: 10 }}
         fontSize={{ _: '2xl', md: '4xl' }}
         letterSpacing={'tight'}
       >
-        <x.div gridColumn={{ _: 'span 1', sm: 'span 2', md: 'span 3' }}>
+        <x.div gridColumn={{ _: '1 / 4', sm: 'span 2', md: 'span 3' }}>
           <Link href="/">
             <x.a pointerEvents={'all'}>{title}</x.a>
           </Link>
         </x.div>
         <x.div
           gridColumn={{
-            _: 'span 1',
+            _: 'span 4',
             sm: 'span 2',
             md: 'span 3',
             lg: 'span 4',
           }}
+          px={{ _: 2, sm: 0 }}
         >
           <Link href="/">
             <x.a pointerEvents={'all'}>to</x.a>
           </Link>
         </x.div>
-        <x.div gridColumn={{ _: 'span 1', sm: 'span 2', md: 'span 3' }}>
+        <x.div gridColumn={{ _: '8 / 11', sm: 'span 2', md: 'span 3' }}>
           <Link href="/">
             <x.a pointerEvents={'all'}>Read</x.a>
           </Link>

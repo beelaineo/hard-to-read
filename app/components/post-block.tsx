@@ -90,6 +90,19 @@ export const PostBlock = ({ content }: PostBlockProps) => {
           </x.a>
         )
       },
+      link: ({ children, value }) => {
+        return (
+          <x.a
+            textDecoration={'underline'}
+            zIndex={1}
+            color={'secondary'}
+            target="_blank"
+            href={value.href}
+          >
+            {children}
+          </x.a>
+        )
+      },
     },
   }
 
@@ -108,6 +121,7 @@ export const PostBlock = ({ content }: PostBlockProps) => {
           display={'inline-block'}
           textDecoration={'underline'}
           color={'primary'}
+          fontSize={12}
         >
           Read more...
         </x.a>

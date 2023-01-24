@@ -21,6 +21,7 @@ export default function Layout({ preview, children }) {
   }, [])
 
   const router = useRouter()
+  const noPadTop = ['/', '/events']
   return (
     <>
       <Meta />
@@ -29,8 +30,8 @@ export default function Layout({ preview, children }) {
         <Header />
         <x.main
           px={router.asPath == '/' ? 0 : 4}
-          pt={{ _: router.asPath == '/' ? 0 : 16, sm: 100 }}
-          pb={{ _: router.asPath == '/' ? 0 : 16, sm: 200 }}
+          pt={{ _: noPadTop.includes(router.asPath) ? 0 : 16, sm: 100 }}
+          pb={{ _: noPadTop.includes(router.asPath) ? 0 : 16, sm: 200 }}
         >
           {children}
         </x.main>

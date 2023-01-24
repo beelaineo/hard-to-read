@@ -113,6 +113,7 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
           display={'inline-block'}
           my={4}
           color={'primary'}
+          fontSize={12}
         >
           (permalink)
         </x.a>

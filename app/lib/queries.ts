@@ -91,6 +91,7 @@ const partnerFields = `
   type,
   "slug": slug.current,
   link,
+  place[]->,
 `
 
 /**
@@ -215,7 +216,8 @@ _type == 'partnerRef' => @->{
   ...,
   _id,
   '_key': ^._key,
-  'related': ${relatedDocs}
+  'related': *[_type == 'event' && references(@.place[0]._ref)]{ title, _type, _id, slug, ... }
+  // 'related': *[_type == 'event' && references(^._id)]{ title, _type, _id, slug, ... }
 },
 _type == 'themeRef' => @->{
   ...,

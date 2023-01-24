@@ -48,11 +48,11 @@ export const ImageBlock = ({ content }) => {
         <x.figcaption
           position={'absolute'}
           color={'white'}
-          px={4}
-          py={6}
+          px={2}
+          py={3}
           w={'100%'}
           bottom={0}
-          fontSize={16}
+          fontSize={12}
         >
           {caption}
         </x.figcaption>
