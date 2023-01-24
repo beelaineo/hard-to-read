@@ -18,8 +18,8 @@ import {
 export * from './sanity'
 
 export type ModalContent = {
-  title: string
-  body: string
+  title?: string
+  body?: string
 }
 
 export type Modal = {

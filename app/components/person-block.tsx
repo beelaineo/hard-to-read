@@ -56,8 +56,6 @@ interface PersonBlockProps {
 }
 
 export const PersonBlock = ({ content, color }: PersonBlockProps) => {
-  console.log('content', content)
-
   const { addModals } = useModal()
   const curClient = getClient(false)
 

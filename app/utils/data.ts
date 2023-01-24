@@ -37,10 +37,16 @@ export const modalize = (doc: any, color?: string) => {
 
 export const modalizeImage = (image: any, color?: string) => {
   console.log('modalizeImage', image)
+  const imageContent = {
+    _type: 'image',
+    asset: image.asset,
+  }
+  console.log('modalizeImage IMAGE CONTENT', imageContent)
   const modalDoc: Modal = {
     id: image.asset._id,
     type: image._type,
-    content: image,
+    //@ts-ignore
+    content: imageContent,
     color: color || undefined,
   }
   return modalDoc

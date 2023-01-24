@@ -1,3 +1,18 @@
+const bookFields = `
+  _id,
+  _createdAt,
+  _type,
+  _updatedAt,
+  title,
+  "slug": slug.current,
+  author,
+  authorRef[]->,
+  link,
+  clipping {
+    asset->{url, metadata}
+  }
+`
+
 const eventFields = `
   _id,
   _createdAt,
@@ -27,10 +42,10 @@ const eventFields = `
       body
     }
   },
-  images[]{_key, asset->},
+  images[]{_key, _type, asset->},
   videos[]{_key, asset->},
   links,
-  place->,
+  books[]->,
   themes[]->,
   persons[]->,
 `
@@ -127,20 +142,6 @@ const pressFields = `
   }
 `
 
-const bookFields = `
-  _id,
-  _createdAt,
-  _type,
-  _updatedAt,
-  title,
-  "slug": slug.current,
-  author,
-  authorRef[]->,
-  link,
-  clipping {
-    asset->{url, metadata}
-  }
-`
 const bookCollectionFields = `
   _id,
   _createdAt,
@@ -180,11 +181,15 @@ _type == 'eventRef' => @->{
       'title': name,
     }
   },
+  books[]->,
   place->,
   themes[] {
     _key,
     'theme': @->
   },
+},
+_type == 'bookRef' => @-> {
+  ...,
 },
 _type == 'personRef' => @->{
   ...,

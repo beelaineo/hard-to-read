@@ -86,6 +86,7 @@ export const EventBlock = ({ content }) => {
     images,
     videos,
     links,
+    books,
     place,
     themes,
     persons,
@@ -145,6 +146,8 @@ export const EventBlock = ({ content }) => {
     },
   }
 
+  console.log('BOOKS', books)
+
   return (
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
@@ -182,6 +185,25 @@ export const EventBlock = ({ content }) => {
       <TextWrapper>
         {text ? <PortableText value={text} components={ptComponents} /> : null}
       </TextWrapper>
+      {books && books.length > 0 && (
+        <MediaWrapper>
+          <x.span color={loaded ? 'black' : 'primary0'}>Books: </x.span>
+          {books &&
+            books.map((book, i) => (
+              <x.a
+                key={i}
+                onClick={() => addModals([modalize(book)])}
+                target="_blank"
+                rel="noreferrer"
+                display={'inline'}
+                color={'primary'}
+              >
+                {book.title ?? 'Book ' + (i + 1)}
+                {i < books.length - 1 ? ', ' : ''}
+              </x.a>
+            ))}
+        </MediaWrapper>
+      )}
       {texts && texts.length > 0 && (
         <MediaWrapper>
           <x.span color={loaded ? 'black' : 'primary0'}>Text: </x.span>

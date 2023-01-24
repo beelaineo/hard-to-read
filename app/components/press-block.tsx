@@ -79,8 +79,6 @@ export const PressBlock = ({ content }: PressBlockProps) => {
     }, 3000)
   }, [])
 
-  console.log(clipping)
-
   return (
     <Wrapper loaded={loaded}>
       <x.p className="meta">

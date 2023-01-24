@@ -109,7 +109,6 @@ export default function PostBody({ content }) {
       image: ImageComponent,
       //@ts-ignore
       youtube: ({ value }) => {
-        console.log('VALUE', value)
         const { url, time, key } = value
         const id = getYouTubeId(url)
         const opts = { playerVars: { start: time || 0 } }

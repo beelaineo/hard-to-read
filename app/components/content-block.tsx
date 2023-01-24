@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled, { x, css } from '@xstyled/styled-components'
 import {
+  Book as BookType,
   Event as EventType,
   Person as PersonType,
   Post as PostType,
@@ -38,6 +39,7 @@ interface PartnerPopupType extends PartnerType {
 
 interface ContentBlockProps {
   content:
+    | BookType
     | EventType
     | PersonType
     | PostType
@@ -59,6 +61,9 @@ export const ContentBlock = React.forwardRef(
     ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     switch (content._type) {
+      case 'book':
+        // return <PlaceBlock content={content} ref={ref} />
+        return <div>{content.title}</div>
       case 'event':
         return <EventBlock content={content} />
       case 'person':

@@ -76,7 +76,6 @@ export const PostBlock = ({ content }: PostBlockProps) => {
             `*[_id == "${value.reference._ref}"][0]`,
           )
           addModals([modalize(doc)])
-          console.log('refDoc', doc)
         }
         return (
           <x.a

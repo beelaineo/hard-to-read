@@ -78,16 +78,15 @@ const Wrapper = styled.div<WithPulseState>`
 export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const { removeModal, pulseModal } = useModal()
   const { id, type, content } = modal
-  console.log('modal content', content)
+  // console.log('modal content', content)
   const color =
     modal?.type == 'event' && content?.event_program == 'pillowtalk'
       ? 'secondary'
       : modal.color
       ? modal.color
       : null
-  console.log('modal color', color)
-
-  console.log('modal content', modal)
+  // console.log('modal color', color)
+  // console.log('modal content', modal)
 
   const [isDragging, setDragging] = useState(false)
   const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 })
