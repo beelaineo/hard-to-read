@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom'
 import styled, { css, textDecoration, x } from '@xstyled/styled-components'
 import { Event as EventType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
-import { eventBlockDate, modalize } from '../utils'
+import { eventBlockDate, modalize, modalizeImage } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
 import { popupDocs, relatedDocs } from '../lib/queries'
+import { imageConfigDefault } from 'next/dist/shared/lib/image-config'
 
 interface WithLoaded {
   loaded: boolean
@@ -42,6 +43,15 @@ const TextWrapper = styled.div`
   margin: 0px;
   padding: 0;
   width: auto;
+  p {
+    margin: 4 0;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `
 
 const MediaWrapper = styled.div`
@@ -198,7 +208,7 @@ export const EventBlock = ({ content }) => {
             images.map((image, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalize(image)])}
+                onClick={() => addModals([modalizeImage(image)])}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
@@ -225,6 +235,25 @@ export const EventBlock = ({ content }) => {
               >
                 Video {i + 1}
                 {i < videos.length - 1 ? ', ' : ''}
+              </x.a>
+            ))}
+        </MediaWrapper>
+      )}
+      {links && links.length > 0 && (
+        <MediaWrapper>
+          <x.span color={loaded ? 'black' : 'primary0'}>Links: </x.span>
+          {links &&
+            links.map((link, i) => (
+              <x.a
+                key={i}
+                target="_blank"
+                rel="noreferrer"
+                display={'inline'}
+                color={'primary'}
+                href={link.url}
+              >
+                {link.title ? link.title : `Link ${i + 1}`}
+                {i < links.length - 1 ? ', ' : ''}
               </x.a>
             ))}
         </MediaWrapper>

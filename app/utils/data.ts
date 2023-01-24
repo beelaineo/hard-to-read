@@ -1,3 +1,4 @@
+import { isAbsoluteUrl } from 'next/dist/shared/lib/utils'
 import { Maybe, Modal } from '../interfaces'
 
 export const propByPath = (
@@ -29,6 +30,17 @@ export const modalize = (doc: any, color?: string) => {
     id: doc._id,
     type: doc._type,
     content: doc,
+    color: color || undefined,
+  }
+  return modalDoc
+}
+
+export const modalizeImage = (image: any, color?: string) => {
+  console.log('modalizeImage', image)
+  const modalDoc: Modal = {
+    id: image.asset._id,
+    type: image._type,
+    content: image,
     color: color || undefined,
   }
   return modalDoc

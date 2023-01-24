@@ -2,7 +2,9 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import Image from 'next/image'
 import styled, { css, x } from '@xstyled/styled-components'
+import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageAsset } from '../interfaces'
+import { sanityClient } from '../lib/sanity.server'
 
 const Wrapper = styled.figure`
   height: auto;
@@ -34,15 +36,22 @@ export const ImageBlock = ({ content }) => {
   const width = metadata.dimensions.width
   const height = metadata.dimensions.height
   const ratio = metadata.dimensions.aspectRatio
+  const builder = imageUrlBuilder(sanityClient)
+
+  const urlFor = (source: string) => {
+    return builder.image(source)
+  }
 
   return (
     <Wrapper>
       <Image
-        src={url}
+        src={urlFor(url).auto('format').width(1080).url()}
         width={width}
         height={height}
         alt={alt || caption || 'image'}
         loading="lazy"
+        placeholder={'blur'}
+        blurDataURL={metadata.lqip}
       />
       {caption && (
         <x.figcaption
