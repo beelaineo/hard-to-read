@@ -27,6 +27,7 @@ export type Modal = {
   type: string
   content: ModalContent
   color?: string
+  spineColor?: string
 }
 
 export type Maybe<T> = T | null

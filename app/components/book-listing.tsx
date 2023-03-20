@@ -72,6 +72,7 @@ const colors = [
 ]
 
 interface WithSpineColor {
+  color: string
   spineColor: string
   hFactor: number
   wFactor: number
@@ -79,7 +80,7 @@ interface WithSpineColor {
 }
 
 const Wrapper = styled.div<WithSpineColor>`
-  ${({ spineColor, wFactor, hFactor, show }) => css`
+  ${({ color, spineColor, wFactor, hFactor, show }) => css`
     position: relative;
     height: ${hFactor * 55}vh;
     border: 1px solid;
@@ -89,6 +90,10 @@ const Wrapper = styled.div<WithSpineColor>`
     opacity: ${show ? 1 : 0};
     margin-top: 4;
     cursor: pointer;
+    background-color: #fff;
+    &:hover {
+      background-color: ${color.replace('1.0', '0.1')};
+    }
     &:not(:first-child) {
       margin-left: 2;
     }
@@ -139,7 +144,7 @@ export const BookListing = ({ book, spineColor }) => {
   const bgColorHover = color?.replace('1.0', '0.15')
 
   const handleItemClick = (book) => {
-    addModals([modalize(book)])
+    addModals([modalize(book, color, spineColor)])
   }
 
   return (
@@ -149,11 +154,12 @@ export const BookListing = ({ book, spineColor }) => {
       hFactor={hFactor}
       show={loaded}
       onClick={() => handleItemClick(book)}
+      color={color}
     >
-      <div>
+      <x.div backgroundColor={bgColor}>
         <x.span color={color}>{book.title}</x.span>
         <x.span color={color}>{book.author}</x.span>
-      </div>
+      </x.div>
     </Wrapper>
   )
 }

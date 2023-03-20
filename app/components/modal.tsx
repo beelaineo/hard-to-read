@@ -15,10 +15,11 @@ interface WithPulseState {
   zIndex: number
   isMobile?: boolean
   color?: string
+  spineColor?: string
 }
 
 const Wrapper = styled.div<WithPulseState>`
-  ${({ pulseState, width, height, zIndex, isMobile, color }) => css`
+  ${({ pulseState, width, height, zIndex, isMobile, color, spineColor }) => css`
     width: ${isMobile ? 'auto' : width + 'px'};
     min-height: ${height}px;
     max-height: ${isMobile ? 'unset' : '90vh'};
@@ -26,15 +27,17 @@ const Wrapper = styled.div<WithPulseState>`
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : '#fff'};
     border: 1px solid;
-    border-color: ${color ? color : 'primary'};
+    border-color: ${spineColor ? spineColor : color ? color : 'primary'};
     margin: ${isMobile ? 4 : 0};
     position: ${isMobile ? 'static' : 'absolute'};
     pointer-events: all;
     cursor: grab;
 
     button {
-      color: ${color ? color : 'primary'};
-      background-color: ${color && color == 'secondary'
+      color: ${spineColor ? spineColor : color ? color : 'primary'};
+      background-color: ${spineColor
+        ? spineColor.replace('1.0', '0.2')
+        : color && color == 'secondary'
         ? 'secondary20'
         : color
         ? color.replace('1.0', '0.2')
@@ -42,7 +45,7 @@ const Wrapper = styled.div<WithPulseState>`
       border-radius: 0 0 0 100%;
       position: absolute;
       right: -1px;
-      border-color: ${color ? color : 'primary'};
+      border-color: ${spineColor ? spineColor : color ? color : 'primary'};
       border: 1px solid;
       top: -1px;
       appearance: none;
@@ -57,7 +60,7 @@ const Wrapper = styled.div<WithPulseState>`
         width: 0.75rem;
       }
       svg line {
-        stroke: ${color ? color : 'primary'};
+        stroke: ${spineColor ? spineColor : color ? color : 'primary'};
       }
     }
     .button-bg {
@@ -77,8 +80,7 @@ const Wrapper = styled.div<WithPulseState>`
 
 export default function Modal({ modal, i, count, zFloor, setZFloor }) {
   const { removeModal, pulseModal } = useModal()
-  const { id, type, content } = modal
-  // console.log('modal content', content)
+  const { id, type, content, spineColor } = modal
   const color =
     modal?.type == 'event' && content?.event_program == 'pillowtalk'
       ? 'secondary'
@@ -108,6 +110,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
           content._type == 'partner' ||
           content._type == 'person'
         ? 320
+        : content._type == 'book'
+        ? 200
         : content._type == 'image'
         ? 480
         : content._type == 'video'
@@ -179,6 +183,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
       zIndex={zIndex}
       isMobile={true}
       color={color}
+      spineColor={spineColor}
     >
       <ContentBlock
         content={modal.content}
@@ -199,6 +204,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         pulseState={pulseState}
         zIndex={zIndex}
         color={color}
+        spineColor={spineColor}
       >
         <x.button onClick={() => handleCloseClick(modal)}>
           <svg

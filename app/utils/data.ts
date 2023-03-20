@@ -24,13 +24,14 @@ export const unique = <T>(array: T[]): T[] => {
   return [...set]
 }
 
-export const modalize = (doc: any, color?: string) => {
+export const modalize = (doc: any, color?: string, spineColor?: string) => {
   console.log('modalize', doc)
   const modalDoc: Modal = {
     id: doc._id,
     type: doc._type,
     content: doc,
     color: color || undefined,
+    spineColor: spineColor || undefined,
   }
   return modalDoc
 }

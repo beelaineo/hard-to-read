@@ -20,6 +20,7 @@ import { PostBlock } from './post-block'
 import { PressBlock } from './press-block'
 import { PartnerBlock } from './partner-block'
 import { PersonBlock } from './person-block'
+import { BookBlock } from './book-block'
 
 type DeltaPosition = {
   x: number
@@ -62,8 +63,7 @@ export const ContentBlock = React.forwardRef(
   ) => {
     switch (content._type) {
       case 'book':
-        // return <PlaceBlock content={content} ref={ref} />
-        return <div>{content.title}</div>
+        return <BookBlock content={content} color={color} />
       case 'event':
         return <EventBlock content={content} />
       case 'person':
