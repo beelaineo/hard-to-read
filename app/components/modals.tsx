@@ -4,6 +4,8 @@ import Modal from './modal'
 import { useModal } from '../providers/ModalProvider'
 import { ReactComponent as DuckSVG } from './duck.svg'
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
+
 import { Pinyon_Script } from 'next/font/google'
 const pinyon = Pinyon_Script({
   weight: '400',
@@ -31,6 +33,24 @@ const Wrapper = styled.div`
       fill: none;
     }
   }
+  #touchMe:after {
+    content: '➦';
+    position: absolute;
+    font-size: 36px;
+    top: 0;
+    bottom: 0;
+    right: -24px;
+    transform: rotate(90deg);
+    color: secondary;
+  }
+  @keyframes slideIn {
+    0% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(-10deg);
+    }
+  }
   @media (min-width: sm) {
     grid-column: span 2;
     #duckIcon,
@@ -54,15 +74,28 @@ export default function Modals() {
   const { modals, resetModals } = useModal()
   const [zFloor, setZFloor] = useState(modals.length)
   const [pageFX, setPageFX] = useState<HTMLAudioElement | null>(null)
-  useEffect(() => setPageFX(new Audio('/page.mp3')), [])
+  const [isDuckHovered, setDuckHovered] = useState(false)
+  const [isDuckTipVisible, showDuckTip] = useState(false)
+  useEffect(() => {
+    setPageFX(new Audio('/page.mp3'))
+    if (!Cookies.get('hideQuackTip')) showDuckTip(true)
+  }, [])
 
   const router = useRouter()
 
   const handleQuack = () => {
+    if (!Cookies.get('hideQuackTip'))
+      Cookies.set('hideQuackTip', 'true', { expires: 365 })
+    showDuckTip(false)
+
     if (modals.length > 0) {
       pageFX?.play()
       resetModals()
     }
+  }
+
+  const handleDuckMouse = () => {
+    setDuckHovered(true)
   }
 
   return (
@@ -95,8 +128,38 @@ export default function Modals() {
         cursor={'pointer'}
         zIndex={12}
       >
-        <x.div>Touch Me</x.div>
-        <DuckSVG width={140} id="duckIcon" onClick={() => handleQuack()} />
+        {isDuckTipVisible ? (
+          <x.div
+            id="touchMe"
+            className={pinyon.className}
+            border={'4px solid black'}
+            borderColor={'secondary'}
+            borderStyle={'double'}
+            h="72px"
+            w={160}
+            lineHeight={'32px'}
+            textAlign={'center'}
+            backgroundColor={'white'}
+            p={4}
+            whiteSpace={'nowrap'}
+            fontSize={isDuckHovered ? 20 : 32}
+            position={'absolute'}
+            display={{ _: 'none', sm: 'block' }}
+            bottom={140}
+            right={70}
+            transform={'rotate(-15deg)'}
+            animation={'1s ease-in-out slideIn infinite alternate'}
+          >
+            {isDuckHovered ? 'For a fresh start.' : 'Touch Me.'}
+          </x.div>
+        ) : null}
+        <DuckSVG
+          width={140}
+          id="duckIcon"
+          onClick={() => handleQuack()}
+          onMouseEnter={() => setDuckHovered(true)}
+          onMouseLeave={() => setDuckHovered(false)}
+        />
         {modals && modals.length > 0 && (
           <x.span
             id="modalsCount"
