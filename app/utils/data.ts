@@ -52,3 +52,20 @@ export const modalizeImage = (image: any, color?: string) => {
   }
   return modalDoc
 }
+
+export const modalizeVideo = (video: any, color?: string) => {
+  console.log('modalizeVideo', video)
+  const videoContent = {
+    _type: 'video',
+    asset: video.asset,
+  }
+  console.log('modalizeImage VIDEO CONTENT', videoContent)
+  const modalDoc: Modal = {
+    id: video.asset._id,
+    type: 'video',
+    //@ts-ignore
+    content: videoContent,
+    color: color || undefined,
+  }
+  return modalDoc
+}

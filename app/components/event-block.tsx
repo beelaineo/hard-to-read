@@ -9,6 +9,7 @@ import {
   modalizeImage,
   alphanumerize,
 } from '../utils'
+import { modalizeVideo } from '../utils/data'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
@@ -151,8 +152,6 @@ export const EventBlock = ({ content }) => {
     },
   }
 
-  console.log('BOOKS', books)
-
   return (
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
@@ -254,7 +253,7 @@ export const EventBlock = ({ content }) => {
             videos.map((video, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalize(video)])}
+                onClick={() => addModals([modalizeVideo(video)])}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
