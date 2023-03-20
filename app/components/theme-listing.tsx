@@ -81,19 +81,22 @@ const Wrapper = styled.div`
 
 export const ThemeListing = ({ post }) => {
   const { addModals } = useModal()
-  const [color, setColor] = useState<string>('')
+  const [color, setColor] = useState<string | null>(null)
   useEffect(() => setColor(colors[(colors.length * Math.random()) | 0]), [])
   const bgColor = color?.replace('1.0', '0.05')
   const bgColorHover = color?.replace('1.0', '0.15')
 
-  const handleItemClick = (person) => {
-    addModals([modalize(person)])
+  const handleItemClick = (theme, color) => {
+    addModals([modalize(theme, color)])
   }
 
   return (
     <Wrapper>
       {/* <Link href={`/events/${post.slug}`}> */}
-      <x.a onClick={() => handleItemClick(post)} color={color}>
+      <x.a
+        onClick={() => handleItemClick(post, color)}
+        color={color || 'secondary'}
+      >
         <x.div fontSize={post.totalReferences + 1 + 'rem'}>{post.title}</x.div>
       </x.a>
       {/* </Link> */}

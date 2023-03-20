@@ -99,6 +99,7 @@ const themeFields = `
   title,
   "slug": slug.current,
   "totalReferences": count(*[_type in ['event', 'post'] && references(^._id)]),
+  "related": ${relatedDocs}
 `
 
 const partnerFields = `

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
-import { Person as PersonType, SanityImage } from '../interfaces'
+import { Theme as ThemeType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { postBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
@@ -17,22 +17,24 @@ const Wrapper = styled.div<WithLoaded>`
   ${({ theme, loaded, color }) => css`
     height: auto;
     position: relative;
-    width: 100%;
+    max-width: 100%;
     display: block;
     position: relative;
     background-color: ${color ? color.replace('1.0', '0.2') : 'primary20'};
     padding: 6;
+    h2 {
+      white-space: wrap;
+      color: ${color};
+    }
     p {
-      color: ${loaded ? 'black' : 'primary0'};
-      transition: color 10s ease-in-out;
+      color: ${color};
     }
     a.permalink {
-      color: ${loaded ? 'primary' : 'primary0'};
-      transition: color 10s ease-in-out;
+      color: ${color};
     }
     p a,
     .meta {
-      color: primary;
+      color: ${color};
       display: flex;
       justify-content: space-between;
     }
@@ -45,17 +47,16 @@ const TextWrapper = styled.div`
   width: auto;
 `
 
-interface PersonPopupType extends Omit<PersonType, 'name'> {
+interface ThemePopupType extends ThemeType {
   related?: any[]
-  title?: string
 }
 
-interface PersonBlockProps {
-  content: PersonPopupType
+interface ThemeBlockProps {
+  content: ThemePopupType
   color?: string
 }
 
-export const PersonBlock = ({ content, color }: PersonBlockProps) => {
+export const ThemeBlock = ({ content, color }: ThemeBlockProps) => {
   const { addModals } = useModal()
   const curClient = getClient(false)
 
@@ -74,19 +75,6 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
   return (
     <Wrapper loaded={loaded} color={color}>
       <x.h2 mb={0}>{content.title}</x.h2>
-      {content.link && (
-        <x.a
-          pt={1}
-          display={'inline-block'}
-          textDecoration={'underline'}
-          color={'primary'}
-          href={content.link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Link
-        </x.a>
-      )}
 
       {content.related && (
         <x.ul pt={4}>
@@ -96,7 +84,7 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
                 pt={1}
                 display={'inline-block'}
                 textDecoration={'underline'}
-                color={'secondary'}
+                color={color}
                 onClick={() => handleItemClick(doc)}
               >
                 {doc.title}
@@ -105,12 +93,11 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
           ))}
         </x.ul>
       )}
-      <Link href={'/people/' + content.slug?.current} legacyBehavior>
+      <Link href={'/themes/' + content.slug} legacyBehavior>
         <x.a
           textDecoration={'underline'}
           display={'inline-block'}
           my={4}
-          color={'primary'}
           fontSize={12}
         >
           (permalink)

@@ -21,6 +21,7 @@ import { PressBlock } from './press-block'
 import { PartnerBlock } from './partner-block'
 import { PersonBlock } from './person-block'
 import { BookBlock } from './book-block'
+import { ThemeBlock } from './theme-block'
 
 type DeltaPosition = {
   x: number
@@ -82,12 +83,7 @@ export const ContentBlock = React.forwardRef(
           </div>
         )
       case 'theme':
-        // return <ThemeBlock content={content} ref={ref} />
-        return (
-          <div>
-            {content._type} - {content.title}
-          </div>
-        )
+        return <ThemeBlock content={content} color={color} />
       case 'image':
         return <ImageBlock content={content} />
       case 'video':
