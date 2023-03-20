@@ -6,7 +6,7 @@ import { getImageDimensions } from '@sanity/asset-utils'
 import createImageUrlBuilder from '@sanity/image-url'
 import { sanityConfig } from '../lib/config'
 import styled, { x, css, th } from '@xstyled/styled-components'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Link from 'next/link'
 import { themeBySlugQuery } from '../lib/queries'
 import { useModal } from '../providers/ModalProvider'

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Container from '../../components/container'
 import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { blogQuery, siteQuery, blogPopupsQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import * as React from 'react'

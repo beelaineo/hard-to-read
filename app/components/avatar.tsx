@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { urlForImage } from '../lib/sanity'
 
 export default function Avatar({ name, picture }) {

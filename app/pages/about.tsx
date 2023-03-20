@@ -14,7 +14,7 @@ import { sanityConfig } from '../lib/config'
 import getYouTubeId from 'get-youtube-id'
 import YouTube from 'react-youtube'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 const { useEffect, useState, useRef } = React
 

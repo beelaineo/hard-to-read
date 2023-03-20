@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import styled, { css, x } from '@xstyled/styled-components'
 import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageAsset } from '../interfaces'

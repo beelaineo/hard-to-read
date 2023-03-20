@@ -5,7 +5,7 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { css } from '@xstyled/styled-components'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { ContentBlock } from '../components/content-block'
 import { definitely, modalize } from '../utils'
 import { indexQuery, siteQuery } from '../lib/queries'
