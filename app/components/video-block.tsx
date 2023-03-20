@@ -98,7 +98,7 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
       </ResetControls>
       <MuxVideo
         ref={videoRef}
-        style={{ height: '100%', maxWidth: '100%' }}
+        style={{ maxWidth: '100%' }}
         playbackId={playbackId}
         metadata={{
           video_id: 'video-id-123456',
