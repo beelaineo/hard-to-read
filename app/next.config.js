@@ -16,6 +16,7 @@ const SANITY_READ_TOKEN = process.env.SANITY_READ_TOKEN
 module.exports = withSourceMaps({
   reactStrictMode: true,
   images: {
+    domains: ['cdn.sanity.io'],
     remotePatterns: [
       {
         protocol: 'https',

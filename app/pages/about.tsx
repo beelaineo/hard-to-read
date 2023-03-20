@@ -14,7 +14,7 @@ import { sanityConfig } from '../lib/config'
 import getYouTubeId from 'get-youtube-id'
 import YouTube from 'react-youtube'
 import Link from 'next/link'
-import Image from "next/legacy/image"
+import Image from 'next/legacy/image'
 
 const { useEffect, useState, useRef } = React
 
@@ -124,7 +124,7 @@ const serializers: PortableTextComponents = {
         <Link href={href} legacyBehavior>
           <x.a display={'inline-block'}>{children}</x.a>
         </Link>
-      );
+      )
     },
     link: ({ value, children }) => {
       const target = (value.href || '').startsWith('http')

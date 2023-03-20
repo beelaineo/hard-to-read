@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import Image from "next/legacy/image"
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { urlForImage } from '../lib/sanity'
 
@@ -32,5 +32,5 @@ export default function CoverImage({ title, slug, image: source }) {
         image
       )}
     </div>
-  );
+  )
 }
