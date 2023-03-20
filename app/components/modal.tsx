@@ -35,24 +35,17 @@ const Wrapper = styled.div<WithPulseState>`
 
     button {
       color: ${spineColor ? spineColor : color ? color : 'primary'};
-      background-color: ${spineColor
-        ? spineColor.replace('1.0', '0.2')
-        : color && color == 'secondary'
-        ? 'secondary20'
-        : color
-        ? color.replace('1.0', '0.2')
-        : 'primary20'};
-      border-radius: 0 0 0 100%;
       position: absolute;
       right: -1px;
-      border-color: ${spineColor ? spineColor : color ? color : 'primary'};
-      border: 1px solid;
+      border-color: none;
+      border: none;
       top: -1px;
       appearance: none;
       position: absolute;
       z-index: 3;
       height: 2rem;
       width: 2rem;
+      background-color: transparent;
       svg {
         margin-left: 0.4rem;
         margin-top: 0rem;
@@ -207,7 +200,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         spineColor={spineColor}
       >
         <x.button onClick={() => handleCloseClick(modal)}>
-          <svg
+          X
+          {/* <svg
             viewBox="0 0 12 12"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -228,9 +222,9 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
               strokeWidth="1"
               vectorEffect="non-scaling-stroke"
             />
-          </svg>
+          </svg> */}
         </x.button>
-        <x.div className="button-bg" />
+        {/* <x.div className="button-bg" /> */}
         <ContentBlock
           content={modal.content}
           deltaPosition={deltaPosition}
