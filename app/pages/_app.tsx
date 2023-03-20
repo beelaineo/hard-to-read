@@ -6,6 +6,7 @@ import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import SEO from '../next-seo.config'
 import Modals from '../components/modals'
+import { SiteSettings } from '../interfaces'
 
 const Main = styled.div`
   transition: background-color 0.3s;
@@ -13,9 +14,13 @@ const Main = styled.div`
   flex-direction: column;
 `
 
-function MyApp({ Component, pageProps, pageProps: allPageProps }: AppProps) {
-  const { data } = allPageProps
-  const siteData = data ? data.siteData : allPageProps.siteData
+interface MyAppProps {
+  Component: AppProps['Component']
+  pageProps: Record<string, any>
+}
+
+function MyApp({ Component, pageProps }: MyAppProps) {
+  const { siteData } = pageProps
 
   return (
     <Providers siteData={siteData}>
