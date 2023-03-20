@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
-import { Post as PostType, SanityImage, SanityImageAsset } from '../interfaces'
+import { Post as PostType, SanityImageAsset } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import createImageUrlBuilder from '@sanity/image-url'
 import { getImageDimensions } from '@sanity/asset-utils'
@@ -14,6 +14,7 @@ import Link from 'next/link'
 import Img from 'next/image'
 import { sanityConfig } from '../lib/config'
 import { useNextSanityImage, UseNextSanityImageProps } from 'next-sanity-image'
+import SanityImage from './sanity-image'
 
 interface WithLoaded {
   loaded: boolean
@@ -42,6 +43,10 @@ const Wrapper = styled.div<WithLoaded>`
   `}
 `
 
+const ImageWrapper = styled.div`
+  position: relative;
+`
+
 const TextWrapper = styled.div`
   margin: 0px;
   padding: 0;
@@ -52,10 +57,28 @@ interface PostBlockProps {
   content: PostType
 }
 
-interface SanityImageProps {
-  asset: SanityImage
-  caption?: string
-  alt?: string
+export const ImageBlock = ({ value }) => {
+  console.log('image block', value)
+  const { related, caption, alt } = value
+
+  return (
+    <ImageWrapper>
+      <SanityImage image={value.asset} caption={caption} alt={alt} />
+      {caption && (
+        <x.figcaption
+          position={'absolute'}
+          color={'white'}
+          px={2}
+          py={3}
+          w={'100%'}
+          bottom={0}
+          fontSize={12}
+        >
+          {caption}
+        </x.figcaption>
+      )}
+    </ImageWrapper>
+  )
 }
 
 export const PostBlock = ({ content }: PostBlockProps) => {
@@ -74,39 +97,6 @@ export const PostBlock = ({ content }: PostBlockProps) => {
 
   const [loaded, setLoaded] = React.useState(false)
 
-  // const ImageComponent = ({ image, caption, alt }: SanityImageProps) => {
-  //   const imgProps: UseNextSanityImageProps = useNextSanityImage(
-  //     sanityClient,
-  //     image,
-  //   )
-  //   console.log('CONTENT', image)
-  //   const { assetId, metadata, originalFilename, uploadId, url } = image.asset
-  //   const width = metadata?.dimensions.width
-  //   const height = metadata?.dimensions.height
-  //   const ratio = metadata?.dimensions.aspectRatio
-
-  //   return (
-  //     <x.figure h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
-  //       <Img
-  //         {...imgProps}
-  //         sizes="(max-width: 767px) 100vw, 40vw"
-  //         alt={alt || caption || 'Inline image in body text from Hard to Read'}
-  //         loading="lazy"
-  //         placeholder={'blur'}
-  //         style={{ width: '100%', height: 'auto' }}
-  //         blurDataURL={metadata.lqip}
-  //         width={width}
-  //         height={height}
-  //       />
-  //       {caption && (
-  //         <x.figcaption color={'secondary'} fontSize={16}>
-  //           {caption}
-  //         </x.figcaption>
-  //       )}
-  //     </x.figure>
-  //   )
-  // }
-
   React.useEffect(() => {
     setTimeout(function () {
       setLoaded(true)
@@ -115,6 +105,7 @@ export const PostBlock = ({ content }: PostBlockProps) => {
 
   const ptComponents: PortableTextComponents = {
     types: {
+      image: ImageBlock,
       // image: ({ value }) => {
       //   return (
       //     <ImageComponent

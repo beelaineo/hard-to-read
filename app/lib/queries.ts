@@ -60,6 +60,10 @@ const postFields = `
   "coverImage": body[_type == "image"][0].asset->,
   body[]{
     ...,
+    _type == "image" => {
+      ...,
+      asset->
+    },
     markDefs[]{
       ...,
       _type == "internalLink" => {
@@ -209,7 +213,21 @@ _type == 'postRef' => @->{
   ...,
   _id,
   '_key': ^._key,
-  themes[]->
+  themes[]->,
+  body[]{
+    ...,
+    _type == "image" => {
+      ...,
+      asset->
+    },
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        "slug": @.reference->slug,
+        "type": @.reference->_type
+      }
+    }
+  },
 },
 _type == 'pressRef' => @->{
   ...,

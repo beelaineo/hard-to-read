@@ -12,37 +12,38 @@ import { themeBySlugQuery } from '../lib/queries'
 import { useModal } from '../providers/ModalProvider'
 import { modalize } from '../utils'
 import { getClient } from '../lib/sanity.server'
+import SanityImage from './sanity-image'
 
-const imageBuilder = createImageUrlBuilder(sanityConfig)
+// const imageBuilder = createImageUrlBuilder(sanityConfig)
 
-const ImageComponent = ({ value, isInline }) => {
-  const { width, height } = getImageDimensions(value)
-  return (
-    <x.figure h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
-      <Image
-        src={imageBuilder
-          .image(value)
-          .width(800)
-          .fit('max')
-          .auto('format')
-          .url()}
-        alt={
-          value.alt ||
-          value.caption ||
-          'Inline image in body text from Hard to Read'
-        }
-        loading="lazy"
-        width={width}
-        height={height}
-      />
-      {value?.caption && (
-        <x.figcaption color={'secondary'} fontSize={16}>
-          {value.caption}
-        </x.figcaption>
-      )}
-    </x.figure>
-  )
-}
+// const ImageComponent = ({ value, isInline }) => {
+//   const { width, height } = getImageDimensions(value)
+//   return (
+//     <x.figure h={'auto'} w={'100%'} maxW={'100%'} position={'relative'}>
+//       <Image
+//         src={imageBuilder
+//           .image(value)
+//           .width(800)
+//           .fit('max')
+//           .auto('format')
+//           .url()}
+//         alt={
+//           value.alt ||
+//           value.caption ||
+//           'Inline image in body text from Hard to Read'
+//         }
+//         loading="lazy"
+//         width={width}
+//         height={height}
+//       />
+//       {value?.caption && (
+//         <x.figcaption color={'secondary'} fontSize={16}>
+//           {value.caption}
+//         </x.figcaption>
+//       )}
+//     </x.figure>
+//   )
+// }
 
 const Wrapper = styled.div`
   ${({ theme }) => css`
@@ -100,13 +101,37 @@ const Wrapper = styled.div`
   `}
 `
 
+export const ImageBlock = ({ value }) => {
+  console.log('image block', value)
+  const { related, caption, alt } = value
+
+  return (
+    <Wrapper>
+      <SanityImage image={value.asset} caption={caption} alt={alt} />
+      {caption && (
+        <x.figcaption
+          position={'absolute'}
+          color={'white'}
+          px={2}
+          py={3}
+          w={'100%'}
+          bottom={0}
+          fontSize={12}
+        >
+          {caption}
+        </x.figcaption>
+      )}
+    </Wrapper>
+  )
+}
+
 export default function PostBody({ content }) {
   const { addModals, isMobile } = useModal()
   const curClient = getClient(false)
 
   const serializers: PortableTextComponents = {
     types: {
-      image: ImageComponent,
+      image: ImageBlock,
       //@ts-ignore
       youtube: ({ value }) => {
         const { url, time, key } = value
