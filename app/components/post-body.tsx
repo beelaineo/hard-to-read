@@ -154,10 +154,10 @@ export default function PostBody({ content }) {
 
         if (isMobile == true) {
           return (
-            <Link href={href}>
+            <Link href={href} legacyBehavior>
               <x.a display={'inline-block'}>{children}</x.a>
             </Link>
-          )
+          );
         } else {
           return (
             <x.a

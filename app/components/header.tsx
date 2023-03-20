@@ -43,7 +43,7 @@ export default function Header() {
         letterSpacing={'tight'}
       >
         <x.div gridColumn={{ _: '1 / 4', sm: 'span 2', md: 'span 3' }}>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <x.a pointerEvents={'all'}>{title}</x.a>
           </Link>
         </x.div>
@@ -56,16 +56,16 @@ export default function Header() {
           }}
           px={{ _: 2, sm: 0 }}
         >
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <x.a pointerEvents={'all'}>to</x.a>
           </Link>
         </x.div>
         <x.div gridColumn={{ _: '8 / 11', sm: 'span 2', md: 'span 3' }}>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <x.a pointerEvents={'all'}>Read</x.a>
           </Link>
         </x.div>
       </x.h1>
     </x.header>
-  )
+  );
 }

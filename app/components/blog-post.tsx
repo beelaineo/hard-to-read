@@ -16,7 +16,7 @@ export default function Post({ post }) {
         date={post.publishedAt || post._createdAt}
       />
       <PostBody content={post.body} />
-      <Link href={'/blog/' + post.slug}>
+      <Link href={'/blog/' + post.slug} legacyBehavior>
         <x.a
           textDecoration={'underline'}
           display={'inline-block'}

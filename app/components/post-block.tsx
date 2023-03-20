@@ -114,7 +114,7 @@ export const PostBlock = ({ content }: PostBlockProps) => {
           <PortableText value={body[0]} components={ptComponents} />
         ) : null}
       </TextWrapper>
-      <Link href={`/blog/${slug?.current}`}>
+      <Link href={`/blog/${slug?.current}`} legacyBehavior>
         <x.a
           pt={4}
           display={'inline-block'}
@@ -126,5 +126,5 @@ export const PostBlock = ({ content }: PostBlockProps) => {
         </x.a>
       </Link>
     </Wrapper>
-  )
+  );
 }

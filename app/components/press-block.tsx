@@ -100,7 +100,7 @@ export const PressBlock = ({ content }: PressBlockProps) => {
         </x.a>
       )}
       {link && (
-        <Link href={link}>
+        <Link href={link} legacyBehavior>
           <x.a
             pt={4}
             display={'inline-block'}
@@ -112,5 +112,5 @@ export const PressBlock = ({ content }: PressBlockProps) => {
         </Link>
       )}
     </Wrapper>
-  )
+  );
 }

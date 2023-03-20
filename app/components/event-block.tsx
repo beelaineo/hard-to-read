@@ -152,7 +152,7 @@ export const EventBlock = ({ content }) => {
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
       <p>
-        <Link href={`/places/${place?.slug?.current}`}>
+        <Link href={`/places/${place?.slug?.current}`} legacyBehavior>
           <x.a
             pt={0}
             display={'inline-block'}
@@ -280,7 +280,7 @@ export const EventBlock = ({ content }) => {
             ))}
         </MediaWrapper>
       )}
-      <Link href={`/${event_type}s/${slug?.current}`}>
+      <Link href={`/${event_type}s/${slug?.current}`} legacyBehavior>
         <x.a
           pt={4}
           display={'inline-block'}
@@ -293,5 +293,5 @@ export const EventBlock = ({ content }) => {
         </x.a>
       </Link>
     </Wrapper>
-  )
+  );
 }

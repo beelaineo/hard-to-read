@@ -121,10 +121,10 @@ const serializers: PortableTextComponents = {
           ? `/themes/${slug.current}`
           : type
       return (
-        <Link href={href}>
+        <Link href={href} legacyBehavior>
           <x.a display={'inline-block'}>{children}</x.a>
         </Link>
-      )
+      );
     },
     link: ({ value, children }) => {
       const target = (value.href || '').startsWith('http')
