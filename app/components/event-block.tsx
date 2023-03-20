@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom'
 import styled, { css, textDecoration, x } from '@xstyled/styled-components'
 import { Event as EventType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
-import { eventBlockDate, modalize, modalizeImage } from '../utils'
+import {
+  eventBlockDate,
+  modalize,
+  modalizeImage,
+  alphanumerize,
+} from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
@@ -163,7 +168,7 @@ export const EventBlock = ({ content }) => {
           </x.a>
         </Link>
         <br />
-        {place.address}
+        {place?.address}
       </p>
       <p>{eventBlockDate(date)}</p>
       {action_link && (
@@ -236,7 +241,7 @@ export const EventBlock = ({ content }) => {
                 display={'inline'}
                 color={'primary'}
               >
-                Image {i + 1}
+                Image {alphanumerize(i)}
                 {i < images.length - 1 ? ', ' : ''}
               </x.a>
             ))}
@@ -255,7 +260,7 @@ export const EventBlock = ({ content }) => {
                 display={'inline'}
                 color={'primary'}
               >
-                Video {i + 1}
+                Video {alphanumerize(i)}
                 {i < videos.length - 1 ? ', ' : ''}
               </x.a>
             ))}
@@ -293,5 +298,5 @@ export const EventBlock = ({ content }) => {
         </x.a>
       </Link>
     </Wrapper>
-  );
+  )
 }
