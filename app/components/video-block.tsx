@@ -50,6 +50,9 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
 
   const handleClick = () => {
     if (isDragging === true) return
+    const video = videoRef.current
+    if (!video) return
+    video.play()
   }
 
   const handleMuteClick = () => {
@@ -106,6 +109,7 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
         autoPlay
         muted={muted}
         loop
+        playsInline
         onVolumeChange={() => handleVolumeChange()}
         onClick={() => handleClick()}
       />
