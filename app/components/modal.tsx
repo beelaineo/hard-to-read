@@ -112,12 +112,11 @@ const Wrapper = styled.div<WithPulseState>`
     button {
       color: ${spineColor ? spineColor : color ? color : 'primary'};
       position: absolute;
-      right: -1px;
+      right: 8px;
       border-color: none;
       border: none;
-      top: -1px;
+      top: 8px;
       appearance: none;
-      position: absolute;
       z-index: 3;
       height: 2rem;
       width: 2rem;
@@ -280,38 +279,40 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         spineColor={spineColor}
         type={type}
       >
-        <x.button onClick={() => handleCloseClick(modal)}>
-          X
-          {/* <svg
-            viewBox="0 0 12 12"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="1"
-              y1="11"
-              x2="11"
-              y2="1"
-              strokeWidth="1"
-              vectorEffect="non-scaling-stroke"
-            />
-            <line
-              x1="1"
-              y1="1"
-              x2="11"
-              y2="11"
-              strokeWidth="1"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg> */}
-        </x.button>
         {/* <x.div className="button-bg" /> */}
-        <ContentBlock
-          content={modal.content}
-          deltaPosition={deltaPosition}
-          isDragging={isDragging}
-          color={color || randomColor}
-        />
+        <x.div position={'relative'}>
+          <x.button onClick={() => handleCloseClick(modal)}>
+            X
+            {/* <svg
+              viewBox="0 0 12 12"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="1"
+                y1="11"
+                x2="11"
+                y2="1"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                x1="1"
+                y1="1"
+                x2="11"
+                y2="11"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg> */}
+          </x.button>
+          <ContentBlock
+            content={modal.content}
+            deltaPosition={deltaPosition}
+            isDragging={isDragging}
+            color={color || randomColor}
+          />
+        </x.div>
       </Wrapper>
     </Draggable>
   )
