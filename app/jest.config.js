@@ -1,4 +1,12 @@
-module.exports = {
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({ dir: './' })
+
+// Any custom config you want to pass to Jest
+const customJestConfig = {
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleFileExtensions: ['js', 'ts', 'tsx', 'json'],
   testMatch: ['**/__tests__/**/*.test.tsx'],
   coveragePathIgnorePatterns: [
@@ -13,3 +21,5 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
 }
+
+module.exports = createJestConfig(customJestConfig)

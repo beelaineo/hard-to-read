@@ -1,11 +1,9 @@
 import * as React from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Container from '../components/container'
 import Layout from '../components/layout'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import styled, { css } from '@xstyled/styled-components'
-import Image from "next/legacy/image"
 import { ContentBlock } from '../components/content-block'
 import { definitely, modalize } from '../utils'
 import { indexQuery, siteQuery } from '../lib/queries'

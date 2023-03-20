@@ -2,8 +2,13 @@ import * as React from 'react'
 import styled, { x } from '@xstyled/styled-components'
 import Modal from './modal'
 import { useModal } from '../providers/ModalProvider'
-import DuckSVG from './duck.svg'
+import { ReactComponent as DuckSVG } from './duck.svg'
 import { useRouter } from 'next/router'
+import { Pinyon_Script } from 'next/font/google'
+const pinyon = Pinyon_Script({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 const { useState, useEffect } = React
 
@@ -90,6 +95,7 @@ export default function Modals() {
         cursor={'pointer'}
         zIndex={12}
       >
+        <x.div>Touch Me</x.div>
         <DuckSVG width={140} id="duckIcon" onClick={() => handleQuack()} />
         {modals && modals.length > 0 && (
           <x.span

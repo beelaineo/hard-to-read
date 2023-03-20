@@ -67,5 +67,5 @@ export default function Header() {
         </x.div>
       </x.h1>
     </x.header>
-  );
+  )
 }

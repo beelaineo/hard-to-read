@@ -4,6 +4,7 @@
 
 const dotEnv = require('dotenv')
 const withSourceMaps = require('@zeit/next-source-maps')
+const withSvgr = require('@newhighsco/next-plugin-svgr')
 
 dotEnv.config()
 
@@ -15,7 +16,12 @@ const SANITY_READ_TOKEN = process.env.SANITY_READ_TOKEN
 module.exports = withSourceMaps({
   reactStrictMode: true,
   images: {
-    domains: ['cdn.sanity.io'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
   },
   i18n: {
     locales: ['en'],
@@ -26,5 +32,17 @@ module.exports = withSourceMaps({
     SANITY_DATASET,
     SANITY_READ_TOKEN,
     SANITY_AUTH_TOKEN,
+  },
+  compiler: {
+    styledComponents: {
+      ssr: true,
+      topLevelImportPaths: ['@xstyled/styled-components'],
+    },
+  },
+})
+
+module.exports = withSvgr({
+  svgrOptions: {
+    /* config options here */
   },
 })

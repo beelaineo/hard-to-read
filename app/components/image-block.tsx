@@ -1,9 +1,9 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import Image from "next/legacy/image"
 import styled, { css, x } from '@xstyled/styled-components'
 import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageAsset } from '../interfaces'
+import SanityImage from './sanity-image'
 import { sanityClient } from '../lib/sanity.server'
 
 const Wrapper = styled.figure`
@@ -31,28 +31,12 @@ const TextWrapper = styled.div`
 `
 
 export const ImageBlock = ({ content }) => {
+  console.log('content', content)
   const { related, caption, alt } = content
-  const { assetId, metadata, originalFilename, uploadId, url } = content.asset
-  const width = metadata.dimensions.width
-  const height = metadata.dimensions.height
-  const ratio = metadata.dimensions.aspectRatio
-  const builder = imageUrlBuilder(sanityClient)
-
-  const urlFor = (source: string) => {
-    return builder.image(source)
-  }
 
   return (
     <Wrapper>
-      <Image
-        src={urlFor(url).auto('format').width(1080).url()}
-        width={width}
-        height={height}
-        alt={alt || caption || 'image'}
-        loading="lazy"
-        placeholder={'blur'}
-        blurDataURL={metadata.lqip}
-      />
+      <SanityImage image={content.asset} caption={caption} alt={alt} />
       {caption && (
         <x.figcaption
           position={'absolute'}
