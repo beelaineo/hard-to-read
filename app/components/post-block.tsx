@@ -127,8 +127,12 @@ export const PostBlock = ({ content }: PostBlockProps) => {
       internalLink: ({ children, value }) => {
         const handleItemClick = async (value) => {
           const doc = await curClient.fetch(
-            `*[_id == "${value.reference._ref}"][0]`,
+            `*[_id == "${value.reference._ref}"][0] {
+              ...,
+              "related": *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+            }`,
           )
+          console.log('DOC', doc)
           addModals([modalize(doc)])
         }
         return (

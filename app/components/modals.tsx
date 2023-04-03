@@ -83,6 +83,12 @@ export default function Modals() {
 
   const router = useRouter()
 
+  React.useEffect(() => {
+    if (modals.length > 0) {
+      console.log('modals', modals)
+    }
+  }, [modals])
+
   const handleQuack = () => {
     if (!Cookies.get('hideQuackTip'))
       Cookies.set('hideQuackTip', 'true', { expires: 365 })

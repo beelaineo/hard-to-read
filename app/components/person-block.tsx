@@ -48,6 +48,7 @@ const TextWrapper = styled.div`
 interface PersonPopupType extends Omit<PersonType, 'name'> {
   related?: any[]
   title?: string
+  name?: string
 }
 
 interface PersonBlockProps {
@@ -58,6 +59,7 @@ interface PersonBlockProps {
 export const PersonBlock = ({ content, color }: PersonBlockProps) => {
   const { addModals } = useModal()
   const curClient = getClient(false)
+  console.log('PERSON', content)
 
   const [loaded, setLoaded] = React.useState(false)
 
@@ -73,7 +75,7 @@ export const PersonBlock = ({ content, color }: PersonBlockProps) => {
 
   return (
     <Wrapper loaded={loaded} color={color}>
-      <x.h2 mb={0}>{content.title}</x.h2>
+      <x.h2 mb={0}>{content.title || content.name}</x.h2>
       {content.link && (
         <x.a
           pt={1}
