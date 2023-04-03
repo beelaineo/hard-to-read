@@ -61,11 +61,25 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
 
   const handleFSClick = () => {
     const video = videoRef.current
-    if (video?.requestFullscreen) video.requestFullscreen()
+    if (video?.requestFullscreen)
+      video.requestFullscreen().then(
+        (res) => console.log('fullscreen res', res),
+        (err) => console.log('fullscreen err', err),
+      )
     // @ts-ignore
-    else if (video?.webkitRequestFullscreen) video.webkitRequestFullscreen()
+    else if (video?.webkitRequestFullscreen)
+      // @ts-ignore
+      video.webkitRequestFullscreen().then(
+        (res) => console.log('fullscreen res', res),
+        (err) => console.log('fullscreen err', err),
+      )
     // @ts-ignore
-    else if (video?.msRequestFullScreen) video.msRequestFullScreen()
+    else if (video?.msRequestFullScreen)
+      // @ts-ignore
+      video.msRequestFullScreen().then(
+        (res) => console.log('fullscreen res', res),
+        (err) => console.log('fullscreen err', err),
+      )
   }
 
   const handleResetClick = () => {
