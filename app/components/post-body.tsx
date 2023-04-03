@@ -50,6 +50,7 @@ const Wrapper = styled.div`
     margin: 0 auto;
     font-size: lg;
     line-height: 1.33;
+    position: relative;
 
     h1,
     h2,
