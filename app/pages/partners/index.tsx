@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 const { useEffect } = React
 
 const Partners = ({ partnerDocs, siteData, popups, preview }) => {
-  const { addModals, resetModals, isMobile } = useModal()
+  const { addModals, resetModals, isMobile, insertModal } = useModal()
   const router = useRouter()
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
   }, [router.asPath])
 
   const handleItemClick = (partner) => {
-    addModals([modalize(partner)])
+    insertModal(modalize(partner))
   }
 
   const partners = partnerDocs.filter((p) => p.type == 'default')

@@ -1,7 +1,11 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
-import { Partner as PartnerType, SanityImage } from '../interfaces'
+import {
+  Partner as PartnerType,
+  Place as PlaceType,
+  SanityImage,
+} from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { postBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
@@ -22,12 +26,10 @@ const Wrapper = styled.div<WithLoaded>`
     background-color: primary20;
     padding: 6;
     p {
-      color: ${loaded ? 'black' : 'primary0'};
-      transition: color 10s ease-in-out;
+      color: 'black';
     }
     a.permalink {
-      color: ${loaded ? 'primary' : 'primary0'};
-      transition: color 10s ease-in-out;
+      color: 'primary';
     }
     p a,
     .meta {
@@ -44,8 +46,9 @@ const TextWrapper = styled.div`
   width: auto;
 `
 
-interface PartnerPopupType extends PartnerType {
+interface PartnerPopupType extends Omit<PartnerType, 'place'> {
   related?: any[]
+  place?: PlaceType[]
 }
 
 interface PartnerBlockProps {
@@ -54,7 +57,10 @@ interface PartnerBlockProps {
 }
 
 export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
-  const { title, type, _updatedAt, _createdAt, link, related, _id } = content
+  const { title, type, _updatedAt, _createdAt, link, related, place, _id } =
+    content
+
+  console.log('PARTNER CONTENT', content)
 
   const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
@@ -77,26 +83,30 @@ export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
         {title}
       </x.h2>
       <x.p className="meta">{type == 'default' ? 'publisher' : type}</x.p>
-      {link && (
-        <x.a
-          pt={1}
-          display={'inline-block'}
-          textDecoration={'underline'}
-          color={'primary'}
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Link
-        </x.a>
-      )}
+
+      {place && place.length > 0 ? (
+        <x.div pt={4}>
+          {place.map((place) => (
+            <x.a
+              key={place._id}
+              pt={1}
+              display={'inline-block'}
+              textDecoration={'underline'}
+              color={'secondary'}
+              onClick={() => handleItemClick(place)}
+            >
+              <x.p key={place._id}>{place.name}</x.p>
+            </x.a>
+          ))}
+        </x.div>
+      ) : null}
 
       {related && (
-        <x.ul>
+        <x.ul pt={4}>
           {related.map((doc) => (
             <li key={doc._id}>
               <x.a
-                pt={4}
+                pt={1}
                 display={'inline-block'}
                 textDecoration={'underline'}
                 color={'primary'}
@@ -107,6 +117,20 @@ export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
             </li>
           ))}
         </x.ul>
+      )}
+
+      {link && (
+        <x.a
+          pt={4}
+          display={'inline-block'}
+          textDecoration={'underline'}
+          color={'primary'}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Link
+        </x.a>
       )}
     </Wrapper>
   )

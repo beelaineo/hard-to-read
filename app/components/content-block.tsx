@@ -45,10 +45,10 @@ interface PressPopupType extends Omit<PressType, 'clipping'> {
   }
 }
 
-interface PartnerPopupType extends PartnerType {
-  relatedDocs?: [Record<string, unknown>]
+interface PartnerPopupType extends Omit<PartnerType, 'place'> {
+  related?: any[]
+  place?: PlaceType[]
 }
-
 interface ContentBlockProps {
   content:
     | BookType

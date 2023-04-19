@@ -177,7 +177,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         ? 480
         : content._type == 'press' ||
           content._type == 'partner' ||
-          content._type == 'person'
+          content._type == 'person' ||
+          content._type == 'place'
         ? 320
         : content._type == 'book' || content._type == 'theme'
         ? 200
