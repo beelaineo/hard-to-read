@@ -56,7 +56,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
           px={0}
           display={'grid'}
           gridTemplateColumns={{ _: '12', lg: '10' }}
-          lineHeight={1.5}
+          lineHeight={1.75}
         >
           <x.div gridColumn={{ _: 'span 12', sm: 'span 4', lg: 'span 3' }}>
             <x.h2 color={'primary'}>Publishers</x.h2>
@@ -66,20 +66,23 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
                   {post.link ? (
                     <x.a
-                      fontSize={'md'}
-                      ml={1}
+                      fontSize={'sm'}
+                      ml={2}
                       color={'primary'}
                       target={'_blank'}
                       href={post.link}
                     >
-                      ↗
+                      link
                     </x.a>
                   ) : null}
                 </x.div>
               )
             })}
           </x.div>
-          <x.div gridColumn={{ _: 'span 12', sm: 'span 4', lg: 'span 4' }}>
+          <x.div
+            gridColumn={{ _: 'span 12', sm: 'span 4', lg: 'span 4' }}
+            mt={{ _: 10, sm: 0 }}
+          >
             <x.h2 color={'primary'}>Venues</x.h2>
             {venues.map((post) => {
               return (
@@ -87,20 +90,23 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
                   {post.link ? (
                     <x.a
-                      fontSize={'md'}
-                      ml={1}
+                      fontSize={'sm'}
+                      ml={2}
                       color={'primary'}
                       target={'_blank'}
                       href={post.link}
                     >
-                      ↗
+                      link
                     </x.a>
                   ) : null}
                 </x.div>
               )
             })}
           </x.div>
-          <x.div gridColumn={{ _: 'span 12', sm: 'span 3', lg: 'span 3' }}>
+          <x.div
+            gridColumn={{ _: 'span 12', sm: 'span 3', lg: 'span 3' }}
+            mt={{ _: 10, sm: 0 }}
+          >
             <x.h2 color={'primary'}>Sponsors</x.h2>
             {sponsors.map((post) => {
               return (
@@ -108,19 +114,19 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
                   {post.link ? (
                     <x.a
-                      fontSize={'md'}
-                      ml={1}
+                      fontSize={'sm'}
+                      ml={2}
                       color={'primary'}
                       target={'_blank'}
                       href={post.link}
                     >
-                      ↗
+                      link
                     </x.a>
                   ) : null}
                 </x.div>
               )
             })}
-            <x.h2 mt={4} color={'primary'}>
+            <x.h2 color={'primary'} mt={{ _: 10, sm: 4 }}>
               Fundraisers
             </x.h2>
             {fundraisers.map((post) => {
@@ -129,13 +135,13 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
                   <x.a onClick={() => handleItemClick(post)}>{post.title}</x.a>
                   {post.link ? (
                     <x.a
-                      fontSize={'md'}
-                      ml={1}
+                      fontSize={'sm'}
+                      ml={2}
                       color={'primary'}
                       target={'_blank'}
                       href={post.link}
                     >
-                      ↗
+                      link
                     </x.a>
                   ) : null}
                 </x.div>
