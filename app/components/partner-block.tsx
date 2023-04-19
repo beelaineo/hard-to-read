@@ -76,7 +76,7 @@ export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
       <x.h2 fontSize={18} mb={0}>
         {title}
       </x.h2>
-      <x.p className="meta">{type}</x.p>
+      <x.p className="meta">{type == 'default' ? 'publisher' : type}</x.p>
       {link && (
         <x.a
           pt={1}
