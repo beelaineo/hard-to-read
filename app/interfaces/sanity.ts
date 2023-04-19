@@ -49,21 +49,21 @@ export interface Event extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * Date — `date`
    *
    *
    */
-  date?: string;
+  date: string;
 
   /**
    * End Date (optional) — `date`
@@ -98,14 +98,14 @@ export interface Event extends SanityDocument {
    *
    *
    */
-  event_type?: "event" | "exhibition";
+  event_type: "event" | "exhibition";
 
   /**
    * Event program — `string`
    *
    *
    */
-  event_program?: "hardtoread" | "pillowtalk";
+  event_program: "hardtoread" | "pillowtalk";
 
   /**
    * Text — `blockContent`
@@ -221,14 +221,14 @@ export interface Person extends SanityDocument {
    *
    *
    */
-  name?: string;
+  name: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * Sort by Name (Last) — `string`
@@ -258,14 +258,14 @@ export interface Place extends SanityDocument {
    *
    *
    */
-  name?: string;
+  name: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * City/Place (optional) — `string`
@@ -309,14 +309,21 @@ export interface Post extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
+
+  /**
+   * Post program — `string`
+   *
+   *
+   */
+  post_program: "hardtoread" | "pillowtalk";
 
   /**
    * Themes — `array`
@@ -353,7 +360,7 @@ export interface Book extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Author — `string`
@@ -374,7 +381,7 @@ export interface Book extends SanityDocument {
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * Link — `url`
@@ -411,7 +418,7 @@ export interface BookCollection extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Subtitle — `string`
@@ -425,7 +432,7 @@ export interface BookCollection extends SanityDocument {
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * Place / Venue — `array`
@@ -469,14 +476,14 @@ export interface Theme extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 }
 
 /**
@@ -492,7 +499,7 @@ export interface Press extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Date — `date`
@@ -536,21 +543,21 @@ export interface Partner extends SanityDocument {
    *
    *
    */
-  title?: string;
+  title: string;
 
   /**
    * Type — `string`
    *
    *
    */
-  type?: "default" | "sponsor" | "fundraiser" | "venue";
+  type: "default" | "sponsor" | "fundraiser" | "venue";
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug: { _type: "slug"; current: string };
 
   /**
    * Associated Places — `array`
