@@ -2,9 +2,9 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
 import imageUrlBuilder from '@sanity/image-url'
-import { SanityImageAsset } from '../interfaces'
 import SanityImage from './sanity-image'
 import { sanityClient } from '../lib/sanity.server'
+import { ImageBlock as ImageBlockType } from '../interfaces'
 
 const Wrapper = styled.figure`
   height: auto;
@@ -30,7 +30,12 @@ const TextWrapper = styled.div`
   width: auto;
 `
 
-export const ImageBlock = ({ content }) => {
+interface ImageBlockProps {
+  content: ImageBlockType
+  index: number
+}
+
+export const ImageBlock = ({ content, index }: ImageBlockProps) => {
   console.log('content', content)
   const { related, caption, alt } = content
 

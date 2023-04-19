@@ -54,9 +54,10 @@ interface PressPopupType extends Omit<PressType, 'clipping'> {
 
 interface PressBlockProps {
   content: PressPopupType
+  index: number
 }
 
-export const PressBlock = ({ content }: PressBlockProps) => {
+export const PressBlock = ({ content, index }: PressBlockProps) => {
   const {
     title,
     date,
@@ -68,7 +69,7 @@ export const PressBlock = ({ content }: PressBlockProps) => {
     _id,
   } = content
 
-  const { addModals } = useModal()
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
@@ -112,5 +113,5 @@ export const PressBlock = ({ content }: PressBlockProps) => {
         </Link>
       )}
     </Wrapper>
-  );
+  )
 }

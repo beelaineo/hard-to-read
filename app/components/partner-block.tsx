@@ -50,18 +50,19 @@ interface PartnerPopupType extends PartnerType {
 
 interface PartnerBlockProps {
   content: PartnerPopupType
+  index: number
 }
 
-export const PartnerBlock = ({ content }: PartnerBlockProps) => {
+export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
   const { title, type, _updatedAt, _createdAt, link, related, _id } = content
 
-  const { addModals } = useModal()
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
 
   const handleItemClick = (doc) => {
-    addModals([modalize(doc)])
+    insertModal(modalize(doc), index)
   }
 
   React.useEffect(() => {

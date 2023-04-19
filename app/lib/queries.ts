@@ -58,6 +58,7 @@ const postFields = `
   publishedAt,
   title,
   "coverImage": body[_type == "image"][0].asset->,
+  post_program,
   body[]{
     ...,
     _type == "image" => {
@@ -130,7 +131,8 @@ const placeFields = `
   city,
   address,
   location,
-  link
+  link,
+  "related": ${relatedDocs}
 `
 
 const pressFields = `

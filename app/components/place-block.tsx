@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
-import { Person as PersonType, SanityImage } from '../interfaces'
+import { Place as PlaceType } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { postBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
@@ -10,17 +10,16 @@ import Link from 'next/link'
 
 interface WithLoaded {
   loaded: boolean
-  color?: string
 }
 
 const Wrapper = styled.div<WithLoaded>`
-  ${({ theme, loaded, color }) => css`
+  ${({ theme, loaded }) => css`
     height: auto;
     position: relative;
     width: 100%;
     display: block;
     position: relative;
-    background-color: ${color ? color.replace('1.0', '0.2') : 'primary20'};
+    background-color: primary20;
     padding: 6;
     p {
       color: ${loaded ? 'black' : 'primary0'};
@@ -44,23 +43,19 @@ const TextWrapper = styled.div`
   padding: 0;
   width: auto;
 `
-
-interface PersonPopupType extends Omit<PersonType, 'name'> {
+interface PlacePopupType extends PlaceType {
   related?: any[]
-  title?: string
-  name?: string
 }
 
-interface PersonBlockProps {
-  content: PersonPopupType
-  color?: string
+interface PlaceBlockProps {
+  content: PlacePopupType
   index: number
 }
 
-export const PersonBlock = ({ content, color, index }: PersonBlockProps) => {
+export const PlaceBlock = ({ content, index }: PlaceBlockProps) => {
   const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
-  console.log('PERSON', content)
+  console.log('PLACE', content)
 
   const [loaded, setLoaded] = React.useState(false)
 
@@ -75,8 +70,8 @@ export const PersonBlock = ({ content, color, index }: PersonBlockProps) => {
   }, [])
 
   return (
-    <Wrapper loaded={loaded} color={color}>
-      <x.h2 mb={0}>{content.title || content.name}</x.h2>
+    <Wrapper loaded={loaded}>
+      <x.h2 mb={0}>{content.name}</x.h2>
       {content.link && (
         <x.a
           pt={1}
@@ -108,7 +103,7 @@ export const PersonBlock = ({ content, color, index }: PersonBlockProps) => {
           ))}
         </x.ul>
       )}
-      <Link href={'/people/' + content.slug?.current} legacyBehavior>
+      <Link href={'/places/' + content.slug?.current} legacyBehavior>
         <x.a
           textDecoration={'underline'}
           display={'inline-block'}

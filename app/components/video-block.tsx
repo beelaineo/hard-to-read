@@ -2,7 +2,7 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import MuxVideo from '@mux/mux-video-react'
 import styled, { css } from '@xstyled/styled-components'
-import { MuxVideoAsset } from '../interfaces'
+import { MuxVideoAsset, MuxVideoBlock } from '../interfaces'
 
 const { useState, useRef, useEffect } = React
 
@@ -39,7 +39,19 @@ const ResetControls = styled.div`
   color: primary;
 `
 
-export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
+interface VideoBlockProps {
+  content: MuxVideoBlock
+  isDragging: boolean
+  deltaPosition: { x: number; y: number }
+  index: number
+}
+
+export const VideoBlock = ({
+  content,
+  isDragging,
+  deltaPosition,
+  index,
+}: VideoBlockProps) => {
   const [muted, setMuted] = useState<boolean>(true)
   const playerWrapper = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)

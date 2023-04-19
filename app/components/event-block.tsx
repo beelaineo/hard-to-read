@@ -72,9 +72,10 @@ const MediaWrapper = styled.div`
 
 interface EventBlockProps {
   content: EventType
+  index: number
 }
 
-export const EventBlock = ({ content }) => {
+export const EventBlock = ({ content, index }: EventBlockProps) => {
   const {
     title,
     slug,
@@ -97,7 +98,7 @@ export const EventBlock = ({ content }) => {
     themes,
     persons,
   } = content
-  const { addModals } = useModal()
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
   const [loaded, setLoaded] = React.useState(false)
 
@@ -121,7 +122,8 @@ export const EventBlock = ({ content }) => {
             }
             `,
           )
-          addModals([modalize(doc)])
+          // addModals([modalize(doc)])
+          insertModal(modalize(doc), index)
         }
         return (
           <x.a

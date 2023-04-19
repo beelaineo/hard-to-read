@@ -7,6 +7,7 @@ const { useEffect, useContext, useState } = React
 interface ModalContextValue {
   modals: Modal[]
   addModals: (modals: Modal[]) => void
+  insertModal: (modal: Modal, parentIndex?: number) => void
   removeModal: (modal: Modal) => void
   resetModals: () => void
   pulseModal: string
@@ -17,6 +18,7 @@ interface ModalContextValue {
 const ModalContext = React.createContext<ModalContextValue | undefined>({
   modals: [],
   addModals: (modals: Modal[]) => Promise<void>,
+  insertModal: (modal: Modal, parentIndex?: number) => Promise<void>,
   removeModal: (modal: Modal) => Promise<void>,
   resetModals: () => Promise<void>,
   pulseModal: '',
@@ -68,6 +70,39 @@ export const ModalProvider = ({ children }: Props) => {
     }
   }
 
+  const insertModal = (inputModal: Modal, parentIndex?: number) => {
+    // if modal is dup, send a pulse
+    if (modals.some((m) => m.id == inputModal.id)) {
+      quack?.play()
+      setPulseModal(inputModal.id)
+      setTimeout(() => setPulseModal(''), 100)
+    } else {
+      console.log('inserting modal', inputModal, parentIndex)
+
+      const newModals = parentIndex
+        ? [
+            ...modals.slice(0, parentIndex),
+            inputModal,
+            ...modals.slice(parentIndex),
+          ]
+        : modals.concat(inputModal)
+
+      console.log('newModals', newModals)
+      setModals(newModals)
+      // scroll to new modal if mobile
+      const scrollToModal = (inputModal: Modal) => {
+        const el = document.getElementById(inputModal.id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+
+      if (isMobile) {
+        setTimeout(() => scrollToModal(inputModal), 100)
+      }
+    }
+  }
+
   const setMobile = (width: number) => {
     setIsMobile(width < 640)
   }
@@ -84,6 +119,7 @@ export const ModalProvider = ({ children }: Props) => {
     ready,
     modals,
     addModals,
+    insertModal,
     removeModal,
     resetModals,
     pulseModal,

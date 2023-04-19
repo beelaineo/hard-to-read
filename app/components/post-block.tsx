@@ -55,6 +55,7 @@ const TextWrapper = styled.div`
 
 interface PostBlockProps {
   content: PostType
+  index: number
 }
 
 export const ImageBlock = ({ value }) => {
@@ -81,7 +82,7 @@ export const ImageBlock = ({ value }) => {
   )
 }
 
-export const PostBlock = ({ content }: PostBlockProps) => {
+export const PostBlock = ({ content, index }: PostBlockProps) => {
   const {
     title,
     slug,
@@ -89,10 +90,11 @@ export const PostBlock = ({ content }: PostBlockProps) => {
     _updatedAt,
     _createdAt,
     body,
+    post_program,
     themes,
     _id,
   } = content
-  const { addModals } = useModal()
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
@@ -132,8 +134,7 @@ export const PostBlock = ({ content }: PostBlockProps) => {
               "related": *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
             }`,
           )
-          console.log('DOC', doc)
-          addModals([modalize(doc)])
+          insertModal(modalize(doc), index)
         }
         return (
           <x.a

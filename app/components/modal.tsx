@@ -256,11 +256,13 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
       color={color || randomColor}
       spineColor={spineColor}
       type={type}
+      id={id}
     >
       <ContentBlock
         content={modal.content}
         deltaPosition={deltaPosition}
         isDragging={isDragging}
+        index={i}
       />
     </Wrapper>
   ) : (
@@ -311,6 +313,7 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
             deltaPosition={deltaPosition}
             isDragging={isDragging}
             color={color || randomColor}
+            index={i}
           />
         </x.div>
       </Wrapper>

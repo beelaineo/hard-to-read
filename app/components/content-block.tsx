@@ -18,6 +18,7 @@ import { ImageBlock } from './image-block'
 import { VideoBlock } from './video-block'
 import { PostBlock } from './post-block'
 import { PressBlock } from './press-block'
+import { PlaceBlock } from './place-block'
 import { PartnerBlock } from './partner-block'
 import { PersonBlock } from './person-block'
 import { BookBlock } from './book-block'
@@ -55,43 +56,40 @@ interface ContentBlockProps {
   isDragging: boolean
   deltaPosition: DeltaPosition
   color?: string
+  index: number
 }
 
 export const ContentBlock = React.forwardRef(
   (
-    { content, isDragging, deltaPosition, color }: ContentBlockProps,
+    { content, isDragging, deltaPosition, color, index }: ContentBlockProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     switch (content._type) {
       case 'book':
-        return <BookBlock content={content} color={color} />
+        return <BookBlock content={content} color={color} index={index} />
       case 'event':
-        return <EventBlock content={content} />
+        return <EventBlock content={content} index={index} />
       case 'person':
-        return <PersonBlock content={content} color={color} />
+        return <PersonBlock content={content} color={color} index={index} />
       case 'post':
-        return <PostBlock content={content} />
+        return <PostBlock content={content} index={index} />
       case 'press':
-        return <PressBlock content={content} />
+        return <PressBlock content={content} index={index} />
       case 'partner':
-        return <PartnerBlock content={content} />
+        return <PartnerBlock content={content} index={index} />
       case 'place':
-        // return <PlaceBlock content={content} ref={ref} />
-        return (
-          <div>
-            {content._type} - {content.name}
-          </div>
-        )
+        return <PlaceBlock content={content} index={index} />
       case 'theme':
-        return <ThemeBlock content={content} color={color} />
+        return <ThemeBlock content={content} color={color} index={index} />
       case 'image':
-        return <ImageBlock content={content} />
+        return <ImageBlock content={content} index={index} />
       case 'video':
         return (
           <VideoBlock
             content={content}
             isDragging={isDragging}
             deltaPosition={deltaPosition}
+            index={index}
           />
         )
       default:

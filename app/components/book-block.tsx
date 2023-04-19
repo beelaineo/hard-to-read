@@ -52,16 +52,17 @@ const TextWrapper = styled.div`
 interface BookBlockProps {
   content: BookType
   color?: string
+  index: number
 }
 
-export const BookBlock = ({ content, color }: BookBlockProps) => {
-  const { addModals } = useModal()
+export const BookBlock = ({ content, color, index }: BookBlockProps) => {
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
 
   const handleItemClick = (doc) => {
-    addModals([modalize(doc)])
+    insertModal(modalize(doc), index)
   }
 
   // TO-DO: add author refs and wrap authors in links to person block

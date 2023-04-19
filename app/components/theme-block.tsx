@@ -54,16 +54,17 @@ interface ThemePopupType extends ThemeType {
 interface ThemeBlockProps {
   content: ThemePopupType
   color?: string
+  index: number
 }
 
-export const ThemeBlock = ({ content, color }: ThemeBlockProps) => {
-  const { addModals } = useModal()
+export const ThemeBlock = ({ content, color, index }: ThemeBlockProps) => {
+  const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
 
   const [loaded, setLoaded] = React.useState(false)
 
   const handleItemClick = (doc) => {
-    addModals([modalize(doc)])
+    insertModal(modalize(doc), index)
   }
 
   React.useEffect(() => {
