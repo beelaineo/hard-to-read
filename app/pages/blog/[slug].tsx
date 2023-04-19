@@ -72,8 +72,8 @@ const Post = ({ data, preview }) => {
                         .fit('crop')
                         .crop('focalpoint')
                         .focalPoint(
-                          post.coverImageHotspot.x,
-                          post.coverImageHotspot.y,
+                          post.coverImageHotspot?.x || 0.5,
+                          post.coverImageHotspot.y || 0.5,
                         )
                         .url(),
                       width: 850,

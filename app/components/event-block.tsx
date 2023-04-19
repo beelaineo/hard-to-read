@@ -77,10 +77,12 @@ const MediaWrapper = styled.div`
     transition: color 10s ease-in-out;
   }
 `
-interface EventPopupType extends Omit<EventType, 'place' | 'books' | 'texts'> {
+interface EventPopupType
+  extends Omit<EventType, 'place' | 'books' | 'texts' | 'images'> {
   related?: any[]
   place?: PlaceType
   books?: BookType[]
+  images?: SanityImage[]
   texts?: Array<PdfAttachment | TextAttachment>
 }
 
@@ -115,6 +117,8 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
   const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
   const [loaded, setLoaded] = React.useState(false)
+
+  console.log('EventBlock', content)
 
   React.useEffect(() => {
     setTimeout(function () {
