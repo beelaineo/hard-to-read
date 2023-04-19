@@ -41,6 +41,7 @@ const ResetControls = styled.div`
 
 export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   const [muted, setMuted] = useState<boolean>(true)
+  const playerWrapper = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { related } = content
   const { _id, assetId, playbackId, uploadId, status, data } = content.asset
@@ -61,25 +62,42 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
 
   const handleFSClick = () => {
     const video = videoRef.current
-    if (video?.requestFullscreen)
-      video.requestFullscreen().then(
-        (res) => console.log('fullscreen res', res),
-        (err) => console.log('fullscreen err', err),
-      )
-    // @ts-ignore
-    else if (video?.webkitRequestFullscreen)
-      // @ts-ignore
-      video.webkitRequestFullscreen().then(
-        (res) => console.log('fullscreen res', res),
-        (err) => console.log('fullscreen err', err),
-      )
-    // @ts-ignore
-    else if (video?.msRequestFullScreen)
-      // @ts-ignore
-      video.msRequestFullScreen().then(
-        (res) => console.log('fullscreen res', res),
-        (err) => console.log('fullscreen err', err),
-      )
+    // if (video?.requestFullscreen)
+    //   video.requestFullscreen().then(
+    //     (res) => console.log('fullscreen res', res),
+    //     (err) => console.log('fullscreen err', err),
+    //   )
+    // // @ts-ignore
+    // else if (video?.webkitRequestFullscreen)
+    //   // @ts-ignore
+    //   video.webkitRequestFullscreen().then(
+    //     (res) => console.log('fullscreen res', res),
+    //     (err) => console.log('fullscreen err', err),
+    //   )
+    // // @ts-ignore
+    // else if (video?.msRequestFullScreen)
+    //   // @ts-ignore
+    //   video.msRequestFullScreen().then(
+    //     (res) => console.log('fullscreen res', res),
+    //     (err) => console.log('fullscreen err', err),
+    //   )
+    const isInFullScreen =
+      document.fullscreenElement && document.fullscreenElement !== null
+    if (!isInFullScreen) {
+      if (playerWrapper?.current?.requestFullscreen) {
+        // W3C API
+        playerWrapper.current.requestFullscreen()
+        // @ts-ignore
+      } else if (video?.webkitEnterFullScreen) {
+        // This is the IOS Mobile edge case
+        // @ts-ignore
+        video.webkitEnterFullScreen()
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      }
+    }
   }
 
   const handleResetClick = () => {
@@ -98,7 +116,7 @@ export const VideoBlock = ({ content, isDragging, deltaPosition }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={playerWrapper}>
       <MuteControls>
         <span onClick={() => handleMuteClick()}>
           {!muted ? 'sound off' : 'sound on'}
