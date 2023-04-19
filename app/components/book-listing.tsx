@@ -124,6 +124,20 @@ const Wrapper = styled.div<WithSpineColor>`
         }
       }
     }
+    @media screen and (max-width: 640px) {
+      height: ${hFactor * 55}vh;
+      min-width: ${wFactor * 55}px;
+      margin-top: 3;
+      & > div {
+        min-height: ${wFactor * 58}px;
+        width: ${hFactor * 55}vh;
+        padding: 0 3;
+        gap: 3;
+        span {
+          padding: 3 0;
+        }
+      }
+    }
   `}
 `
 

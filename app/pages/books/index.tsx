@@ -58,7 +58,7 @@ const Books = ({ bookDocs, bookCollectionDocs, siteData, popups, preview }) => {
             title: 'Books',
           }}
         />
-        <x.div px={0} fontSize={'lg'} mt={-50}>
+        <x.div px={0} fontSize={'lg'} mt={{ _: '0', sm: '-30' }}>
           {bookCollectionDocs.map((post) => (
             <CollectionListing post={post} key={post._id} />
           ))}
