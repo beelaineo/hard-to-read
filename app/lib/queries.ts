@@ -194,6 +194,17 @@ _type == 'eventRef' => @->{
     _key,
     'theme': @->
   },
+  texts[]{
+    _key,
+    _type == 'pdfAttachment' => {
+      title,
+      asset->{url,originalFilename}
+    },
+    _type == 'textAttachment' => {
+      title,
+      body
+    }
+  },
 },
 _type == 'bookRef' => @-> {
   ...,

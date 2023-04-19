@@ -1,7 +1,15 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import styled, { css, textDecoration, x } from '@xstyled/styled-components'
-import { Event as EventType, SanityImage } from '../interfaces'
+import {
+  Event as EventType,
+  Place as PlaceType,
+  Book as BookType,
+  BlockContent,
+  SanityImage,
+  PdfAttachment,
+  TextAttachment,
+} from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import {
   eventBlockDate,
@@ -69,9 +77,15 @@ const MediaWrapper = styled.div`
     transition: color 10s ease-in-out;
   }
 `
+interface EventPopupType extends Omit<EventType, 'place' | 'books' | 'texts'> {
+  related?: any[]
+  place?: PlaceType
+  books?: BookType[]
+  texts?: Array<PdfAttachment | TextAttachment>
+}
 
 interface EventBlockProps {
-  content: EventType
+  content: EventPopupType
   index: number
 }
 
@@ -154,6 +168,16 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
     },
   }
 
+  const getTextTitle = (text) => {
+    if (text.title) {
+      return text.title
+    } else if (text.asset) {
+      return text.asset.originalFilename
+    } else {
+      return 'Untitled'
+    }
+  }
+
   return (
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
@@ -223,7 +247,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
                 display={'inline'}
                 color={'primary'}
               >
-                {text.title || text.asset.originalFilename || 'Untitled'}
+                {getTextTitle(text)}
                 {i < texts.length - 1 ? ', ' : ''}
               </x.a>
             ))}
