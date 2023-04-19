@@ -2,6 +2,7 @@ import * as React from 'react'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import getYouTubeId from 'get-youtube-id'
 import YouTube from 'react-youtube'
+import { Post as PostType, SanityImageAsset } from '../interfaces'
 import { getImageDimensions } from '@sanity/asset-utils'
 import createImageUrlBuilder from '@sanity/image-url'
 import { sanityConfig } from '../lib/config'
@@ -45,8 +46,12 @@ import SanityImage from './sanity-image'
 //   )
 // }
 
-const Wrapper = styled.div`
-  ${({ theme }) => css`
+interface WithProgram {
+  program: 'hardtoread' | 'pillowtalk'
+}
+
+const Wrapper = styled.div<WithProgram>`
+  ${({ theme, program }) => css`
     margin: 0 auto;
     font-size: lg;
     line-height: 1.33;
@@ -78,20 +83,29 @@ const Wrapper = styled.div`
     }
     blockquote {
       margin: 4 6;
-      background-color: ${theme.colors.primary10};
+      background-color: ${program == 'hardtoread'
+        ? theme.colors.primary10
+        : theme.colors.secondary10};
       padding: 6;
       font-style: italic;
-      border-left: 4px solid ${theme.colors.primary};
+      border-left: 4px solid
+        ${program == 'hardtoread'
+          ? theme.colors.primary
+          : theme.colors.secondary};
     }
 
     strong {
-      color: primary;
+      color: ${program == 'hardtoread'
+        ? theme.colors.primary
+        : theme.colors.secondary};
     }
 
     a {
       border-bottom: 2px;
       border-style: solid;
-      border-color: primary;
+      border-color: ${program == 'hardtoread'
+        ? theme.colors.primary
+        : theme.colors.secondary};
     }
 
     img,
@@ -102,37 +116,38 @@ const Wrapper = styled.div`
   `}
 `
 
-export const ImageBlock = ({ value }) => {
-  console.log('image block', value)
-  const { related, caption, alt } = value
-
-  return (
-    <Wrapper>
-      <SanityImage image={value.asset} caption={caption} alt={alt} />
-      {caption && (
-        <x.figcaption
-          position={'absolute'}
-          color={'white'}
-          px={2}
-          py={3}
-          w={'100%'}
-          bottom={0}
-          fontSize={12}
-        >
-          {caption}
-        </x.figcaption>
-      )}
-    </Wrapper>
-  )
+interface PostBodyProps {
+  content: any
+  program: 'hardtoread' | 'pillowtalk'
 }
 
-export default function PostBody({ content }) {
+export default function PostBody({ content, program }: PostBodyProps) {
   const { addModals, isMobile } = useModal()
   const curClient = getClient(false)
 
   const serializers: PortableTextComponents = {
     types: {
-      image: ImageBlock,
+      image: ({ value }) => {
+        const { related, caption, alt } = value
+        return (
+          <Wrapper program={program}>
+            <SanityImage image={value.asset} caption={caption} alt={alt} />
+            {caption && (
+              <x.figcaption
+                position={'absolute'}
+                color={'white'}
+                px={2}
+                py={3}
+                w={'100%'}
+                bottom={0}
+                fontSize={12}
+              >
+                {caption}
+              </x.figcaption>
+            )}
+          </Wrapper>
+        )
+      },
       //@ts-ignore
       youtube: ({ value }) => {
         const { url, time, key } = value
@@ -209,7 +224,7 @@ export default function PostBody({ content }) {
   }
 
   return (
-    <Wrapper>
+    <Wrapper program={program}>
       <PortableText value={content} components={serializers} />
     </Wrapper>
   )

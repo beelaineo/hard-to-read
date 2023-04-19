@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Container from '../../components/container'
 import Layout from '../../components/layout'
 import Post from '../../components/blog-post'
-import Image from "next/legacy/image"
+import Image from 'next/legacy/image'
 import { blogQuery, siteQuery, blogPopupsQuery } from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import * as React from 'react'
@@ -51,7 +51,9 @@ export default function Index({ allPosts, popups, preview }) {
                   my={12}
                   h={'2px'}
                   maxW={800}
-                  backgroundColor={'primary'}
+                  backgroundColor={
+                    post.post_program == 'hardtoread' ? 'primary' : 'secondary'
+                  }
                 />
               ) : null}
               <Post key={post.slug} post={post} />
