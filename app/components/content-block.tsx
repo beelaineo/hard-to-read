@@ -12,6 +12,8 @@ import {
   ImageBlock as ImageType,
   TextAttachmentBlock as TextAttachmentType,
   Theme as ThemeType,
+  PdfAttachment,
+  TextAttachment,
 } from '../interfaces'
 import { EventBlock } from './event-block'
 import { ImageBlock } from './image-block'
@@ -29,6 +31,13 @@ type DeltaPosition = {
   y: number
 }
 
+interface EventPopupType extends Omit<EventType, 'place' | 'books' | 'texts'> {
+  related?: any[]
+  place?: PlaceType
+  books?: BookType[]
+  texts?: Array<PdfAttachment | TextAttachment>
+}
+
 interface PressPopupType extends Omit<PressType, 'clipping'> {
   clipping?: {
     url: string
@@ -43,7 +52,7 @@ interface PartnerPopupType extends PartnerType {
 interface ContentBlockProps {
   content:
     | BookType
-    | EventType
+    | EventPopupType
     | PersonType
     | PostType
     | PlaceType
