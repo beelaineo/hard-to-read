@@ -5,6 +5,9 @@ export const post = {
   title: 'Blog',
   type: 'document',
   icon: GiScrollUnfurled,
+  initialValue: {
+    post_program: 'hardtoread',
+  },
   fields: [
     {
       name: 'title',
@@ -23,6 +26,20 @@ export const post = {
       },
       codegen: { required: true },
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'post_program',
+      title: 'Post program',
+      type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          {title: 'Hard to Read', value: 'hardtoread'},
+          {title: 'Pillow Talk', value: 'pillowtalk'}
+        ],
+        layout: 'radio'
+      },
     },
     {
       name: 'themes',
