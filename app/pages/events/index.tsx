@@ -38,12 +38,22 @@ const Events = ({ eventDocs, siteData, popups, preview }) => {
       <Layout preview={preview}>
         <NextSeo
           title="Events | Hard to Read"
+          description={eventDocs
+            .slice(0, 20)
+            .map((post) => post.title)
+            .join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/events',
             title: 'Events',
           }}
         />
-        <x.div px={0} display={'grid'} gridTemplateColumns={'1'} rowGap={4}>
+        <x.div
+          px={0}
+          pt={{ _: 12, sm: 0 }}
+          display={'grid'}
+          gridTemplateColumns={'1'}
+          rowGap={4}
+        >
           {eventDocs.map((post) => (
             <EventListing key={post._id} post={post} />
           ))}

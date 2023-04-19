@@ -41,9 +41,15 @@ const Place = ({ data, preview }) => {
     <Layout preview={preview}>
       <NextSeo
         title={`${data.placeDoc.title} | Hard to Read`}
+        description={`${data.placeDoc.address ? data.placeDoc.address : ''} ${
+          data.placeDoc.city ? data.placeDoc.city : ''
+        }`}
         openGraph={{
           url: `https://hardtoread.us/places/${data.placeDoc.slug}`,
           title: data.placeDoc.title,
+          description: `${data.placeDoc.address ? data.placeDoc.address : ''} ${
+            data.placeDoc.city ? data.placeDoc.city : ''
+          }`,
         }}
       />
     </Layout>

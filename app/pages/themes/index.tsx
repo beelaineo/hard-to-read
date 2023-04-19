@@ -37,16 +37,39 @@ const Themes = ({ themeDocs, siteData, popups, preview }) => {
   }
 
   const [themes, setThemes] = useState<any[]>([])
-  useEffect(() => setThemes(themeDocs.sort(() => Math.random() - 0.5)), [])
+  const [popularThemes, setPopularThemes] = useState<any[]>([])
+
+  useEffect(() => {
+    setPopularThemes(
+      themeDocs
+        // sort alphabetically by title
+        .sort((a, b) => {
+          if (a.title < b.title) {
+            return -1
+          }
+          if (a.title > b.title) {
+            return 1
+          }
+          return 0
+        })
+        // sort by totalReferences descending
+        .sort((a, b) => b.totalReferences - a.totalReferences)
+        .slice(0, 50)
+        .map((t) => t.title),
+    )
+    setThemes(themeDocs.sort(() => Math.random() - 0.5))
+  }, [])
 
   return (
     <>
       <Layout preview={preview}>
         <NextSeo
           title="Themes | Hard to Read"
+          description={popularThemes.join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/themes',
             title: 'Themes',
+            description: popularThemes.join(', '),
           }}
         />
         <x.div

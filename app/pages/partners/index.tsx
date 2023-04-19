@@ -46,6 +46,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
       <Layout preview={preview}>
         <NextSeo
           title="Partners | Hard to Read"
+          description={partners.map((p) => p.title).join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/partners',
             title: 'Partners',

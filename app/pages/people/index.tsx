@@ -17,6 +17,8 @@ const People = ({ peopleDocs, siteData, popups, preview }) => {
   const { addModals, resetModals, isMobile } = useModal()
   const router = useRouter()
 
+  const [popularPeople, setPopularPeople] = useState<any[]>([])
+
   useEffect(() => {
     const handleRouteChange = () => {
       if (isMobile == true) {
@@ -33,14 +35,36 @@ const People = ({ peopleDocs, siteData, popups, preview }) => {
     }
   }, [router.asPath])
 
+  useEffect(() => {
+    setPopularPeople(
+      peopleDocs
+        // sort alphabetically by title
+        .sort((a, b) => {
+          if (a.sortby_name < b.sortby_name) {
+            return -1
+          }
+          if (a.sortby_name > b.sortby_name) {
+            return 1
+          }
+          return 0
+        })
+        // sort by totalReferences descending
+        .sort((a, b) => b.totalReferences - a.totalReferences)
+        .slice(0, 30)
+        .map((t) => t.title),
+    )
+  }, [])
+
   return (
     <>
       <Layout preview={preview}>
         <NextSeo
           title="People | Hard to Read"
+          description={popularPeople.join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/people',
             title: 'People',
+            description: popularPeople.join(', '),
           }}
         />
         <x.div

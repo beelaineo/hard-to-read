@@ -6,6 +6,7 @@ const popupDocs = [
   {name: 'personRef', type: 'reference', to: {type: 'person'}},
   {name: 'placeRef', type: 'reference', to: {type: 'place'}},
   {name: 'postRef', type: 'reference', to: {type: 'post'}},
+  {name: 'bookRef', type: 'reference', to: {type: 'book'}},
   {
   type: 'image',
   fields: [
@@ -73,6 +74,12 @@ export const popups = {
     {
       name: 'partners',
       title: 'Partners Page Pop-ups',
+      type: 'array',
+      of: popupDocs,
+    },
+    {
+      name: 'books',
+      title: 'Books Page Pop-ups',
       type: 'array',
       of: popupDocs,
     },

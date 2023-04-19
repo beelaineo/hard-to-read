@@ -37,6 +37,7 @@ const Exhibitions = ({ exhibitionDocs, siteData, preview }) => {
       <Layout preview={preview}>
         <NextSeo
           title="Exhibitions | Hard to Read"
+          description={exhibitionDocs.map((post) => post.title).join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/exhibitions',
             title: 'Exhibitions',

@@ -53,10 +53,30 @@ const Event = ({ data, preview }) => {
     <Layout preview={preview}>
       <NextSeo
         title={`${eventDoc.title} | Hard to Read`}
+        description={blocksToText(eventDoc.text)}
         openGraph={{
           url: `https://hardtoread.us/events/${eventDoc.slug}`,
           title: eventDoc.title,
           description: blocksToText(eventDoc.text),
+          ...(eventDoc.coverImage?.url && {
+            images: [
+              {
+                url: urlForImage(eventDoc.coverImage.url)
+                  .width(850)
+                  .height(650)
+                  .fit('crop')
+                  .crop('focalpoint')
+                  .focalPoint(
+                    eventDoc.coverImageHotspot?.x || 0.5,
+                    eventDoc.coverImageHotspot?.y || 0.5,
+                  )
+                  .url(),
+                width: 850,
+                height: 650,
+                alt: eventDoc.title,
+              },
+            ],
+          }),
         }}
       />
     </Layout>

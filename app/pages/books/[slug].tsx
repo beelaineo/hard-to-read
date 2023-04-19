@@ -36,7 +36,7 @@ const Book = ({ data, preview }) => {
     <Layout preview={preview}>
       <NextSeo
         title={`${bookDoc.title} | Hard to Read`}
-        description={siteData.description}
+        description={`A book by ${bookDoc.author}`}
         openGraph={{
           url: `https://hardtoread.us/blog/${bookDoc.slug}`,
           title: bookDoc.title,

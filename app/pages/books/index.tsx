@@ -40,6 +40,10 @@ const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
       <Layout preview={preview}>
         <NextSeo
           title="Books | Hard to Read"
+          description={bookCollectionDocs
+            .slice(0, 30)
+            .map((post) => post.title)
+            .join(', ')}
           openGraph={{
             url: 'https://hardtoread.us/books',
             title: 'Books',

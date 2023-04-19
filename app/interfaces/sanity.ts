@@ -644,6 +644,7 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;
@@ -681,6 +682,7 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;
@@ -718,6 +720,7 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;
@@ -755,6 +758,7 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;
@@ -792,6 +796,7 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;
@@ -829,6 +834,45 @@ export interface Popups extends SanityDocument {
     | SanityKeyedReference<Person>
     | SanityKeyedReference<Place>
     | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
+    | SanityKeyed<{
+        _type: "image";
+        asset: SanityReference<SanityImageAsset>;
+        crop?: SanityImageCrop;
+        hotspot?: SanityImageHotspot;
+
+        /**
+         * Caption — `string`
+         *
+         *
+         */
+        caption?: string;
+
+        /**
+         * Alternative text — `string`
+         *
+         *
+         */
+        alt?: string;
+      }>
+    | SanityKeyed<MuxVideo>
+    | SanityKeyedReference<Theme>
+    | SanityKeyedReference<Press>
+    | SanityKeyed<TextAttachment>
+  >;
+
+  /**
+   * Books Page Pop-ups — `array`
+   *
+   *
+   */
+  books?: Array<
+    | SanityKeyedReference<Event>
+    | SanityKeyedReference<Partner>
+    | SanityKeyedReference<Person>
+    | SanityKeyedReference<Place>
+    | SanityKeyedReference<Post>
+    | SanityKeyedReference<Book>
     | SanityKeyed<{
         _type: "image";
         asset: SanityReference<SanityImageAsset>;

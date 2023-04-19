@@ -24,6 +24,22 @@ const Post = ({ data, preview }) => {
     enabled: preview && slug,
   })
 
+  const defaults = { nonTextBehavior: 'remove' }
+  const blocksToText = (blocks, opts = {}) => {
+    const options = Object.assign({}, defaults, opts)
+    return blocks
+      .map((block) => {
+        if (block._type !== 'block' || !block.children) {
+          return options.nonTextBehavior === 'remove'
+            ? ''
+            : `[${block._type} block]`
+        }
+
+        return block.children.map((child) => child.text).join('')
+      })
+      .join('\n\n')
+  }
+
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
@@ -37,7 +53,7 @@ const Post = ({ data, preview }) => {
           <article>
             <NextSeo
               title={`${post.title} | Hard to Read`}
-              description={siteData.description}
+              description={blocksToText(post.body)}
               openGraph={{
                 url: `https://hardtoread.us/blog/${post.slug}`,
                 title: post.title,
@@ -54,6 +70,11 @@ const Post = ({ data, preview }) => {
                         .width(850)
                         .height(650)
                         .fit('crop')
+                        .crop('focalpoint')
+                        .focalPoint(
+                          post.coverImageHotspot.x,
+                          post.coverImageHotspot.y,
+                        )
                         .url(),
                       width: 850,
                       height: 650,

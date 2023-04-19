@@ -28,6 +28,8 @@ const eventFields = `
   timezone,
   event_type,
   event_program,
+  "coverImage": images[0].asset->,
+  "coverImageHotspot": images[0].hotspot,
   text,
   action_label,
   action_link,
@@ -58,6 +60,7 @@ const postFields = `
   publishedAt,
   title,
   "coverImage": body[_type == "image"][0].asset->,
+  "coverImageHotspot": body[_type == "image"][0].hotspot,
   post_program,
   body[]{
     ...,
