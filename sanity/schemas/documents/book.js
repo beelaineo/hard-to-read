@@ -10,7 +10,8 @@ export const book = {
       title: 'Title',
       name: 'title',
       type: 'string',
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Author',
@@ -31,7 +32,8 @@ export const book = {
         source: 'title',
         maxLength: 120,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Link',

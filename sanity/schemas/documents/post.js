@@ -10,6 +10,8 @@ export const post = {
       name: 'title',
       title: 'Title',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
@@ -19,7 +21,8 @@ export const post = {
         source: 'title',
         maxLength: 96,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'themes',

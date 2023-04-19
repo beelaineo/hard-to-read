@@ -10,6 +10,8 @@ export const person = {
       name: 'name',
       title: 'Name',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
@@ -19,7 +21,8 @@ export const person = {
         source: 'name',
         maxLength: 120,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'sortby_name',

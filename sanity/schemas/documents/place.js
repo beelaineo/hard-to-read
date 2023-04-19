@@ -10,6 +10,8 @@ export const place = {
       name: 'name',
       title: 'Name',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
@@ -19,7 +21,8 @@ export const place = {
         source: 'name',
         maxLength: 160,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'city',

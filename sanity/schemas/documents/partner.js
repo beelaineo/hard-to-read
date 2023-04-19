@@ -10,12 +10,16 @@ export const partner = {
       title: 'Name',
       name: 'title',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Type',
       name: 'type',
       type: 'string',
       initialValue: 'default',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
       options: {
         list: [
           {title: 'Publishing', value: 'default'},
@@ -34,7 +38,8 @@ export const partner = {
         source: 'title',
         maxLength: 120,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Associated Places',

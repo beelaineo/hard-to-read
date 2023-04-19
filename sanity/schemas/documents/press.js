@@ -10,6 +10,8 @@ export const press = {
       title: 'Title',
       name: 'title',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Date',

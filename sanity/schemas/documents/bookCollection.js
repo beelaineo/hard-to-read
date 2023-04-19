@@ -10,7 +10,8 @@ export const bookCollection = {
       title: 'Title',
       name: 'title',
       type: 'string',
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Subtitle',
@@ -25,7 +26,8 @@ export const bookCollection = {
         source: 'title',
         maxLength: 120,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Place / Venue',

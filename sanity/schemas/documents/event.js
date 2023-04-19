@@ -14,6 +14,8 @@ export const event = {
       name: 'title',
       title: 'Title',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
@@ -23,12 +25,15 @@ export const event = {
         source: 'title',
         maxLength: 120,
       },
-      validation: Rule => Rule.required(),
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'date',
       title: 'Date',
       type: 'date',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'end_date',
@@ -54,6 +59,8 @@ export const event = {
       name: 'event_type',
       title: 'Event type',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
       options: {
         list: [
           {title: 'Event', value: 'event'},
@@ -66,6 +73,8 @@ export const event = {
       name: 'event_program',
       title: 'Event program',
       type: 'string',
+      codegen: { required: true },
+      validation: (Rule) => Rule.required(),
       options: {
         list: [
           {title: 'Hard to Read', value: 'hardtoread'},
