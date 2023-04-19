@@ -85,6 +85,10 @@ export const PlaceBlock = ({ content, index }: PlaceBlockProps) => {
           Link
         </x.a>
       )}
+      <x.div pt={4}>
+        {content.address && <x.div pt={1}>{content.address}</x.div>}
+        {content.city && <x.div pt={1}>{content.city}</x.div>}
+      </x.div>
 
       {content.related && (
         <x.ul pt={4}>
