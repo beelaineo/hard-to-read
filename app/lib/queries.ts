@@ -26,6 +26,7 @@ const eventFields = `
   start,
   end,
   timezone,
+  place->,
   event_type,
   event_program,
   "coverImage": images[0].asset->,

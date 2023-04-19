@@ -54,7 +54,7 @@ const Wrapper = styled.div<WithLoaded>`
 `
 
 const TextWrapper = styled.div`
-  margin: 0px;
+  margin: 4 0px 0 0;
   padding: 0;
   width: auto;
   p {
@@ -181,20 +181,21 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
   return (
     <Wrapper loaded={loaded} program={event_program}>
       <h2>{title}</h2>
-      <p>
-        <Link href={`/places/${place?.slug?.current}`} legacyBehavior>
+      {place && (
+        <p>
           <x.a
             pt={0}
             display={'inline-block'}
             textDecoration={'underline'}
             color={'primary'}
+            onClick={() => insertModal(modalize(place), index)}
           >
             {place?.name}
           </x.a>
-        </Link>
-        <br />
-        {place?.address}
-      </p>
+          <br />
+          {place?.address}
+        </p>
+      )}
       <p>{eventBlockDate(date)}</p>
       {action_link && (
         <x.a
