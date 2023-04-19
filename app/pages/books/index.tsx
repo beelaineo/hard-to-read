@@ -2,7 +2,12 @@ import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '../../components/layout'
-import { bookQuery, bookCollectionQuery, siteQuery } from '../../lib/queries'
+import {
+  bookQuery,
+  bookCollectionQuery,
+  siteQuery,
+  bookPopupsQuery,
+} from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
@@ -15,7 +20,7 @@ import { useRouter } from 'next/router'
 
 const { useEffect, useState } = React
 
-const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
+const Books = ({ bookDocs, bookCollectionDocs, siteData, popups, preview }) => {
   const { addModals, isMobile, resetModals } = useModal()
   const router = useRouter()
 
@@ -26,6 +31,10 @@ const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
       }
     }
     router.events.on('routeChangeComplete', handleRouteChange)
+    if (!popups) return
+    const modals = popups.map((m) => modalize(m))
+    addModals(modals)
+
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
@@ -66,10 +75,11 @@ const Books = ({ bookDocs, bookCollectionDocs, siteData, preview }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const [bookDocs, bookCollectionDocs, siteData] = await Promise.all([
+  const [bookDocs, bookCollectionDocs, siteData, popups] = await Promise.all([
     overlayDrafts(await getClient(preview).fetch(bookQuery)),
     overlayDrafts(await getClient(preview).fetch(bookCollectionQuery)),
     await getClient(preview).fetch(siteQuery),
+    await getClient(preview).fetch(bookPopupsQuery),
   ])
   return {
     props: { bookDocs, bookCollectionDocs, siteData, preview },

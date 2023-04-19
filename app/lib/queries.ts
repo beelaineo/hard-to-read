@@ -452,6 +452,12 @@ export const bookQuery = `
   ${bookFields}
 }`
 
+export const bookPopupsQuery = `
+*[_type == "popups"][0].books[] {
+  ${popupDocs}
+}
+`
+
 export const bookSlugsQuery = `
 *[_type == "book" && defined(slug.current)][].slug.current
 `
