@@ -11,6 +11,7 @@ import { postBlockDate, modalize } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
+import { modalFetchFields } from '../lib/queries'
 
 interface WithLoaded {
   loaded: boolean
@@ -70,12 +71,7 @@ export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
   const handleItemClick = async (item) => {
     const doc = await curClient.fetch(
       `*[_id == "${item._id}"][0]{
-        _type == 'person' => {
-          ...,
-          'title': name
-        },
-        ...,
-        'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug }
+        ${modalFetchFields}
       }
       `,
     )

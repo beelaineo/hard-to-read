@@ -9,7 +9,7 @@ import { sanityConfig } from '../lib/config'
 import styled, { x, css, th } from '@xstyled/styled-components'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
-import { themeBySlugQuery } from '../lib/queries'
+import { modalFetchFields, themeBySlugQuery } from '../lib/queries'
 import { useModal } from '../providers/ModalProvider'
 import { modalize } from '../utils'
 import { getClient } from '../lib/sanity.server'
@@ -164,43 +164,7 @@ export default function PostBody({ content, program }: PostBodyProps) {
           console.log('VALUE on CLICK', value)
           const doc = await curClient.fetch(
             `*[_id == "${value.reference._ref}"][0]{
-              _type == 'person' => {
-                ...,
-                'title': name
-              },
-              _type == 'event' => @->{
-                ..., 
-                _id, 
-                '_key': ^._key,
-                images[]{_key, _type, caption, alt, hotspot, asset->},
-                videos[]{_key, asset->},
-                persons[] {
-                  _key,
-                  'person': @-> {
-                    ...,
-                    'title': name,
-                  }
-                },
-                books[]->,
-                place->,
-                themes[] {
-                  _key,
-                  'theme': @->
-                },
-                texts[]{
-                  _key,
-                  _type == 'pdfAttachment' => {
-                    title,
-                    asset->{url,originalFilename}
-                  },
-                  _type == 'textAttachment' => {
-                    title,
-                    body
-                  }
-                },
-              },
-              ...,
-              'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+              ${modalFetchFields}
             }
             `,
           )

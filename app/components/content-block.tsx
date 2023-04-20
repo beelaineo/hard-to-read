@@ -14,6 +14,7 @@ import {
   Theme as ThemeType,
   PdfAttachment,
   TextAttachment,
+  MuxVideoAsset,
 } from '../interfaces'
 import { EventBlock } from './event-block'
 import { ImageBlock } from './image-block'
@@ -26,6 +27,7 @@ import { PersonBlock } from './person-block'
 import { BookBlock } from './book-block'
 import { ThemeBlock } from './theme-block'
 import { TextAttachmentBlock } from './text-attachment-block'
+import { SanityImageAsset } from '@sanity/asset-utils'
 
 type DeltaPosition = {
   x: number
@@ -60,6 +62,7 @@ interface ContentBlockProps {
     | VideoType
     | PressPopupType
     | ImageType
+    | MuxVideoAsset
     | TextAttachmentType
     | PartnerPopupType
     | ThemeType
@@ -94,6 +97,7 @@ export const ContentBlock = React.forwardRef(
       case 'image':
         return <ImageBlock content={content} index={index} />
       case 'video':
+      case 'mux.videoAsset':
         return (
           <VideoBlock
             content={content}

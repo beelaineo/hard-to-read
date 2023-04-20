@@ -480,6 +480,24 @@ export const bookCollectionQuery = `
 
 export const modalFetchFields = `
 ...,
+_type == 'event' => {
+  ...,
+  place->,
+  texts[]{
+    _key,
+    _type == 'pdfAttachment' => {
+      _type,
+      title,
+      asset->{url,originalFilename}
+    },
+    _type == 'textAttachment' => {
+      _type,
+      title,
+      body
+    }
+  },
+  videos[]{_key, asset->},
+},
 _type == 'person' => {
   ...,
   'title': name

@@ -138,7 +138,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
     )
     if (item._type == 'image') {
       insertModal(modalizeImage(doc), index)
-    } else if (item.asset._type == 'mux.videoAsset') {
+    } else if (item.asset && item.asset._type == 'mux.videoAsset') {
       insertModal(modalizeVideo(doc), index)
     } else {
       insertModal(modalize(doc), index)
@@ -146,8 +146,8 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
   }
 
   const handleTextItemClick = async (item, program) => {
-    if (item._type == 'pdfAttachment') return
     console.log('TEXT ITEM', item)
+    if (item._type == 'pdfAttachment') return
     insertModal(modalize(item, program), index)
   }
 
@@ -164,7 +164,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
           // addModals([modalize(doc)])
           if (doc._type == 'image') {
             insertModal(modalizeImage(doc), index)
-          } else if (doc.asset._type == 'mux.videoAsset') {
+          } else if (doc.asset && doc.asset._type == 'mux.videoAsset') {
             insertModal(modalizeVideo(doc), index)
           } else {
             insertModal(modalize(doc), index)
@@ -346,7 +346,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             ))}
         </MediaWrapper>
       )}
-      <Link href={`/${event_type}s/${slug?.current}`} legacyBehavior>
+      <Link href={`/${event_type}s/${slug?.current || slug}`} legacyBehavior>
         <x.a
           pt={4}
           display={'inline-block'}

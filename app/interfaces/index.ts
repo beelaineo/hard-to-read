@@ -76,7 +76,7 @@ export type MuxVideoBlock = {
   _key: string
   _type: 'video'
   asset: MuxVideoAsset
-  related: RelatedType
+  related?: RelatedType
 }
 
 export type ImageBlock = {

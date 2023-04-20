@@ -2,7 +2,12 @@ import * as React from 'react'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '../../components/layout'
-import { partnerQuery, siteQuery, partnersPopupsQuery } from '../../lib/queries'
+import {
+  partnerQuery,
+  siteQuery,
+  partnersPopupsQuery,
+  modalFetchFields,
+} from '../../lib/queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { x, defaultTheme } from '@xstyled/styled-components'
 import { useModal } from '../../providers/ModalProvider'
@@ -39,43 +44,7 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
   const handleItemClick = async (item) => {
     const doc = await curClient.fetch(
       `*[_id == "${item._id}"][0]{
-        _type == 'person' => {
-          ...,
-          'title': name
-        },
-        _type == 'event' => @->{
-          ..., 
-          _id, 
-          '_key': ^._key,
-          images[]{_key, _type, caption, alt, hotspot, asset->},
-          videos[]{_key, asset->},
-          persons[] {
-            _key,
-            'person': @-> {
-              ...,
-              'title': name,
-            }
-          },
-          books[]->,
-          place->,
-          themes[] {
-            _key,
-            'theme': @->
-          },
-          texts[]{
-            _key,
-            _type == 'pdfAttachment' => {
-              title,
-              asset->{url,originalFilename}
-            },
-            _type == 'textAttachment' => {
-              title,
-              body
-            }
-          },
-        },
-        ...,
-        'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+        ${modalFetchFields}
       }
       `,
     )

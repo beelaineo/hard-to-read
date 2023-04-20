@@ -40,7 +40,7 @@ const ResetControls = styled.div`
 `
 
 interface VideoBlockProps {
-  content: MuxVideoBlock
+  content: MuxVideoBlock | MuxVideoAsset
   isDragging: boolean
   deltaPosition: { x: number; y: number }
   index: number
@@ -55,8 +55,8 @@ export const VideoBlock = ({
   const [muted, setMuted] = useState<boolean>(true)
   const playerWrapper = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { related } = content
-  const { _id, assetId, playbackId, uploadId, status, data } = content.asset
+  const { _id, assetId, playbackId, uploadId, status, data } =
+    content._type == 'mux.videoAsset' ? content : content.asset
   const { aspect_ratio, duration } = data
 
   console.log('VideoBlock', content)
