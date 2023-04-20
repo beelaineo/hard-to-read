@@ -37,15 +37,17 @@ const eventFields = `
   texts[]{
     _key,
     _type == 'pdfAttachment' => {
+      _type,
       title,
       asset->{url,originalFilename}
     },
     _type == 'textAttachment' => {
+      _type,
       title,
       body
     }
   },
-  images[]{_key, _type, asset->},
+  images[],
   videos[]{_key, asset->},
   links,
   books[]->,
@@ -81,7 +83,12 @@ const postFields = `
   "slug": slug.current,
 `
 
-export const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }`
+export const relatedDocs = `*[_type != 'home' && _type != 'popups' && references(^._id)]{ 
+  title,
+  _type,
+  _id,
+  slug
+}`
 
 const personFields = `
   _id,
@@ -179,13 +186,7 @@ _type == 'eventRef' => @->{
   ..., 
   _id, 
   '_key': ^._key,
-  images[] {
-    _key,
-    _type,
-    caption,
-    alt,
-    asset->
-  },
+  videos[]{_key, asset->},
   persons[] {
     _key,
     'person': @-> {
@@ -273,6 +274,7 @@ _type == 'image' => {
   _key,
   caption,
   alt,
+  hotspot,
   asset->,
   '_type': 'image',
   'related': ${relatedDocs}
@@ -475,3 +477,45 @@ export const bookCollectionQuery = `
 *[_type == "bookCollection"] | order(date desc) {
   ${bookCollectionFields}
 }`
+
+export const modalFetchFields = `
+...,
+_type == 'person' => {
+  ...,
+  'title': name
+},
+_type == 'post' => {
+  ...,
+  themes[]->,
+  body[]{
+    ...,
+    _type == "image" => {
+      ...,
+      "asset": @.asset->
+    },
+    _type == "block" => {
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          "slug": @.reference->slug,
+          "type": @.reference->_type
+        }
+      }
+    }
+  }
+},
+_type == 'image' => {
+  ...,
+  _key,
+  _type,
+  asset->
+},
+_type == 'video' => {
+  ...,
+  _key,
+  _type,
+  asset->
+},
+'related': ${relatedDocs}
+`

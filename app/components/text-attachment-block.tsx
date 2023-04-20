@@ -19,16 +19,17 @@ import { modalFetchFields } from '../lib/queries'
 
 interface WithLoaded {
   loaded: boolean
+  color?: string
 }
 
 const Wrapper = styled.div<WithLoaded>`
-  ${({ loaded }) => css`
+  ${({ loaded, color }) => css`
     height: auto;
     position: relative;
     width: 100%;
     display: block;
     position: relative;
-    background-color: primary20;
+    background-color: ${color == 'pillowtalk' ? 'secondary20' : 'primary20'};
     padding: 6;
     p {
       color: ${loaded ? 'black' : 'primary0'};
@@ -56,24 +57,18 @@ const TextWrapper = styled.div`
 
 interface PostBlockProps {
   content: any
+  color?: string
   index: number
 }
 
-export const PostBlock = ({ content, index }: PostBlockProps) => {
-  const {
-    title,
-    slug,
-    publishedAt,
-    _updatedAt,
-    _createdAt,
-    body,
-    post_program,
-    themes,
-    _id,
-  } = content
+export const TextAttachmentBlock = ({
+  content,
+  color,
+  index,
+}: PostBlockProps) => {
+  const { title, body } = content
   const { addModals, insertModal } = useModal()
   const curClient = getClient(false)
-  console.log('POST BLOCK CONTENT', content)
 
   const [loaded, setLoaded] = React.useState(false)
 
@@ -153,25 +148,11 @@ export const PostBlock = ({ content, index }: PostBlockProps) => {
   }
 
   return (
-    <Wrapper loaded={loaded}>
+    <Wrapper loaded={loaded} color={color}>
       <h2>{title}</h2>
-      <p>{postBlockDate(publishedAt)}</p>
       <TextWrapper>
-        {body ? (
-          <PortableText value={body[0]} components={ptComponents} />
-        ) : null}
+        {body ? <PortableText value={body} components={ptComponents} /> : null}
       </TextWrapper>
-      <Link href={`/blog/${slug?.current}`} legacyBehavior>
-        <x.a
-          pt={4}
-          display={'inline-block'}
-          textDecoration={'underline'}
-          color={'primary'}
-          fontSize={12}
-        >
-          Read more...
-        </x.a>
-      </Link>
     </Wrapper>
   )
 }

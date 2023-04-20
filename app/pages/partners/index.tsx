@@ -16,6 +16,10 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
   const { addModals, resetModals, isMobile, insertModal } = useModal()
   const router = useRouter()
 
+  const curClient = getClient(false)
+
+  console.log('PARTNERS', partnerDocs)
+
   useEffect(() => {
     const handleRouteChange = () => {
       if (isMobile == true) {
@@ -32,8 +36,51 @@ const Partners = ({ partnerDocs, siteData, popups, preview }) => {
     }
   }, [router.asPath])
 
-  const handleItemClick = (partner) => {
-    insertModal(modalize(partner))
+  const handleItemClick = async (item) => {
+    const doc = await curClient.fetch(
+      `*[_id == "${item._id}"][0]{
+        _type == 'person' => {
+          ...,
+          'title': name
+        },
+        _type == 'event' => @->{
+          ..., 
+          _id, 
+          '_key': ^._key,
+          images[]{_key, _type, caption, alt, hotspot, asset->},
+          videos[]{_key, asset->},
+          persons[] {
+            _key,
+            'person': @-> {
+              ...,
+              'title': name,
+            }
+          },
+          books[]->,
+          place->,
+          themes[] {
+            _key,
+            'theme': @->
+          },
+          texts[]{
+            _key,
+            _type == 'pdfAttachment' => {
+              title,
+              asset->{url,originalFilename}
+            },
+            _type == 'textAttachment' => {
+              title,
+              body
+            }
+          },
+        },
+        ...,
+        'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+      }
+      `,
+    )
+    console.log('DOC', doc)
+    insertModal(modalize(doc))
   }
 
   const partners = partnerDocs.filter((p) => p.type == 'default')

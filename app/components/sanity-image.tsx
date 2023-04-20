@@ -23,10 +23,9 @@ const SanityImage = ({ image, caption, alt, className }: SanityImageProps) => {
     image,
   )
 
+  console.log('SANITY IMAGE', image)
+
   const { assetId, metadata, originalFilename, uploadId, url } = image
-  const width = metadata?.dimensions.width
-  const height = metadata?.dimensions.height
-  const ratio = metadata?.dimensions.aspectRatio
 
   return (
     <Img
@@ -37,7 +36,7 @@ const SanityImage = ({ image, caption, alt, className }: SanityImageProps) => {
       className={className}
       loading="lazy"
       placeholder={'blur'}
-      blurDataURL={metadata?.lqip}
+      blurDataURL={metadata.lqip}
       draggable={false}
     />
   )

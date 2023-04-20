@@ -161,12 +161,45 @@ export default function PostBody({ content, program }: PostBodyProps) {
         const { slug = {}, type } = value
 
         const handleItemClick = async (value) => {
+          console.log('VALUE on CLICK', value)
           const doc = await curClient.fetch(
             `*[_id == "${value.reference._ref}"][0]{
               _type == 'person' => {
                 ...,
                 'title': name
               },
+              _type == 'event' => @->{
+                ..., 
+                _id, 
+                '_key': ^._key,
+                images[]{_key, _type, caption, alt, hotspot, asset->},
+                videos[]{_key, asset->},
+                persons[] {
+                  _key,
+                  'person': @-> {
+                    ...,
+                    'title': name,
+                  }
+                },
+                books[]->,
+                place->,
+                themes[] {
+                  _key,
+                  'theme': @->
+                },
+                texts[]{
+                  _key,
+                  _type == 'pdfAttachment' => {
+                    title,
+                    asset->{url,originalFilename}
+                  },
+                  _type == 'textAttachment' => {
+                    title,
+                    body
+                  }
+                },
+              },
+              ...,
               'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
             }
             `,

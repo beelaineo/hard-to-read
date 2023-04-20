@@ -67,8 +67,20 @@ export const PartnerBlock = ({ content, index }: PartnerBlockProps) => {
 
   const [loaded, setLoaded] = React.useState(false)
 
-  const handleItemClick = (doc) => {
-    insertModal(modalize(doc), index)
+  const handleItemClick = async (item) => {
+    const doc = await curClient.fetch(
+      `*[_id == "${item._id}"][0]{
+        _type == 'person' => {
+          ...,
+          'title': name
+        },
+        ...,
+        'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug }
+      }
+      `,
+    )
+    console.log('DOC', doc)
+    insertModal(modalize(doc))
   }
 
   React.useEffect(() => {

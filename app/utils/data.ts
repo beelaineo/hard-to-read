@@ -24,13 +24,20 @@ export const unique = <T>(array: T[]): T[] => {
   return [...set]
 }
 
-export const modalize = (doc: any, color?: string, spineColor?: string) => {
+export const modalize = (
+  doc: any,
+  color?: string,
+  spineColor?: string,
+  program?: 'hardtoread' | 'pillowtalk',
+) => {
   console.log('modalize', doc)
+  console.log('modalize', program)
+  const pillowtalkColor = program == 'pillowtalk' ? 'secondary' : undefined
   const modalDoc: Modal = {
-    id: doc._id,
+    id: doc._id || `modal-${doc.title}`,
     type: doc._type,
     content: doc,
-    color: color || undefined,
+    color: color || pillowtalkColor || undefined,
     spineColor: spineColor || undefined,
   }
   return modalDoc
@@ -40,11 +47,11 @@ export const modalizeImage = (image: any, color?: string) => {
   console.log('modalizeImage', image)
   const imageContent = {
     _type: 'image',
-    asset: image.asset,
+    asset: image,
   }
   console.log('modalizeImage IMAGE CONTENT', imageContent)
   const modalDoc: Modal = {
-    id: image.asset._id,
+    id: image._id,
     type: image._type,
     //@ts-ignore
     content: imageContent,
@@ -57,11 +64,11 @@ export const modalizeVideo = (video: any, color?: string) => {
   console.log('modalizeVideo', video)
   const videoContent = {
     _type: 'video',
-    asset: video.asset,
+    asset: video,
   }
   console.log('modalizeImage VIDEO CONTENT', videoContent)
   const modalDoc: Modal = {
-    id: video.asset._id,
+    id: video._id,
     type: 'video',
     //@ts-ignore
     content: videoContent,

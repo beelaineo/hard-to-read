@@ -102,7 +102,13 @@ const Wrapper = styled.div<WithPulseState>`
     z-index: ${zIndex};
     background-color: ${pulseState ? 'red' : '#fff'};
     border: 1px solid;
-    border-color: ${spineColor ? spineColor : color ? color : 'primary'};
+    border-color: ${spineColor
+      ? spineColor
+      : color == 'pillowtalk'
+      ? 'secondary'
+      : color
+      ? color
+      : 'primary'};
     margin: ${isMobile ? 4 : 0};
     position: ${isMobile ? 'static' : 'absolute'};
     pointer-events: all;
@@ -110,7 +116,13 @@ const Wrapper = styled.div<WithPulseState>`
     mix-blend-mode: ${type == 'theme' ? 'multiply' : 'normal'};
 
     button {
-      color: ${spineColor ? spineColor : color ? color : 'primary'};
+      color: ${spineColor
+        ? spineColor
+        : color == 'pillowtalk'
+        ? 'secondary'
+        : color
+        ? color
+        : 'primary'};
       position: absolute;
       right: 8px;
       border-color: none;
@@ -128,7 +140,13 @@ const Wrapper = styled.div<WithPulseState>`
         width: 0.75rem;
       }
       svg line {
-        stroke: ${spineColor ? spineColor : color ? color : 'primary'};
+        stroke: ${spineColor
+          ? spineColor
+          : color == 'pillowtalk'
+          ? 'secondary'
+          : color
+          ? color
+          : 'primary'};
       }
     }
     .button-bg {
@@ -178,7 +196,8 @@ export default function Modal({ modal, i, count, zFloor, setZFloor }) {
         : content._type == 'press' ||
           content._type == 'partner' ||
           content._type == 'person' ||
-          content._type == 'place'
+          content._type == 'place' ||
+          content._type == 'textAttachment'
         ? 320
         : content._type == 'book' || content._type == 'theme'
         ? 200

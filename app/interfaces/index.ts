@@ -25,7 +25,7 @@ export type ModalContent = {
 export type Modal = {
   id: string
   type: string
-  content: ModalContent
+  content: any
   color?: string
   spineColor?: string
 }

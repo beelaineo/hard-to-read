@@ -25,6 +25,7 @@ import { PartnerBlock } from './partner-block'
 import { PersonBlock } from './person-block'
 import { BookBlock } from './book-block'
 import { ThemeBlock } from './theme-block'
+import { TextAttachmentBlock } from './text-attachment-block'
 
 type DeltaPosition = {
   x: number
@@ -100,6 +101,10 @@ export const ContentBlock = React.forwardRef(
             deltaPosition={deltaPosition}
             index={index}
           />
+        )
+      case 'textAttachment':
+        return (
+          <TextAttachmentBlock content={content} color={color} index={index} />
         )
       default:
         // @ts-ignore

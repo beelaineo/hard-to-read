@@ -21,7 +21,7 @@ import { modalizeVideo } from '../utils/data'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
-import { popupDocs, relatedDocs } from '../lib/queries'
+import { modalFetchFields } from '../lib/queries'
 import { imageConfigDefault } from 'next/dist/shared/lib/image-config'
 
 interface WithLoaded {
@@ -83,7 +83,7 @@ interface EventPopupType
   place?: PlaceType
   books?: BookType[]
   images?: SanityImage[]
-  texts?: Array<PdfAttachment | TextAttachment>
+  texts?: (TextAttachment | PdfAttachment)[]
 }
 
 interface EventBlockProps {
@@ -126,22 +126,49 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
     }, 3000)
   }, [])
 
+  const handleItemClick = async (item) => {
+    console.log('ITEM', item)
+    const doc = await curClient.fetch(
+      `*[_id == "${
+        item._id || item._ref || item.asset._ref || item.asset._id
+      }"][0]{
+        ${modalFetchFields}
+      }
+      `,
+    )
+    if (item._type == 'image') {
+      insertModal(modalizeImage(doc), index)
+    } else if (item.asset._type == 'mux.videoAsset') {
+      insertModal(modalizeVideo(doc), index)
+    } else {
+      insertModal(modalize(doc), index)
+    }
+  }
+
+  const handleTextItemClick = async (item, program) => {
+    if (item._type == 'pdfAttachment') return
+    console.log('TEXT ITEM', item)
+    insertModal(modalize(item, program), index)
+  }
+
   const ptComponents: PortableTextComponents = {
     marks: {
       internalLink: ({ children, value }) => {
         const handleItemClick = async (value) => {
           const doc = await curClient.fetch(
             `*[_id == "${value.reference._ref}"][0]{
-              _type == 'person' => {
-                ...,
-                'title': name
-              },
-              'related': *[_type != 'home' && _type != 'popups' && references(^._id)]{ title, _type, _id, slug, ... }
+              ${modalFetchFields}
             }
             `,
           )
           // addModals([modalize(doc)])
-          insertModal(modalize(doc), index)
+          if (doc._type == 'image') {
+            insertModal(modalizeImage(doc), index)
+          } else if (doc.asset._type == 'mux.videoAsset') {
+            insertModal(modalizeVideo(doc), index)
+          } else {
+            insertModal(modalize(doc), index)
+          }
         }
         return (
           <x.a
@@ -192,7 +219,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             display={'inline-block'}
             textDecoration={'underline'}
             color={'primary'}
-            onClick={() => insertModal(modalize(place), index)}
+            onClick={() => handleItemClick(place)}
           >
             {place?.name}
           </x.a>
@@ -227,7 +254,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             books.map((book, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalize(book)])}
+                onClick={() => handleItemClick(book)}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
@@ -246,7 +273,11 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             texts.map((text, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalize(text)])}
+                href={
+                  // @ts-ignore
+                  text._type == 'pdfAttachment' ? text.asset?.url : undefined
+                }
+                onClick={() => handleTextItemClick(text, event_program)}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
@@ -265,7 +296,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             images.map((image, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalizeImage(image)])}
+                onClick={() => handleItemClick(image)}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}
@@ -284,7 +315,7 @@ export const EventBlock = ({ content, index }: EventBlockProps) => {
             videos.map((video, i) => (
               <x.a
                 key={i}
-                onClick={() => addModals([modalizeVideo(video)])}
+                onClick={() => handleItemClick(video)}
                 target="_blank"
                 rel="noreferrer"
                 display={'inline'}

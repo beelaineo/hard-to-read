@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom'
 import styled, { css, x } from '@xstyled/styled-components'
 import { Person as PersonType, SanityImage } from '../interfaces'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
-import { postBlockDate, modalize } from '../utils'
+import { postBlockDate, modalize, modalizeImage } from '../utils'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 import { useModal } from '../providers/ModalProvider'
 import Link from 'next/link'
+import { modalFetchFields } from '../lib/queries'
 
 interface WithLoaded {
   loaded: boolean
@@ -64,8 +65,18 @@ export const PersonBlock = ({ content, color, index }: PersonBlockProps) => {
 
   const [loaded, setLoaded] = React.useState(false)
 
-  const handleItemClick = (doc) => {
-    insertModal(modalize(doc), index)
+  const handleItemClick = async (item) => {
+    const doc = await curClient.fetch(
+      `*[_id == "${item._id || item._ref || item.asset._ref}"][0]{
+        ${modalFetchFields}
+      }
+      `,
+    )
+    if (doc._type == 'sanity.imageAsset') {
+      insertModal(modalizeImage(doc), index)
+    } else {
+      insertModal(modalize(doc), index)
+    }
   }
 
   React.useEffect(() => {
